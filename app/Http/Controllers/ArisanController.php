@@ -303,6 +303,20 @@ class ArisanController extends Controller
         return view('arisan.list-arisan', ['active' => 'list-arisan', 'search' => $search, 'arisans' => $arisans]);
     }
 
+    public function detailArisan($id)
+    {
+        $arisan = Arisan::find($id);
+
+        if (!$arisan) {
+            // Handle the case where the Arisan with the given ID is not found
+            return redirect()->route('list-arisan')->with('error', 'Arisan not found');
+        }
+
+        return view('arisan.detail-arisan', ['active' => 'detail-arisan', 'arisan' => $arisan]);
+        // return view('arisan.detail', ['arisan' => $arisan]);
+    }
+
+
     public function joinArisan(Arisan $arisan)
     {
         $user = auth()->user();

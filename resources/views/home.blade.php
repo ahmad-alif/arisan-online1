@@ -68,37 +68,6 @@
     </nav>
 
     <div class="container mt-4">
-        <div class="row">
-            @foreach ($arisans as $arisan)
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        @if ($arisan->img_arisan)
-                            <img src="{{ Storage::url($arisan->img_arisan) }}" class="card-img-top"
-                                alt="{{ $arisan->nama_arisan }}">
-                        @else
-                            <img src="{{ asset('img/default_arisan.jpg') }}" class="card-img-top" alt="Default Image">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $arisan->nama_arisan }}</h5>
-                            <p class="card-text">Start Date: {{ $arisan->start_date }}</p>
-                            <p class="card-text">End Date: {{ $arisan->end_date }}</p>
-                            {{-- <p class="card-text">Owner: {{ $arisan->id_user }}</p> --}}
-                            @if ($arisan->user)
-                                <p class="card-text">Owner: {{ $arisan->user->name }}</p>
-                            @else
-                                <p class="card-text">Owner: Tidak Diketahui</p>
-                            @endif
-                            <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}"
-                                class="btn btn-primary">Join</a>
-
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    <div class="container mt-4">
         <h2>Rekomendasi Arisan</h2>
         <div class="row">
             @foreach ($rekomendasiArisans as $arisan)

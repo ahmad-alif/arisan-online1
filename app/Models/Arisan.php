@@ -25,4 +25,9 @@ class Arisan extends Model
     {
         return $this->hasMany(MemberArisan::class, 'id_arisan', 'id_arisan');
     }
+
+    public function isUserJoined($user)
+    {
+        return $this->members()->where('id_user', $user->id)->exists();
+    }
 }

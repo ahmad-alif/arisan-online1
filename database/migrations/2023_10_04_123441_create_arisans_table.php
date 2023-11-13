@@ -15,9 +15,15 @@ return new class extends Migration
             $table->id('id_arisan');
             $table->string('nama_arisan');
             $table->string('img_arisan');
+            $table->text('deskripsi');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->bigint('id_user');
+            $table->integer('status');
+            $table->integer('active');
+            $table->integer('max_member');
+            $table->string('deposit_frequency');
+            $table->string('payment_amount');
             $table->timestamps();
         });
     }

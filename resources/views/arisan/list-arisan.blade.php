@@ -38,10 +38,15 @@
                                         <h5 class="card-title">{{ $arisan->nama_arisan }}</h5>
                                         <p class="card-text">Start Date: {{ $arisan->start_date }}</p>
                                         <p class="card-text">End Date: {{ $arisan->end_date }}</p>
-                                        <form action="{{ route('arisan.join', $arisan) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-primary">Join</button>
-                                        </form>
+                                        @if ($arisan->isUserJoined(auth()->user()))
+                                            <a href="{{ route('arisan.detail', $arisan) }}"
+                                                class="btn btn-warning">Detail</a>
+                                        @else
+                                            <form action="{{ route('arisan.join', $arisan) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">Join</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
