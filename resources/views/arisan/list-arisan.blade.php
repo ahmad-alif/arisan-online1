@@ -6,10 +6,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between gap-3">
                     <div class="card-title mb-0 me-1">
-                      <h5 class="mb-1">My Courses</h5>
-                      <p class="text-muted mb-0">Total 6 course you have purchased</p>
+                      <h5 class="mb-1">Silahkan gabung arisan pada berikut ini.</h5>
+                      <p class="text-muted mb-0">7 Arisan</p>
                     </div>
-                    <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
+                    {{-- <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
                       <select id="select2_course_select" class="select2 form-select" data-placeholder="All Courses">
                         <option value="">All Courses</option>
                         <option value="ui/ux">UI/UX</option>
@@ -27,7 +27,7 @@
                         </span>
                         <span class="switch-label text-nowrap mb-0">Hide completed</span>
                       </label>
-                    </div>
+                    </div> --}}
                   </div>
                   <div class="card-body">
                     <div class="row gy-4 mb-4">
@@ -140,7 +140,7 @@
                             @endforeach
                         @else
                             <div class="col-md-12">
-                                <p>Tidak ada hasil ditemukan.</p>
+                                {{-- <p>Tidak ada hasil ditemukan. </p> --}}
                             </div>
                         @endif
 
