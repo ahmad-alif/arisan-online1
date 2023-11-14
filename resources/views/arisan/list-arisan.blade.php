@@ -101,39 +101,60 @@
                                 <div class="col-sm-6 col-lg-4">
                                 <div class="card p-2 h-100 shadow-none border">
                                     <div class="rounded-2 text-center mb-3">
-                                      <a href="app-academy-course-details.html"
-                                        ><img
+                                        @if ($arisan->img_arisan)
+                                        <img
                                           class="img-fluid"
-                                          src="../../assets/img/pages/app-academy-tutor-1.png"
-                                          alt="tutor image 1"
-                                      /></a>
+                                          src="{{ Storage::url($arisan->img_arisan) }}"
+                                          alt="{{ $arisan->nama_arisan }}"
+                                         />
+                                        @else
+                                        <img src="{{ asset('img/default_arisan.jpg') }}" class="img-fluid"
+                                            alt="Default Image">
+                                        @endif
+
                                     </div>
                                     <div class="card-body p-3 pt-2">
-                                      <div class="d-flex justify-content-between align-items-center mb-3">
+                                      {{-- <div class="d-flex justify-content-between align-items-center mb-3">
                                         <span class="badge bg-label-primary">Web</span>
                                         <h6 class="d-flex align-items-center justify-content-center gap-1 mb-0">
                                           4.4 <span class="text-warning"><i class="ti ti-star-filled me-1 mt-n1"></i></span
                                           ><span class="text-muted">(1.23k)</span>
                                         </h6>
-                                      </div>
+                                      </div> --}}
                                       <a href="app-academy-course-details.html" class="h5">{{ $arisan->nama_arisan }}</a>
                                       <p class="mt-2">{{ $arisan->deskripsi}}</p>
-                                      <p class="d-flex align-items-center"><i class="ti ti-clock me-2 mt-n1"></i>30 minutes</p>
-
-                                      <div class="d-flex flex-column flex-md-row gap-2 text-nowrap">
-                                        <a
-                                          class="app-academy-md-50 btn btn-label-secondary me-md-2 d-flex align-items-center"
-                                          href="app-academy-course-details.html">
-                                          <i class="ti ti-rotate-clockwise-2 align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i
-                                          ><span>Start Over</span>
-                                        </a>
-                                        <a
-                                          class="app-academy-md-50 btn btn-label-primary d-flex align-items-center"
-                                          href="app-academy-course-details.html">
-                                          <span class="me-2">Continue</span
-                                          ><i class="ti ti-chevron-right scaleX-n1-rtl ti-sm"></i>
-                                        </a>
+                                      <div class="row mb-2 g-2">
+                                        <div class="col-6">
+                                            {{-- <p class="d-flex align-items-center"><i class="ti ti-calendar me-2 mt-n1"></i>{{ $arisan->start_date }}</p> --}}
+                                            <div class="d-flex">
+                                                <div class="avatar flex-shrink-0 me-2">
+                                                  <span class="avatar-initial rounded bg-label-primary"
+                                                    ><i class="ti ti-calendar ti-md"></i
+                                                  ></span>
+                                                </div>
+                                                <div>
+                                                  <small>Mulai</small>
+                                                  <h6 class="mb-0 text-nowrap">{{ $arisan->start_date }}</h6>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="col-6">
+                                            {{-- <p class="d-flex align-items-center"><i class="ti ti-calendar-off me-2 mt-n1"></i>{{ $arisan->end_date }}</p> --}}
+                                            <div class="d-flex">
+                                                <div class="avatar flex-shrink-0 me-2">
+                                                  <span class="avatar-initial rounded bg-label-primary"
+                                                    ><i class="ti ti-calendar-off ti-md"></i
+                                                  ></span>
+                                                </div>
+                                                <div>
+                                                  <small>Selesai</small>
+                                                  <h6 class="mb-0 text-nowrap">{{ $arisan->end_date }}</h6>
+                                                </div>
+                                              </div>
                                       </div>
+                                    </div>
+
+                                    <a href="javascript:void(0);" class="btn btn-primary w-100">Gabung</a>
                                     </div>
                                   </div>
                                 </div>
