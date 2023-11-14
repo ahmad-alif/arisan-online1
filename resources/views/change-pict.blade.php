@@ -81,7 +81,7 @@
                               accept="image/png, image/jpg, image/jpeg" />
                     </label>
 
-                    <div class="text-muted">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                    <div class="text-muted">Format JPG, GIF atau PNG. Ukuran Max 800kb</div>
                   </div>
                 </form>
                 </div>
@@ -126,20 +126,20 @@
                     </div>
                   </div>
                   <div class="mt-2">
-                    <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary me-2">Simpan perubahan</button>
+                    <button type="reset" class="btn btn-label-secondary">Batal</button>
                   </div>
                 </form>
               </div>
               <!-- /Account -->
             </div>
              <div class="card">
-              <h5 class="card-header">Delete Account</h5>
+              <h5 class="card-header">Hapus Akun</h5>
               <div class="card-body">
                 <div class="mb-3 col-12 mb-0">
                   <div class="alert alert-warning">
-                    <h5 class="alert-heading mb-1">Are you sure you want to delete your account?</h5>
-                    <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+                    <h5 class="alert-heading mb-1">apa kamu yakin mengajukan penghapusan akun?🤔</h5>
+                    <p class="mb-0">*akun yang dihapus tidak dapat dikembalikan</p>
                   </div>
                 </div>
                 <form id="formAccountDeactivation" onsubmit="return false">
@@ -150,10 +150,10 @@
                       name="accountActivation"
                       id="accountActivation" />
                     <label class="form-check-label" for="accountActivation"
-                      >I confirm my account deactivation</label
+                      >Saya menyetujui penghapusan akun</label
                     >
                   </div>
-                  <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+                  <button type="submit" class="btn btn-danger deactivate-account">Ajukan Penghapusan</button>
                 </form>
               </div>
             </div>
