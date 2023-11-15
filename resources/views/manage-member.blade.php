@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="table-responsive text-nowrap">
-        <div class="d-flex justify-content-between align-items-center ms-3 ">
+        {{-- <div class="d-flex justify-content-between align-items-center ms-3 ">
             <div class="col-1">
                 <button type="button" class="btn btn-sm btn-primary">
                     <span class="ti-xs ti ti-plus me-1"></span>Tambah
@@ -28,7 +28,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
         {{-- <div class="ms-3 end-0 top-0 mt-3 ml-4">
             <button type="button" class="btn btn-sm btn-primary">
                 <span class="ti-xs ti ti-plus me-1"></span>Tambah
@@ -60,6 +60,20 @@
     @endif
 
       <table class="table table-striped">
+        <div class="row p-3">
+            <div class="col-sm">
+                <button type="button" class="btn btn-sm btn-primary">
+                    <span class="ti-xs ti ti-plus me-1"></span>Tambah
+                </button>
+            </div>
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="search"
+                value="{{ request('search') }}" placeholder="Cari member...">
+            </div>
+        </div>
         <thead>
           <tr>
             <th scope="col">#</th>
