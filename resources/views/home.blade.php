@@ -245,7 +245,7 @@
       <!-- What people say slider: End -->
       <hr class="m-0" />
       <!-- Logo slider: Start -->
-      <div class="container">
+      {{-- <div class="container">
         <div class="swiper-logo-carousel py-4 my-lg-2">
           <div class="swiper" id="swiper-clients-logos">
             <div class="swiper-wrapper">
@@ -292,13 +292,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
       <!-- Logo slider: End -->
     </section>
     <!-- Real customers reviews: End -->
 
     <!-- Our great team: Start -->
-    <section id="landingTeam" class="section-py landing-team">
+    {{-- <section id="landingTeam" class="section-py landing-team">
       <div class="container">
         <div class="text-center mb-3 pb-1">
           <span class="badge bg-label-primary">Our Great Team</span>
@@ -364,7 +364,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- Our great team: End -->
 
     <!-- Pricing plans: Start -->
