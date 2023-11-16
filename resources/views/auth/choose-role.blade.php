@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Landing Page - Front Pages | Vuexy - Bootstrap Admin Template</title>
+    <title>Pilih Role anda | Arisanku</title>
 
     <meta name="description" content="" />
 
@@ -94,17 +94,18 @@
             action="{{ route('register.selectRole') }}">
             @csrf
             <!-- Basic Plan: Start -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card m-2">
-                <div class="card-header">
+            <div class="col-3">
+              <div class="card m-1 h-100 bg-label-primary">
+                <div class="card-header p-3">
                   <div class="text-center">
-                    <img
-                      src="/assets/img/front-pages/icons/contoh.png"
-                      alt="Responsive image"
-                      class="img-fluid"
-                      width="200"
-                      height="200"
-                      />
+
+                        <img
+                          class="img-fluid mt-2"
+                          src="../../assets/img/illustrations/boy-app-academy.png"
+                          alt="Card girl image"
+                          width="290"
+                           />
+
                   </div>
                 </div>
                 <div class="card-body">
@@ -117,22 +118,23 @@
             <!-- Basic Plan: End -->
 
             <!-- Favourite Plan: Start -->
-            <div class="col-xl-4 col-lg-6">
-              <div class="card m-2">
-                <div class="card-header">
+            <div class="col-3">
+              <div class="card m-1 h-100 bg-label-danger">
+                <div class="card-header p-3">
                   <div class="text-center">
-                    <img
-                      src="/assets/img/front-pages/icons/contoh.png"
-                      alt="Responsive image"
-                      class="img-fluid"
-                      width="200"
-                      height="200"
-                      />
+
+                        <img
+                          class="img-fluid mt-2"
+                          src="../../assets/img/illustrations/girl-app-academy.png"
+                          alt="Card girl image"
+                          width="290"
+                           />
+
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="d-grid">
-                  <button type="submit" name="role" value="owner" class="btn btn-primary">Pemilik Arisan</button>
+                  <button type="submit" name="role" value="owner" class="btn btn-danger">Pemilik Arisan</button>
                   </div>
                 </div>
               </div>
