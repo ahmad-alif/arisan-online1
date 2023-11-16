@@ -46,7 +46,7 @@
             </div>
         </div> --}}
                     <table class="table table-striped">
-                        <div class="row">
+                        <div class="row p-3">
                             <div class="col-sm">
                                 <button type="button" class="btn btn-sm btn-primary">
                                     <span class="ti-xs ti ti-table-plus me-1"></span>Tambah
@@ -55,8 +55,11 @@
                             <div class="col-sm">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" name="search" value=""
-                                    placeholder="Cari member...">
+                                <div class="d-flex align-items-center justify-content-between app-academy-md-80">
+                                    <input type="search" class="form-control me-1" name="search"
+                                    value="{{ request('search') }}" placeholder="Cari member...">
+                                    <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
+                                </div>
                             </div>
                         </div>
                         <thead>
