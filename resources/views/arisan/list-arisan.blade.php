@@ -1,5 +1,5 @@
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Join Arisan')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Join Arisan | Arisanku')
 @section('content')
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">

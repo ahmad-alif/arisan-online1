@@ -1,5 +1,5 @@
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Dashboard')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Dashboard | Arisanku')
 @section('content')
 
 

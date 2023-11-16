@@ -1,5 +1,5 @@
 @extends('layouts.home_navbar')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Arisanku')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Selamat datang di Arisanku🤗')
 @section('content')
 
 <div data-bs-spy="scroll" class="scrollspy-example">

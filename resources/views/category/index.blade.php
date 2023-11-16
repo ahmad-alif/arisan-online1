@@ -8,7 +8,7 @@
 @endsection --}}
 
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Kelola Kategori')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Kelola Kategori | Arisanku')
 @section('content')
 
     <div class="content-wrapper">
