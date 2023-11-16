@@ -7,7 +7,12 @@
                 <div class="card-header d-flex flex-wrap justify-content-between gap-3">
                     <div class="card-title mb-0 me-1">
                       <h5 class="mb-1">Silahkan gabung arisan pada berikut ini.</h5>
-                      <p class="text-muted mb-0">7 Arisan</p>
+                      <p class="text-muted mb-0">
+                        @php
+                        $jumlahArisan = count($arisans);
+                        @endphp
+                        Total {{ $jumlahArisan }} arisan
+                      </p>
                     </div>
                     {{-- <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
                       <select id="select2_course_select" class="select2 form-select" data-placeholder="All Courses">

@@ -121,25 +121,6 @@
                             </div>
                           </div>
                           <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100">Gabung</a>
-                        {{-- <p class="small">
-                         Tidak Diketahui
-                        </p> --}}
-                        {{-- <div class="text-warning mb-3">
-                          <i class="ti ti-star-filled ti-sm"></i>
-                          <i class="ti ti-star-filled ti-sm"></i>
-                          <i class="ti ti-star-filled ti-sm"></i>
-                          <i class="ti ti-star-filled ti-sm"></i>
-                          <i class="ti ti-star-filled ti-sm"></i>
-                        </div> --}}
-                        {{-- <div class="d-flex align-items-center">
-                          <div class="avatar me-2 avatar-sm">
-                            <img src="/assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                          </div>
-                          <div>
-                            <h6 class="mb-0">Cecilia Payne</h6>
-                            <p class="small text-muted mb-0">CEO of Airbnb</p>
-                          </div>
-                        </div> --}}
                       </div>
                     </div>
                   </div>
@@ -154,56 +135,6 @@
       </div>
       <!-- What people say slider: End -->
       <hr class="m-0" />
-      <!-- Logo slider: Start -->
-      {{-- <div class="container">
-        <div class="swiper-logo-carousel py-4 my-lg-2">
-          <div class="swiper" id="swiper-clients-logos">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img
-                  src="/assets/img/front-pages/branding/logo_1-light.png"
-                  alt="client logo"
-                  class="client-logo"
-                  data-app-light-img="front-pages/branding/logo_1-light.png"
-                  data-app-dark-img="front-pages/branding/logo_1-dark.png" />
-              </div>
-              <div class="swiper-slide">
-                <img
-                  src="/assets/img/front-pages/branding/logo_2-light.png"
-                  alt="client logo"
-                  class="client-logo"
-                  data-app-light-img="front-pages/branding/logo_2-light.png"
-                  data-app-dark-img="front-pages/branding/logo_2-dark.png" />
-              </div>
-              <div class="swiper-slide">
-                <img
-                  src="/assets/img/front-pages/branding/logo_3-light.png"
-                  alt="client logo"
-                  class="client-logo"
-                  data-app-light-img="front-pages/branding/logo_3-light.png"
-                  data-app-dark-img="front-pages/branding/logo_3-dark.png" />
-              </div>
-              <div class="swiper-slide">
-                <img
-                  src="/assets/img/front-pages/branding/logo_4-light.png"
-                  alt="client logo"
-                  class="client-logo"
-                  data-app-light-img="front-pages/branding/logo_4-light.png"
-                  data-app-dark-img="front-pages/branding/logo_4-dark.png" />
-              </div>
-              <div class="swiper-slide">
-                <img
-                  src="/assets/img/front-pages/branding/logo_5-light.png"
-                  alt="client logo"
-                  class="client-logo"
-                  data-app-light-img="front-pages/branding/logo_5-light.png"
-                  data-app-dark-img="front-pages/branding/logo_5-dark.png" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> --}}
-      <!-- Logo slider: End -->
     </section>
     <!-- Real customers reviews: End -->
 
@@ -309,6 +240,7 @@
           </div>
         </div>
         <div class="row gy-4 pt-lg-3">
+
           <!-- Basic Plan: Start -->
           <div class="col-xl-4 col-lg-6">
             <div class="card">
