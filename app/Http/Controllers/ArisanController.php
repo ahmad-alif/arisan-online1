@@ -120,12 +120,12 @@ class ArisanController extends Controller
         // dd($arisan);
         $arisan = Arisan::where('id_arisan', $id)->first();
         if (!$arisan) {
-            return redirect('/manage-arisan')->with('error', 'Arisan tidak ditemukan.');
+            return redirect('/data-arisan')->with('error', 'Arisan tidak ditemukan.');
         }
 
         $arisan->delete();
 
-        return redirect('/manage-arisan')->with('success', 'Data Arisan telah dihapus.');
+        return redirect('/data-arisan')->with('success', 'Data Arisan telah dihapus.');
     }
 
     public function addArisanOwner()

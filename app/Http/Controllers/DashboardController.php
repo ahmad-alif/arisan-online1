@@ -199,12 +199,12 @@ class DashboardController extends Controller
         $member = User::find($id);
         // dd($member);
         if (!$member) {
-            return redirect('/manage-member')->with('error', 'User tidak ditemukan.');
+            return redirect('/data-member')->with('error', 'User tidak ditemukan.');
         }
 
         $member->delete();
 
-        return redirect('/manage-member')->with('success', 'Data Member telah dihapus.');
+        return redirect('/data-member')->with('success', 'Data Member telah dihapus.');
     }
 
     public function processActivateAccountOwner($id)

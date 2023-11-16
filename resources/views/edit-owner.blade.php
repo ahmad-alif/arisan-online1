@@ -1,5 +1,5 @@
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Edit Owner | Arisanku')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Ubah Owner | Arisanku')
 @section('content')
 
     <!-- Striped Rows -->
@@ -7,7 +7,7 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-1"><span class="text-muted fw-light">Admin / Edit Owner / </span>{{ $owner->name }}</h4>
+            <h4 class="py-1"><span class="text-muted fw-light">Admin / Ubah Pemilik / </span>{{ $owner->name }}</h4>
 
             <div class="card">
                 <!-- Account -->
@@ -61,7 +61,7 @@
                         <div class="mb-3 col-md-6">
                             <label for="inputEmail" class="form-label">E-mail</label>
                             <input class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                value="{{ auth()->user()->email }}" required />
+                                value="{{ $owner->email }}" required />
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

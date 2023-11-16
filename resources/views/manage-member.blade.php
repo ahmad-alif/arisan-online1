@@ -1,5 +1,5 @@
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Kelola Owner')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Kelola Member')
 @section('content')
 
 <!-- Striped Rows -->
@@ -127,13 +127,44 @@
                       <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <i class="ti ti-dots-vertical"></i>
                       </button>
+
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="ti ti-pencil me-1"></i> Edit</a
+                        @if (Auth::user()->role == 2)
+                        @if ($member->active == 0)
+
+                        <a class="dropdown-item disabled" href="javascript:void(0);"
+                          ><i class="ti ti-circle-check me-1"></i> Teraktifasi</a
                         >
-                        <a class="dropdown-item" href="javascript:void(0);"
-                          ><i class="ti ti-trash me-1"></i> Delete</a
+                        @elseif ($member->active == 1)
+                        <a class="dropdown-item " href="javascript:void(0);"
+                          ><i class="ti ti-circle-check me-1"></i> Aktifkan</a
                         >
+                        {{-- <form
+                            action="{{ route('activate-account', ['id' => $member->id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit"
+                                class="btn btn-sm btn-success col-6 mb-1">
+                                <i class="bi bi-check"></i>
+                            </button>
+                        </form> --}}
+                        @endif
+                        @endif
+
+                        <a class="dropdown-item" href="{{ route('edit-member', ['id' => $member->id]) }}"
+                          ><i class="ti ti-pencil me-1"></i> Ubah</a>
+
+                          {{-- <form action="{{ route('delete-member', ['id' => $member->id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE') --}}
+                          <button class="button dropdown-item" href=""
+                          data-bs-toggle="modal"
+                          data-bs-target="#confirmDeleteModal-{{ $member->id }}">
+                          <i class="ti ti-trash me-1"></i> Hapus
+                          </button>
+                        {{-- </form> --}}
                         <a class="dropdown-item" href="javascript:void(0);"
                         ><i class="ti ti-info-square me-1"></i> Info</a>
                       </div>
@@ -142,6 +173,44 @@
             </tr>
 
 
+            @endforeach
+            @foreach ($members as $member)
+
+            <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="confirmDeleteModal-{{ $member->id }}"
+                aria-labelledby="confirmDeleteModalLabel-{{ $member->id }}"
+                tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h1 class="mb-2">🤔</h1>
+                        <h3 class="mb-2">Apakah anda ingin menghapus</h3>
+                        <h2 class="mb-2">
+                            {{ $member->username }}
+                        </h2>
+                        <p class="text-danger">*Data yang sudah dihapus tidak dapat dikembalikan</p>
+                      </div>
+                      <form id="addNewCCForm" class="row g-3" action="{{ route('delete-member', ['id' => $member->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-danger me-sm-3 me-1">Hapus</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary btn-reset"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Batal
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
             @endforeach
         </tbody>
       </table>

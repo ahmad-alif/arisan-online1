@@ -101,10 +101,13 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                <a class="dropdown-item" href="{{ route('edit-arisan', ['id' => $arisan->id_arisan]) }}"><i
                                                         class="ti ti-pencil me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="ti ti-trash me-1"></i> Delete</a>
+                                                    <button class="button dropdown-item"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#confirmDeleteModal-{{ $arisan->id_arisan }}">
+                                                    <i class="ti ti-trash me-1"></i> Hapus
+                                                    </button>
                                                 <a class="dropdown-item" href="javascript:void(0);"><i
                                                         class="ti ti-info-square me-1"></i> Info</a>
                                             </div>
@@ -152,7 +155,47 @@
                             </div>
                         </div>
                     @endforeach
+
                     @foreach ($arisans as $arisan)
+
+            <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="confirmDeleteModal-{{ $arisan->id_arisan }}"
+                aria-labelledby="confirmDeleteModalLabel-{{ $arisan->id_arisan }}"
+                tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h1 class="mb-2">🤔</h1>
+                        <h3 class="mb-2">Apakah anda ingin menghapus</h3>
+                        <h2 class="mb-2">
+                            {{ $arisan->nama_arisan }}
+                        </h2>
+                        <p class="text-danger">*Data yang sudah dihapus tidak dapat dikembalikan</p>
+                      </div>
+                      <form id="addNewCCForm" class="row g-3" action="{{ route('delete-arisan', ['id' => $arisan->id_arisan]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-danger me-sm-3 me-1">Hapus</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary btn-reset"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Batal
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
+            @endforeach
+
+                    {{-- @foreach ($arisans as $arisan)
                         <!-- Modal Konfirmasi Delete -->
                         <div class="modal fade" id="confirmDeleteModal-{{ $arisan->id_arisan }}" tabindex="-1"
                             role="dialog" aria-labelledby="confirmDeleteModalLabel-{{ $arisan->id_arisan }}"
@@ -180,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
 
                 </div>
             </div>

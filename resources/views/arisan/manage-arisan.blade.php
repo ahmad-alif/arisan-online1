@@ -57,7 +57,7 @@
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
                                     <input type="search" class="form-control me-1" name="search"
-                                    value="{{ request('search') }}" placeholder="Cari member...">
+                                    value="{{ request('search') }}" placeholder="Cari arisan...">
                                     <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
                                 </div>
                             </div>
@@ -81,10 +81,10 @@
                                     <td>
                                         @if ($arisan->img_arisan)
                                             <img src="{{ Storage::url($arisan->img_arisan) }}" alt="Arisan"
-                                                class="rounded-circle" width="35">
+                                                class="rounded-circle" width="35" height="35">
                                         @else
                                             <img src="{{ asset('img/default_arisan.jpg') }}" alt="Default Profile"
-                                                class="rounded-circle" width="35">
+                                                class="rounded-circle" width="35" height="35">
                                         @endif
                                     </td>
 
@@ -103,10 +103,20 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="ti ti-pencil me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="ti ti-trash me-1"></i> Delete</a>
+                                                @if ($arisan->status == 0)
+                                                    <button class="button dropdown-item" href=""
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#confirmDeleteModal-{{ $arisan->id_arisan }}">
+                                                    <i class="ti ti-trash me-1"></i> Hapus
+                                                    </button>
+
+                                                @elseif ($arisan->status == 1)
+                                                        <a class="dropdown-item" href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                            class="btn btn-sm btn-success col-10 mb-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
+                                                        <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
+                                                @endif
                                                 <a class="dropdown-item" href="javascript:void(0);"><i
                                                         class="ti ti-info-square me-1"></i> Info</a>
                                             </div>
@@ -154,7 +164,7 @@
                             </div>
                         </div>
                     @endforeach
-                    @foreach ($arisans as $arisan)
+                    {{-- @foreach ($arisans as $arisan)
                         <!-- Modal Konfirmasi Delete -->
                         <div class="modal fade" id="confirmDeleteModal-{{ $arisan->id_arisan }}" tabindex="-1"
                             role="dialog" aria-labelledby="confirmDeleteModalLabel-{{ $arisan->id_arisan }}"
@@ -182,7 +192,45 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
+                    @foreach ($arisans as $arisan)
+
+            <!-- Add New Credit Card Modal -->
+              <div class="modal fade" id="confirmDeleteModal-{{ $arisan->id_arisan }}"
+                aria-labelledby="confirmDeleteModalLabel-{{ $arisan->id_arisa }}"
+                tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="text-center mb-4">
+                        <h1 class="mb-2">🤔</h1>
+                        <h3 class="mb-2">Apakah anda ingin menghapus</h3>
+                        <h2 class="mb-2">
+                            {{ $arisan->nama_arisan }}
+                        </h2>
+                        <p class="text-danger">*Data yang sudah dihapus tidak dapat dikembalikan</p>
+                      </div>
+                      <form id="addNewCCForm" class="row g-3" action="{{ route('delete-arisan', ['id' => $arisan->id_arisan]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="col-12 text-center">
+                          <button type="submit" class="btn btn-danger me-sm-3 me-1">Hapus</button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary btn-reset"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                            Batal
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Add New Credit Card Modal -->
+            @endforeach
 
                 </div>
             </div>

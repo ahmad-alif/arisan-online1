@@ -1,110 +1,106 @@
-@extends('layouts.app')
+@extends('dashboard.index')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Ubah Anggota | Arisanku')
+@section('content')
 
-@section('container')
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
-    <main id="main" class="main">
+    <!-- Striped Rows -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-        <div class="pagetitle border-bottom pb-3">
-            <h1>Edit member</h1>
-        </div><!-- End Page Title -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-1"><span class="text-muted fw-light">Admin / Ubah Anggota / </span>{{ $member->name }}</h4>
 
-        <div class="card mb-5">
-            <div class="card-body pt-3">
+            <div class="card">
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        @if ($member->foto_profil)
+                            <img src="{{ Storage::url($member->foto_profil) }}" alt="Profile"
+                                class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
+                        @else
+                            <img src="{{ asset('img/default.png') }}" alt="DefualtProfile"
+                                class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
+                        @endif
 
-                <!-- General Form Elements -->
-                <form method="post" action="{{ route('processEditMember', ['id' => $member->id]) }}" novalidate
-                    enctype="multipart/form-data">
-                    @csrf
-                    <!-- ... Form input fields ... -->
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <a href="/manage-member" class="btn btn-outline-danger">
-                                <i class="bi bi-arrow-left"></i> Kembali
-                            </a>
-                        </div>
+                        <form method="POST" action="{{ route('processEditMember', ['id' => $member->id]) }}"
+                            enctype="multipart/form-data" novalidate>
+                            @csrf
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-label-primary me-2 mb-1" tabindex="0">
+                                    <span class="d-none d-sm-block">Unggah foto baru</span>
+                                    <i class="ti ti-upload d-block d-sm-none"></i>
+                                    <input type="file" id="formFile" name="foto_profil" class="account-file-input"
+                                        hidden accept="image/png, image/jpg, image/jpeg" />
+                                </label>
+
+                                <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 800kb</div>
+                            </div>
+                            {{-- </form> --}}
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputText" class="col-sm-2 col-form-label">Nama</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="name" value="{{ $member->name }}"
-                                class="form-control @error('name') is-invalid @enderror" id="name" required>
-                            @error('name')
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    {{-- <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="{{ route('processAccountSetting') }}" novalidate>
+                    @csrf --}}
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="inputText" class="form-label">Nama</label>
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name"
+                                value="{{ $member->name }}" autofocus required />
+                                @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="inputUsername" class="form-label">Username</label>
+                            <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" id="username"
+                                value="{{ $member->username }}" required />
+                                @error('username')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="inputEmail" class="form-label">E-mail</label>
+                            <input class="form-control @error('email') is-invalid @enderror" id="email" name="email"
+                                value="{{ $member->email }}" required />
+                                @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="username" value="{{ $member->username }}"
-                                class="form-control @error('username') is-invalid @enderror" id="username" required>
-                            @error('username')
+                        <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">No. Telpon</label>
+                            <input type="number" class="form-control @error('nohp') is-invalid @enderror" id="nohp" name="nohp"
+                                value="{{ $member->nohp }}" required />
+                                @error('nohp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" name="email" value="{{ $member->email }}"
-                                class="form-control @error('email') is-invalid @enderror" id="email" required>
-                            @error('email')
+                        <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+                                 required/>
+                                @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" id="password" required>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <small class="text-danger">Isi password apabila ingin mengubah
+                            <div class="text-danger">Isi password apabila ingin mengubah
                                 password,
                                 Apabila tidak kosongkan
-                                saja!</small>
+                                saja!</div>
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">No HP</label>
-                        <div class="col-sm-10">
-                            <input type="number" name="nohp" value="{{ $member->nohp }}"
-                                class="form-control @error('nohp') is-invalid @enderror" id="nohp" required>
-                            @error('nohp')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12 d-flex justify-content-center">
-                            <img id="preview-image" src="{{ Storage::url($member->foto_profil) }}"
-                                class="img-thumbnail img-preview" width="200">
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <label for="inputNumber" class="col-sm-2 col-form-label">Ubah Foto Profil</label>
 
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input class="form-control" type="file" name="foto_profil" id="formFile">
-                        </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Simpan perubahan</button>
+                        <a class="btn btn-label-danger" href="/data-member">Batal</a>
                     </div>
-
-                    <div class="row mb-3">
-                        <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Ubah</button>
-                        </div>
-                    </div>
-                </form><!-- End General Form Elements -->
+                </form>
+                </div>
 
             </div>
-        </div>
+            <!--/ Striped Rows -->
 
-    </main>
-    @include('layouts.footer')
+        </div>
+        <!--/ Responsive Table -->
+    </div>
+    <!-- / Content -->
+
 @endsection

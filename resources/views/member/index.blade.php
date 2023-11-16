@@ -47,9 +47,9 @@
                         <td>{{ $member->nohp }}</td>
                         <td>
                             <a href="#memberInfoModal-{{ $member->id }}"
-                                class="btn btn-sm btn-warning col-10 mb-1" data-bs-toggle="modal"
+                                class="btn btn-sm btn-label-warning col-10 mb-1" data-bs-toggle="modal"
                                 data-bs-target="#memberInfoModal-{{ $member->id }}">
-                                <i class="bi bi-info-circle">Detail</i>
+                                Detail
                             </a>
                         </td>
                     </tr>
