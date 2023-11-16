@@ -1,149 +1,244 @@
-{{-- <form method="post" action="{{ route('register.processUser') }}">
-    @csrf
-    <div>
-        <label for="name">Nama</label>
-        <input type="text" name="name" id="name" required>
-    </div>
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" required>
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-    </div>
-    <div>
-        <label for="nohp">Nomor Handphone</label>
-        <input type="text" name="nohp" id="nohp" required>
-    </div>
-    <div>
-        <label for="role">Role</label>
-        <input type="text" name="role" id="role" value="0" required>
-    </div>
-    <div>
-        <label for="active">Active</label>
-        <input type="text" name="active" id="active" value="1" required>
-    </div>
+<!DOCTYPE html>
 
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form> --}}
-@extends('layouts.auth-main')
-@section('container')
-    <main>
-        <div class="container">
+<html
+  lang="en"
+  class="light-style layout-wide customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../assets/"
+  data-template="vertical-menu-template">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <title>Daftar sebagai pengguna arisan | Arisanku</title>
 
-                            {{-- <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
-                                </a>
-                            </div> --}}
+    <meta name="description" content="" />
 
-                            <div class="card mb-3">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
-                                <div class="card-body">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap"
+      rel="stylesheet" />
 
-                                    <div class="pt-2 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Buat Akun</h5>
-                                    </div>
+    <!-- Icons -->
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
 
-                                    <form method="post" enctype="multipart/form-data"
-                                        action="{{ route('register.processUser') }}" novalidate>
-                                        @csrf
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Nama</label>
-                                            <input type="text" name="name" class="form-control" id="nama"
-                                                required autofocus value="{{ old('name') }}">
-                                        </div>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
 
-                                        <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" id="email"
-                                                required value="{{ old('email') }}" placeholder="example@example.com">
-                                        </div>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <!-- Vendor -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
 
-                                        <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Username</label>
-                                            <input type="text" name="username" class="form-control" id="username"
-                                                required value="{{ old('username') }}">
-                                            <div id="usernameAvailability"></div>
-                                        </div>
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/page-auth.css" />
 
-                                        <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword"
-                                                required>
-                                            @error('password')
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Content -->
+
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner py-4">
+          <!-- Register Card -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center mb-4 mt-2">
+                <a href="index.html" class="app-brand-link gap-2">
+                  <span class="app-brand-logo demo">
+                    <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
+                        fill="#7367F0" />
+                      <path
+                        opacity="0.06"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
+                        fill="#161616" />
+                      <path
+                        opacity="0.06"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
+                        fill="#161616" />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
+                        fill="#7367F0" />
+                    </svg>
+                  </span>
+                  <span class="app-brand-text demo text-body fw-bold ms-1">Arisanku</span>
+                </a>
+              </div>
+              <!-- /Logo -->
+              <h4 class="mb-1 pt-2">Mulai perjalanan arisan anda🚀</h4>
+              <p class="mb-4">Daftar sebagai pengguna</p>
+
+              <form class="mb-3" enctype="multipart/form-data" action="{{ route('register.processUser') }}" method="POST" novalidate>
+                @csrf
+                <div class="mb-3">
+                  <label for="yourName" class="form-label">Nama</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Masukkan nama lengkap anda"
+                    autofocus
+                    required autofocus value="{{ old('name') }}"
+                    />
+                </div>
+                <div class="mb-3">
+                  <label for="yourEmail" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="contohemail123@mail.com"
+                  required autofocus value="{{ old('email') }}" />
+                </div>
+                <div class="mb-3">
+                    <label for="yourUsername" class="form-label">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      placeholder="Masukkan username anda"
+                      autofocus
+                      required autofocus value="{{ old('username') }}"
+                      />
+                      <div id="usernameAvailability"></div>
+                  </div>
+                <div class="mb-3 form-password-toggle">
+                  <label class="form-label" for="yourPassword">Password</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="yourPassword"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                      required
+                      />
+                    <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                    @error('password')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="nohp">Nomor Handphone</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">+62</span>
-                                                <input type="number" name="nohp" class="form-control" id="nohp"
-                                                    required value="{{ old('nohp') }}" placeholder="8** **** ****">
-                                            </div>
-                                            <div id="nohpAvailability"></div>
-                                        </div>
-
-                                        {{-- <div class="col-12">
-                                            <div>
-                                                <label for="role">Role</label>
-                                                <input type="hidden" name="role" class="form-control" id="role"
-                                                    value="1" required>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-12">
-                                            <div>
-                                                <label for="active">Active</label>
-                                                <input type="hidden" name="active" class="form-control" id="active"
-                                                    value="1" required>
-                                            </div>
-                                        </div> --}}
-                                        <div class="col-12 my-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name="terms" type="checkbox"
-                                                    value="" id="acceptTerms" required>
-                                                <label class="form-check-label" for="acceptTerms">I agree and accept the
-                                                    <a href="">terms and conditions</a></label>
-                                                <div class="invalid-feedback">You must agree before submitting.</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 my-2">
-                                            <button class="btn btn-primary w-100" id="registerButton" type="submit">Buat
-                                                Akun</button>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="small mb-0">Sudah punya akun? <a href="/login">Log in</a></p>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                  </div>
                 </div>
 
-            </section>
+                <div class="mb-3">
+                    <label for="nohp" class="form-label">Nomor Handphone (Whatsapp)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="nohp"
+                      name="nohp"
+                      placeholder="0812xxxxxxxx"
+                      autofocus
+                      required autofocus value="{{ old('nohp') }}"
+                      />
+                      <div id="nohpAvailability"></div>
+                  </div>
 
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <label class="form-check-label" for="terms-conditions">
+                      Saya menyetujui
+                      <a href="javascript:void(0);">kebijakan & ketentuan privasi</a>
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary d-grid w-100">Daftar</button>
+              </form>
+
+              <p class="text-center">
+                <span>Sudah punya akun?</span>
+                <a href="/login">
+                  <span>Masuk saja</span>
+                </a>
+              </p>
+
+              {{-- <div class="divider my-4">
+                <div class="divider-text">or</div>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                  <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
+                </a>
+
+                <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+                  <i class="tf-icons fa-brands fa-google fs-5"></i>
+                </a>
+
+                <a href="javascript:;" class="btn btn-icon btn-label-twitter">
+                  <i class="tf-icons fa-brands fa-twitter fs-5"></i>
+                </a>
+              </div> --}}
+            </div>
+          </div>
+          <!-- Register Card -->
         </div>
-    </main>
-@endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      </div>
+    </div>
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="../../assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/pages-auth.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#username').on('keyup', function() {
@@ -230,3 +325,5 @@
         });
     });
 </script>
+  </body>
+</html>
