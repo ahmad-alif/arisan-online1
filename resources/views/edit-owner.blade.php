@@ -28,7 +28,7 @@
                                 <label for="upload" class="btn btn-label-primary me-2 mb-1" tabindex="0">
                                     <span class="d-none d-sm-block">Unggah foto baru</span>
                                     <i class="ti ti-upload d-block d-sm-none"></i>
-                                    <input type="file" id="formFile" name="foto_profil" class="account-file-input"
+                                    <input type="file" id="upload" name="foto_profil" class="account-file-input"
                                         hidden accept="image/png, image/jpg, image/jpeg" />
                                 </label>
 

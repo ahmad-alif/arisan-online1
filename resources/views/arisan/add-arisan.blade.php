@@ -1,100 +1,106 @@
-@extends('layouts.app')
+@extends('dashboard.index')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Tambah Arisan | Arisanku')
+@section('content')
 
-@section('container')
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
-    <main id="main" class="main">
+    <!-- Striped Rows -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-        <div class="pagetitle border-bottom pb-3">
-            <h1>Tambah Arisan</h1>
-        </div><!-- End Page Title -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-1"><span class="text-muted fw-light">Admin / Kelola Arisan / </span>Tambah Arisan</h4>
 
-        <div class="card">
-            <div class="card-body pt-3">
+            <div class="card">
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
 
-                <!-- General Form Elements -->
-                <form method="post" enctype="multipart/form-data" action="{{ route('processAddArisan') }}" novalidate>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <a href="/manage-arisan" class="btn btn-outline-danger">
-                                <i class="bi bi-arrow-left"></i> Kembali
-                            </a>
-                        </div>
-                    </div>
-                    @csrf
-                    <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">Nama Arisan</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nama_arisan"
-                                class="form-control @error('nama_arisan') is-invalid @enderror" id="nama_arisan" required>
-                            @error('nama_arisan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="owner" class="col-sm-2 col-form-label">Pilih Owner</label>
-                        <div class="col-sm-10">
-                            <select name="id_user" class="form-control @error('id_user') is-invalid @enderror"
-                                id="owner" required>
-                                <option value="" disabled selected>Pilih Owner</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_user')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-                        <label for="start_date" class="col-sm-2 col-form-label">Mulai</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="start_date"
-                                class="form-control @error('start_date') is-invalid @enderror" id="start_date" required>
-                            @error('start_date')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="end_date" class="col-sm-2 col-form-label">Berakhir</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="end_date"
-                                class="form-control @error('end_date') is-invalid @enderror" id="end_date" required>
-                            @error('end_date')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="img_arisan" class="col-sm-2 col-form-label">Gambar Arisan</label>
-                        <div class="col-sm-10">
-                            <input type="file" name="img_arisan"
-                                class="form-control @error('img_arisan') is-invalid @enderror" id="img_arisan" required
-                                onchange="previewImage(this);">
-                            @error('img_arisan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                             <img id="preview" src="" alt="Preview"
-                                style="max-width: 100px; margin-top: 10px; display: none;">
-                        </div>
+                            style="max-width: 100px; margin-top: 10px; display: none;">
+
+                            <img src="{{ asset('img/default.png') }}" alt="DefualtProfile"
+                            class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
+
+                        <form method="POST" action="{{ route('processAddArisan') }}"
+                            enctype="multipart/form-data" novalidate>
+                            @csrf
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-label-primary me-2 mb-1" tabindex="0">
+                                    <span class="d-none d-sm-block">Unggah foto baru</span>
+                                    <i class="ti ti-upload d-block d-sm-none"></i>
+                                    <input type="file" id="upload" name="foto_profil" class="account-file-input"
+                                        hidden accept="image/png, image/jpg, image/jpeg" />
+                                </label>
+
+                                <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 800kb</div>
+                            </div>
+                            {{-- </form> --}}
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tambahkan</button>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    {{-- <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="{{ route('processAccountSetting') }}" novalidate>
+                    @csrf --}}
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="inputText" class="form-label">Nama</label>
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name"
+                                value="" autofocus required />
+                                @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                         </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="inputUsername" class="form-label">Username</label>
+                            <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" id="username"
+                                value="" required />
+                                @error('username')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="inputEmail" class="form-label">E-mail</label>
+                            <input class="form-control @error('email') is-invalid @enderror" id="email" name="email"
+                                value="" required />
+                                @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">No. Telpon</label>
+                            <input type="number" class="form-control @error('nohp') is-invalid @enderror" id="nohp" name="nohp"
+                                value="" required />
+                                @error('nohp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+                                 required/>
+                                @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="text-danger">Isi password apabila ingin mengubah
+                                password,
+                                Apabila tidak kosongkan
+                                saja!</div>
+                        </div>
+
                     </div>
-                </form><!-- End General Form Elements -->
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Simpan perubahan</button>
+                        <a class="btn btn-label-danger" href="/manage-owner">Batal</a>
+                    </div>
+                </form>
+                </div>
 
             </div>
+            <!--/ Striped Rows -->
+
         </div>
-
-    </main>
-    @include('layouts.footer')
-
+        <!--/ Responsive Table -->
+    </div>
+    <!-- / Content -->
     <script>
         function previewImage(input) {
             if (input.files && input.files[0]) {
