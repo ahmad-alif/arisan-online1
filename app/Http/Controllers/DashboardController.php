@@ -126,6 +126,7 @@ class DashboardController extends Controller
     }
     public function addMember(Request $request)
     {
+        // dd(auth()->user()->role);
         return view('add-member', ['active' => 'dashboard'])->with('role', $request);
     }
 

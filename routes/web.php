@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::post('/edit-arisan/{id}', [ArisanController::class, 'processEditArisan'])->name('processEditArisan');
     Route::get('/manage-member', [MemberArisanController::class, 'index'])->name('manage-member');
     // Route::get('/member-detail/{id}', [MemberController::class, 'showDetail'])->name('member-detail');
-    Route::get('/add-member', [MemberArisanController::class, 'addMember'])->name('add-member');
+    Route::get('/add-member-arisan', [MemberArisanController::class, 'addMember'])->name('add-member-arisan');
     Route::get('/verification-account', [AuthController::class, 'verificationAccount'])->name('verification-account');
     Route::post('/verification-account', [AuthController::class, 'processVerificationAccount'])->name('processVerificationAccount');
     Route::get('/arisan/start/{id}', [ArisanController::class, 'startArisan'])->name('start-arisan');
