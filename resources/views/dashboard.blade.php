@@ -8,10 +8,9 @@
         <div class="mb-3 col-12 mb-0 d-flex">
             @if (auth()->user()->active == 1)
                 @if (Auth::user()->role == 2)
-
                 @else
                     <div class="alert bg-label-success">
-                    <p class="mb-0">Akun anda telah aktif😁</p>
+                        <p class="mb-0">Akun anda telah aktif😁</p>
                     </div>
                 @endif
             @else

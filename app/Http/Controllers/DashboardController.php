@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Arisan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -103,13 +104,13 @@ class DashboardController extends Controller
     {
         $owner = User::find($id);
         //dd($owner);
-          if (!$owner) {
-              return redirect('/manage-owner')->with('error', 'Pemilik tidak ditemukan.');
-          }
+        if (!$owner) {
+            return redirect('/manage-owner')->with('error', 'Pemilik tidak ditemukan.');
+        }
 
-          $owner->delete();
+        $owner->delete();
 
-          return redirect('/manage-owner')->with('success', 'Data Owner telah dihapus.');
+        return redirect('/manage-owner')->with('success', 'Data Owner telah dihapus.');
     }
 
     public function manageMember(Request $request)
@@ -158,6 +159,7 @@ class DashboardController extends Controller
 
     public function processEditMember(Request $request, $id)
     {
+        // $user = Auth::user()->id;
         $member = User::findOrFail($id);
 
         $request->validate([
@@ -189,9 +191,10 @@ class DashboardController extends Controller
             $foto_profilPath = $request->file('foto_profil')->storeAs('public/foto_profil', $filename);
             $member->foto_profil = $foto_profilPath;
         }
+        // dd(auth()->user()->role);
         $member->save();
 
-        return redirect('/manage-member')->with('success', 'Perubahan Owner telah disimpan.');
+        return redirect('/data-member')->with('success', 'Perubahan Owner telah disimpan.');
     }
 
     public function deleteMember($id)

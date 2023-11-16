@@ -57,12 +57,6 @@ Route::get('/profile/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('
 Route::post('/profile/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto')->middleware('auth');
 Route::get('/profile/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password')->middleware('auth');
 Route::post('/profile/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password')->middleware('auth');
-// Route::get('/account-setting', [AuthController::class, 'accountSetting'])->name('account-setting')->middleware('auth');
-// Route::post('/account-setting', [AuthController::class, 'processAccountSetting'])->name('processAccountSetting');
-// Route::get('/change-pict', [AuthController::class, 'changePict'])->name('change-pict')->middleware('auth');
-// Route::post('/change-pict', [AuthController::class, 'updatePict'])->name('update-pict')->middleware('auth');
-// Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
-// Route::post('/change-password', [AuthController::class, 'processChangePassword'])->name('processChangePassword');
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {

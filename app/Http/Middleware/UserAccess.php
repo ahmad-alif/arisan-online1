@@ -20,8 +20,5 @@ class UserAccess
         }
 
         abort(403, 'Hayo Kamu Mau Ngapain?');
-        // return response()->json(['message' => 'You do not have permission to access this page.'], 403);
-        // Jika Anda ingin menampilkan halaman khusus, Anda bisa menggunakan yang berikut:
-        // return view('errors.check-permission');
     }
 }
