@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ArisanController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberArisanController;
-use App\Http\Controllers\CategoryController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArisanController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MemberArisanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,12 +50,19 @@ Route::post('/check-username-availability', [AuthController::class, 'checkUserna
 Route::post('/check-nohp-availability', [AuthController::class, 'checkNoHpAvailability'])->name('checkNoHpAvailability');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/account-setting', [AuthController::class, 'accountSetting'])->name('account-setting')->middleware('auth');
-Route::post('/account-setting', [AuthController::class, 'processAccountSetting'])->name('processAccountSetting');
-Route::get('/change-pict', [AuthController::class, 'changePict'])->name('change-pict')->middleware('auth');
-Route::post('/change-pict', [AuthController::class, 'updatePict'])->name('update-pict')->middleware('auth');
-Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
-Route::post('/change-password', [AuthController::class, 'processChangePassword'])->name('processChangePassword');
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+Route::get('/profile/ubah-profile', [ProfileController::class, 'ubahProfile'])->name('ubah-profile')->middleware('auth');
+Route::post('/profile/ubah-profile', [ProfileController::class, 'updateProfile'])->name('update-profile')->middleware('auth');
+Route::get('/profile/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto')->middleware('auth');
+Route::post('/profile/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto')->middleware('auth');
+Route::get('/profile/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password')->middleware('auth');
+Route::post('/profile/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password')->middleware('auth');
+// Route::get('/account-setting', [AuthController::class, 'accountSetting'])->name('account-setting')->middleware('auth');
+// Route::post('/account-setting', [AuthController::class, 'processAccountSetting'])->name('processAccountSetting');
+// Route::get('/change-pict', [AuthController::class, 'changePict'])->name('change-pict')->middleware('auth');
+// Route::post('/change-pict', [AuthController::class, 'updatePict'])->name('update-pict')->middleware('auth');
+// Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
+// Route::post('/change-password', [AuthController::class, 'processChangePassword'])->name('processChangePassword');
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
