@@ -7,15 +7,19 @@
         <h4 class="py-3 mb-1"> Selamat datang, {{ auth()->user()->name }}👋 </h4>
         <div class="mb-3 col-12 mb-0 d-flex">
             @if (auth()->user()->active == 1)
-                <div class="alert bg-label-success">
-                <p class="mb-0">Akun anda telah aktif😁</p>
-                </div>
+                @if (Auth::user()->role == 2)
+
                 @else
                     <div class="alert bg-label-success">
-                        <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6>
-                        <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
+                    <p class="mb-0">Akun anda telah aktif😁</p>
                     </div>
                 @endif
+            @else
+                <div class="alert bg-label-success">
+                    <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6>
+                    <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
+                </div>
+            @endif
         </div>
     </div>
 

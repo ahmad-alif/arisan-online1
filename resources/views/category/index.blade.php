@@ -38,17 +38,18 @@
             </div>
         </div> --}}
                     <table class="table table-striped">
-                        <div class="row">
+                        <div class="row p-3">
                             <div class="col-sm">
                                 <button type="button" class="btn btn-sm btn-primary">
                                     <span class="ti-xs ti ti-plus me-1"></span>Tambah
                                 </button>
                             </div>
                             <div class="col-sm">
+
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" name="search" value=""
-                                    placeholder="Cari member...">
+                                <input type="text" class="form-control" name="search"
+                                value="{{ request('search') }}" placeholder="Cari member...">
                             </div>
                         </div>
                         <thead>
