@@ -49,7 +49,7 @@
                         <div class="row">
                             <div class="col-sm">
                                 <button type="button" class="btn btn-sm btn-primary">
-                                    <span class="ti-xs ti ti-plus me-1"></span>Tambah
+                                    <span class="ti-xs ti ti-table-plus me-1"></span>Tambah
                                 </button>
                             </div>
                             <div class="col-sm">

@@ -14,25 +14,10 @@
                         Total {{ $jumlahArisan }} arisan
                       </p>
                     </div>
-                    {{-- <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
-                      <select id="select2_course_select" class="select2 form-select" data-placeholder="All Courses">
-                        <option value="">All Courses</option>
-                        <option value="ui/ux">UI/UX</option>
-                        <option value="seo">SEO</option>
-                        <option value="web">Web</option>
-                        <option value="music">Music</option>
-                        <option value="painting">Painting</option>
-                      </select>
-
-                      <label class="switch">
-                        <input type="checkbox" class="switch-input" />
-                        <span class="switch-toggle-slider">
-                          <span class="switch-on"></span>
-                          <span class="switch-off"></span>
-                        </span>
-                        <span class="switch-label text-nowrap mb-0">Hide completed</span>
-                      </label>
-                    </div> --}}
+                    <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
+                        <input type="text" class="form-control" name="search"
+                        value="{{ request('search') }}" placeholder="Cari member...">
+                    </div>
                   </div>
                   <div class="card-body">
                     <div class="row gy-4 mb-4">

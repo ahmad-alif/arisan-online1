@@ -111,21 +111,21 @@
                 </li>
                 <li class="menu-item {{ $active === 'manage-owner' ? 'active' : '' }}">
                     <a class="menu-link" href="/manage-owner">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-user-star"></i>
                         <div data-i18n="Page 2">Data Owner</div>
                     </a>
                 </li>
                 <li class="menu-item {{ $active === 'manage-member' ? 'active' : '' }}">
                     <a class="menu-link" href="/data-member">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-users"></i>
                         <div data-i18n="Page 3">Data Member</div>
                     </a>
                 </li>
 
                     <!-- Dashboards -->
-                    <li class="menu-item {{ in_array($active, ['manage-arisan', 'data-category']) ? 'active open' : '' }}">
+                    <li class="menu-item {{ in_array($active, ['manage-arisan', 'data-category']) ? 'open' : '' }}">
                       <a href="#" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-apps"></i>
                         <div data-i18n="Page 4">Arisan</div>
                         <div class="badge bg-primary rounded-pill ms-auto">2</div>
                       </a>
@@ -152,13 +152,13 @@
                 </li>
                 <li class="menu-item {{ $active === 'manage-arisan' ? 'active' : '' }}">
                     <a class="menu-link" href="/manage-arisan">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-table"></i>
                         <div data-i18n="Page 2">Data Arisan</div>
                     </a>
                 </li>
                 <li class="menu-item {{ $active === 'manage-member' ? 'active' : '' }}">
                     <a class="menu-link" href="/manage-member">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-users"></i>
                         <div data-i18n="Page 3">Data Member</div>
                     </a>
                 </li>
@@ -171,7 +171,7 @@
                 </li>
                 <li class="menu-item {{ $active === 'list-arisan' ? 'active' : '' }}">
                     <a class="menu-link" href="/list-arisan">
-                        <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                        <i class="menu-icon tf-icons ti ti-clipboard-plus"></i>
                         <div data-i18n="Page 2">Daftar Arisan</div>
                     </a>
                 </li>
