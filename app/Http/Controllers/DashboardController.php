@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
     public function addOwner(Request $request)
     {
-        return view('add-owner', ['active' => 'dashboard'])->with('role', $request);
+        return view('add-owner', ['active' => 'manage-owner'])->with('role', $request);
     }
 
     public function processAddOwner(Request $request)

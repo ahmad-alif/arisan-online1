@@ -11,12 +11,15 @@
             <div class="card">
                 <!-- Account -->
                 <div class="card-body">
-                    {{-- <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="{{ route('processAccountSetting') }}" novalidate>
-                    @csrf --}}
+                    <h4>Tambah Pemilik dengan cepat🚀</h4>
+                    <form method="post" enctype="multipart/form-data" action="{{ route('processAddOwner') }}" novalidate>
+                    @csrf
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="inputText" class="form-label">Nama</label>
-                            <input class="form-control" type="text" id="name" name="name"
+                            <input class="form-control @error('name')
+                            is-invalid
+                            @enderror" type="text" id="name" name="name"
                                 value="" autofocus required />
                                 @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -24,7 +27,9 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="inputUsername" class="form-label">Username</label>
-                            <input class="form-control" type="text" name="username" id="username"
+                            <input class="form-control @error('username')
+                            is-invalid
+                        @enderror" type="text" name="username" id="username"
                                 value="" required />
                                 @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -32,7 +37,9 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="inputEmail" class="form-label">E-mail</label>
-                            <input class="form-control" id="email" name="email"
+                            <input class="form-control @error('email')
+                            is-invalid
+                        @enderror" id="email" name="email"
                                 value="" required />
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -40,7 +47,9 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">No. Telpon</label>
-                            <input type="number" class="form-control" id="nohp" name="nohp"
+                            <input type="number" class="form-control @error('nohp')
+                            is-invalid
+                        @enderror" id="nohp" name="nohp"
                                 value="" required />
                                 @error('nohp')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -48,7 +57,9 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password"
+                            <input type="password" class="form-control @error('password')
+                            is-invalid
+                        @enderror" id="password" name="password"
                                  required/>
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -60,7 +71,7 @@
                         <button type="submit" class="btn btn-primary me-2">Simpan perubahan</button>
                         <a class="btn btn-label-danger" href="/manage-owner">Batal</a>
                     </div>
-                </form>
+                    </form>
                 </div>
 
             </div>
