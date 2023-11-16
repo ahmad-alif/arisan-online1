@@ -54,7 +54,6 @@
               </li>
             </ul> --}}
             <div class="card mb-4">
-              <h5 class="card-header">Detail Profil</h5>
               <!-- Account -->
               <div class="card-body">
                 <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -69,7 +68,7 @@
                 <form method="POST" action="{{ route('update-pict') }}" enctype="multipart/form-data">
                 @csrf
                   <div class="button-wrapper">
-                    <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
+                    <label for="upload" class="btn btn-label-primary me-2 mb-3" tabindex="0">
                       <span class="d-none d-sm-block">Unggah foto baru</span>
                       <i class="ti ti-upload d-block d-sm-none"></i>
                             <input

@@ -53,7 +53,7 @@
             <div class="col-sm">
                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
                     <input type="search" class="form-control me-1" name="search"
-                    value="{{ request('search') }}" placeholder="Cari member...">
+                    value="{{ request('search') }}" placeholder="Cari owner...">
                     <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
                 </div>
             </div>
