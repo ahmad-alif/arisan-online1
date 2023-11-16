@@ -45,9 +45,11 @@
                     <table class="table table-striped">
                         <div class="row p-3">
                             <div class="col-sm">
+                                <a href="/add-arisan">
                                 <button type="button" class="btn btn-sm btn-primary">
                                     <span class="ti-xs ti ti-plus me-1"></span>Tambah
                                 </button>
+                                </a>
                             </div>
                             <div class="col-sm">
 

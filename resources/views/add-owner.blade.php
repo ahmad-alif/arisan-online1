@@ -1,5 +1,5 @@
 @extends('dashboard.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Ubah Owner | Arisanku')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Tambah Pemilik | Arisanku')
 @section('content')
 
     <!-- Striped Rows -->

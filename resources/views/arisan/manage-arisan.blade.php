@@ -17,11 +17,11 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="py-1"><span class="text-muted fw-light">
                 @if (Auth::user()->role == 2)
-                / Admin /
+                Admin /
                 @elseif (Auth::user()->role == 1)
-                / Owner /
+                Owner /
                 @elseif (Auth::user()->role == 0)
-                / Pengguna /
+                Pengguna /
                 @endif
             </span> Kelola Arisan</h4>
             <!-- Striped Rows -->
@@ -48,9 +48,11 @@
                     <table class="table table-striped">
                         <div class="row p-3">
                             <div class="col-sm">
+                                <a href="/add-arisan">
                                 <button type="button" class="btn btn-sm btn-primary">
                                     <span class="ti-xs ti ti-table-plus me-1"></span>Tambah
                                 </button>
+                                </a>
                             </div>
                             <div class="col-sm">
                             </div>
