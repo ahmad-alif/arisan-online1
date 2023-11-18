@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $search = '';
-        return view('category.index', ['active' => 'data-category', 'categories' => $categories, 'search' => $search]);
+        return view('category.index', ['active' => 'data-category', 'categories' => $categories , 'search' => $search]);
     }
 
     public function search(Request $request)
