@@ -121,8 +121,21 @@
                         <div data-i18n="Page 3">Data Member</div>
                     </a>
                 </li>
+                <li class="menu-item {{ $active === 'manage-arisan' ? 'active' : '' }}">
+                    <a class="menu-link" href="/data-arisan">
+                        <i class="menu-icon tf-icons ti ti-table"></i>
+                        <div data-i18n="Page 4">Data Arisan</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ $active === 'data-category' ? 'active' : '' }}">
+                    <a class="menu-link" href="/data-category">
+                        <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+                        <div data-i18n="Page 5">Data Kategori</div>
+                    </a>
+                </li>
 
-                    <!-- Dashboards -->
+
+                    {{-- <!-- Dashboards -->
                     <li class="menu-item {{ in_array($active, ['manage-arisan', 'data-category']) ? 'open' : '' }}">
                       <a href="#" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-apps"></i>
@@ -141,7 +154,7 @@
                           </a>
                         </li>
                       </ul>
-                    </li>
+                    </li> --}}
 
                     @elseif (Auth::user()->role == 1)
                 <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
