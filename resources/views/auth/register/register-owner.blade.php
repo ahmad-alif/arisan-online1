@@ -155,16 +155,18 @@
 
                 <div class="mb-3">
                     <label for="nohp" class="form-label">Nomor Handphone (Whatsapp)</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="nohp"
-                      name="nohp"
-                      placeholder="0812xxxxxxxx"
-                      autofocus
-                      required autofocus value="{{ old('nohp') }}"
-                      />
+                    <div class="input-group">
+                        <span class="input-group-text">ID (+62)</span>
+                        <input
+                          type="text"
+                          id="nohp"
+                          name="nohp"
+                          class="form-control multi-steps-mobile"
+                          placeholder="81393476502"
+                          required autofocus value="{{ old('nohp') }}"
+                          />
                       <div id="nohpAvailability"></div>
+                    </div>
                   </div>
 
                 <div class="mb-3">
