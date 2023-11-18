@@ -166,13 +166,13 @@
                 <li class="menu-item {{ $active === 'manage-arisan' ? 'active' : '' }}">
                     <a class="menu-link" href="/manage-arisan">
                         <i class="menu-icon tf-icons ti ti-table"></i>
-                        <div data-i18n="Page 2">Data Arisan</div>
+                        <div data-i18n="Page 2">Kelola Arisan</div>
                     </a>
                 </li>
                 <li class="menu-item {{ $active === 'manage-member' ? 'active' : '' }}">
                     <a class="menu-link" href="/manage-member">
                         <i class="menu-icon tf-icons ti ti-users"></i>
-                        <div data-i18n="Page 3">Data Member</div>
+                        <div data-i18n="Page 3">Kelola Anggota</div>
                     </a>
                 </li>
                     @elseif (Auth::user()->role == 0)

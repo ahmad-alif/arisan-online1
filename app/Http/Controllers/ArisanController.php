@@ -135,7 +135,7 @@ class ArisanController extends Controller
 
         // $users = User::all();
 
-        return view('arisan.add-arisan-owner', ['active' => 'add-arisan', 'users' => $users]);
+        return view('arisan.add-arisan-owner', ['active' => 'manage-arisan', 'users' => $users]);
     }
 
     // public function processAddArisanOwner(Request $request)

@@ -1,77 +1,76 @@
-@extends('layouts.app')
+@extends('dashboard.index')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Tambah Arisan | Arisanku')
+@section('content')
 
-@section('container')
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
-    <main id="main" class="main">
+    <!-- Striped Rows -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-        <div class="pagetitle border-bottom pb-3">
-            <h1>Tambah Arisan</h1>
-        </div><!-- End Page Title -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-1"><span class="text-muted fw-light">Owner / Kelola Arisan / </span>Tambah Arisan</h4>
 
-        <div class="card">
-            <div class="card-body pt-3">
+            <div class="card">
+                <!-- Account -->
+                <form method="POST" action="{{ route('processAddArisanOwner') }}"
+                            enctype="multipart/form-data" novalidate>
+                <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
 
-                <!-- General Form Elements -->
-                <form method="post" enctype="multipart/form-data" action="{{ route('processAddArisanOwner') }}" novalidate>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <a href="/manage-arisan" class="btn btn-outline-danger">
-                                <i class="bi bi-arrow-left"></i> Kembali
-                            </a>
-                        </div>
+                            <img id="preview" src="" alt="Preview"
+                            style="max-width: 100px; margin-top: 10px; display: none;">
+
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-label-primary me-2 mb-1" tabindex="0">
+                                    <span class="d-none d-sm-block">Unggah foto baru</span>
+                                    <i class="ti ti-upload d-block d-sm-none"></i>
+                                    <input type="file" id="upload" name="img_arisan" class="account-file-input "
+                                        hidden accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this);"/>
+                                </label>
+                                @error('img_arisan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 800kb</div>
+                            </div>
+                            {{-- </form> --}}
                     </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    {{-- <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="{{ route('processAccountSetting') }}" novalidate>
+                    @csrf --}}
+                    <div class="row">
                     @csrf
-                    <div class="row mb-3">
-                        <label for="nama_arisan" class="col-sm-2 col-form-label">Nama Arisan</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nama_arisan"
-                                class="form-control @error('nama_arisan') is-invalid @enderror" id="nama_arisan" required>
-                            @error('nama_arisan')
+                        <div class="mb-3 col-md-6">
+                            <label for="nama_arisan" class="form-label">Nama Arisan</label>
+                            <input class="form-control @error('nama_arisan') is-invalid @enderror" type="text" id="nama_arisan" name="nama_arisan"
+                                value="" autofocus required placeholder="contoh: Arisan Mobil Semanggi"/>
+                                @error('nama_arisan')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                @enderror
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
-                        <div class="col-sm-10">
-                            <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" required></textarea>
-                            @error('deskripsi')
+                        <div class="mb-3 col-md-6">
+                            <label for="max_member" class="form-label">Maksimal Anggota</label>
+                            <input class="form-control @error('max_member') is-invalid @enderror" type="number" id="max_member" name="max_member"
+                                value="" autofocus required placeholder="contoh: 10"/>
+                                @error('max_member')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                @enderror
                         </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="start_date" class="col-sm-2 col-form-label">Mulai</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="start_date"
-                                class="form-control @error('start_date') is-invalid @enderror" id="start_date" required>
+                        <div class="mb-3 col-md-6">
+                            <label for="start_date" class="form-label">Tanggal Mulai</label>
+
+                                <input name="start_date" class="form-control @error('start_date') is-invalid @enderror" type="date" value=" {{ now()->format('d-m-Y') }}" id="start_date" required/>
+
                             @error('start_date')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <label for="max_member" class="col-sm-2 col-form-label">Max Member</label>
-                        <div class="col-sm-10">
-                            <input type="number" name="max_member"
-                                class="form-control @error('max_member') is-invalid @enderror" id="max_member" required>
-                            @error('max_member')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="deposit_frequency" class="col-sm-2 col-form-label">Deposit Frequency</label>
-                        <div class="col-sm-10">
-                            <select name="deposit_frequency"
-                                class="form-control @error('deposit_frequency') is-invalid @enderror" id="deposit_frequency"
-                                required>
-                                <option value="" disabled selected>Pilih Setoran</option>
+                        <div class="mb-3 col-md-6">
+                            <label for="deposit_frequency" class="form-label">Jangka Deposit</label>
+                            <select class="form-select form-control @error('deposit_frequency') is-invalid @enderror" id="deposit_frequency" name="deposit_frequency" aria-label="Default select example" required>
+                                <option disabled selected>Harap pilih jangka deposit</option>
                                 <option value="1">1 minggu</option>
                                 <option value="2">2 minggu</option>
                                 <option value="4">1 bulan</option>
@@ -80,49 +79,36 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-
-
-
-                    <div class="row mb-3">
-                        <label for="payment_amount" class="col-sm-2 col-form-label">Payment Amount</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="payment_amount"
-                                class="form-control @error('payment_amount') is-invalid @enderror" id="payment_amount"
-                                required>
-                            @error('payment_amount')
+                        <div class="mb-3 col-md-6">
+                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                            @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="img_arisan" class="col-sm-2 col-form-label">Gambar Arisan</label>
-                        <div class="col-sm-10">
-                            <input type="file" name="img_arisan"
-                                class="form-control @error('img_arisan') is-invalid @enderror" id="img_arisan" required
-                                onchange="previewImage(this);">
-                            @error('img_arisan')
+                        <div class="mb-3 col-md-6">
+                            <label for="payment_amount" class="form-label">Jumlah Deposit</label>
+                            <input class="form-control @error('payment_amount') is-invalid @enderror" type="text" id="payment_amount" name="payment_amount"
+                                value="" autofocus required placeholder="contoh: Rp. 100.000"/>
+                                @error('payment_amount')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <img id="preview" src="" alt="Preview"
-                                style="max-width: 100px; margin-top: 10px; display: none;">
+                                @enderror
                         </div>
                     </div>
-
-                    <div class="row mb-3">
-                        <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tambahkan</button>
-                        </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Tambah Arisan</button>
+                        <a class="btn btn-label-danger" href="/manage-arisan">Batal</a>
                     </div>
-                </form><!-- End General Form Elements -->
 
+                </div>
+            </form>
             </div>
+            <!--/ Striped Rows -->
+
         </div>
-
-    </main>
-    @include('layouts.footer')
-
+        <!--/ Responsive Table -->
+    </div>
+    <!-- / Content -->
     <script>
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -134,5 +120,24 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+    </script>
+    <script>
+        // Fungsi untuk mengonversi angka menjadi format mata uang Rupiah
+        function formatRupiah(angka) {
+            var reverse = angka.toString().split('').reverse().join(''),
+                ribuan = reverse.match(/\d{1,3}/g);
+            ribuan = ribuan.join('.').split('').reverse().join('');
+            return 'Rp. ' + ribuan;
+        }
+
+        // Fungsi untuk memformat input setiap kali ada perubahan
+        function updateRupiah() {
+            var input = document.getElementById('payment_amount');
+            var value = input.value.replace(/\D/g, ''); // Menghapus karakter non-digit
+            input.value = formatRupiah(value);
+        }
+
+        // Menambahkan event listener untuk memanggil fungsi setiap kali ada perubahan pada input
+        document.getElementById('payment_amount').addEventListener('input', updateRupiah);
     </script>
 @endsection
