@@ -15,7 +15,7 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-1"><span class="text-muted fw-light">Admin / Arisan /</span> Kelola Kategori</h4>
+            <h4 class="py-1"><span class="text-muted fw-light">Admin / Data Kategori /</span> Kelola Kategori</h4>
             <!-- Striped Rows -->
             <div class="card">
                 <div class="table-responsive text-nowrap">

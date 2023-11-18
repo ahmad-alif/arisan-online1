@@ -1,63 +1,55 @@
-@extends('layouts.app')
+@extends('dashboard.index')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Tambah Kategori | Arisanku')
+@section('content')
 
-@section('container')
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
-    <main id="main" class="main">
+    <!-- Striped Rows -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-        <div class="pagetitle border-bottom pb-3">
-            <h1>Tambah Kategori</h1>
-        </div><!-- End Page Title -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="py-1"><span class="text-muted fw-light">Admin / Data Kategori / </span>Tambah Kategori</h4>
 
-        <div class="card">
-            <div class="card-body pt-3">
-
-                <!-- General Form Elements -->
-                <form method="post" enctype="multipart/form-data" action="{{ route('processAddCategory') }}" novalidate>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <a href="/data-category" class="btn btn-outline-danger">
-                                <i class="bi bi-arrow-left"></i> Kembali
-                            </a>
-                        </div>
-                    </div>
+            <div class="card">
+                <!-- Account -->
+                <form method="POST" action="{{ route('processAddArisan') }}"
+                            enctype="multipart/form-data" novalidate>
+                <div class="card-body">
+                    {{-- <form id="formAccountSettings" method="POST" enctype="multipart/form-data" action="{{ route('processAccountSetting') }}" novalidate>
+                    @csrf --}}
+                    <div class="row">
                     @csrf
-                    <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">Nama Kategori</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nama_kategori"
-                                class="form-control @error('nama_kategori') is-invalid @enderror" id="nama_kategori"
-                                required>
-                            @error('nama_kategori')
+                        <div class="mb-3 col-md-6">
+                            <label for="name" class="form-label">Nama Kategori</label>
+                            <input class="form-control @error('nama_kategori') is-invalid @enderror" type="text" id="nama_kategori" name="nama_kategori"
+                                placeholder="contoh: Furniture" autofocus required />
+                                @error('nama_kategori')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                @enderror
                         </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">Slug</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                                id="slug" required disable readonly>
-                            @error('slug')
+                        <div class="mb-3 col-md-6">
+                            <label for="name" class="form-label">Slug</label>
+                            <input class="form-control @error('slug') is-invalid @enderror" type="text" id="slug" name="slug"
+                                value="" readonly disabled/>
+                                @error('slug')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                @enderror
                         </div>
+
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Tambah Kategori</button>
+                        <a class="btn btn-label-danger" href="/data-category">Batal</a>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tambahkan</button>
-                        </div>
-                    </div>
-                </form><!-- End General Form Elements -->
-
+                </div>
+            </form>
             </div>
+            <!--/ Striped Rows -->
+
         </div>
-
-    </main>
-    @include('layouts.footer')
-
+        <!--/ Responsive Table -->
+    </div>
+    <!-- / Content -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const namaKategoriInput = document.getElementById('nama_kategori');
@@ -71,5 +63,4 @@
         });
     </script>
 
-
-    </html>
+@endsection
