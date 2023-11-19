@@ -14,6 +14,10 @@
                                 Profil</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/profile/ubah-profile"><i class="ti-xs ti ti-id me-1"></i>
+                                Ubah Profile</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="/profile/ubah-foto"><i class="ti ti-camera me-1 ti-xs"></i>
                                 Ubah Foto</a>
                         </li>
@@ -46,7 +50,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <h5 class="card-header">Foto Profil</h5>
+                        <h5 class="card-header">Ubah Foto Profil</h5>
                         <!-- Account -->
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">

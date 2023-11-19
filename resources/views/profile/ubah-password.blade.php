@@ -13,6 +13,10 @@
                                 Profil</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/profile/ubah-profile"><i class="ti-xs ti ti-id me-1"></i>
+                                Ubah Profile</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/profile/ubah-foto"><i class="ti ti-camera me-1 ti-xs"></i>
                                 Ubah Foto</a>
                         </li>

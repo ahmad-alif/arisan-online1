@@ -13,11 +13,15 @@
                                 Profil</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="/profile/ubah-profile"><i class="ti-xs ti ti-id me-1"></i>
+                                Ubah Profile</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/profile/ubah-foto"><i class="ti ti-camera me-1 ti-xs"></i>
                                 Ubah Foto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/profile/ubah-password"><i class="ti-xs ti ti-lock me-1"></i>
+                            <a class="nav-link" href="/profile/ubah-password"><i class="ti-xs ti ti-lock me-1"></i>
                                 Ubah Password</a>
                         </li>
                     </ul>
@@ -50,7 +54,7 @@
                                 <form id="formAccountSettings" enctype="multipart/form-data" method="POST"
                                     action="{{ route('update-profile') }}">
                                     @csrf
-                                    <h5 class="card-text text-uppercase">Ubah Profil</h5>
+                                    <h4 class="card-text">Ubah Profil</h4>
                                     <div class="row">
                                         <div class="mb-3 col-md-12">
                                             <label for="name" class="form-label">Nama Lengkap</label>
