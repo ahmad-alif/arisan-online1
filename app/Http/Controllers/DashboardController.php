@@ -216,7 +216,6 @@ class DashboardController extends Controller
         $owner = User::findOrFail($id);
 
         if (!$owner) {
-            // Handle the case where the member is not found
             return redirect()->route('manage-owner')->with('error', 'Owner Tidak Ditemukan.');
         }
 
