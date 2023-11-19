@@ -119,7 +119,9 @@ Route::group(['middleware' => ['allowAllUsers']], function () {
 });
 
 
-
+Route::get('/reset-password', function () {
+     return view('reset-password');
+ });
 
 
 // Route::get('/dashboard', function () {
