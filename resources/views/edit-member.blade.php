@@ -29,7 +29,7 @@
                                     <span class="d-none d-sm-block">Unggah foto baru</span>
                                     <i class="ti ti-upload d-block d-sm-none"></i>
                                     <input type="file" id="upload" name="foto_profil" class="account-file-input"
-                                        hidden accept="image/png, image/jpg, image/jpeg" />
+                                        hidden accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this)" />
                                 </label>
 
                                 <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 800kb</div>
@@ -44,41 +44,41 @@
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label for="inputText" class="form-label">Nama</label>
-                            <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name"
-                                value="{{ $member->name }}" autofocus required />
-                                @error('name')
+                            <input class="form-control @error('name') is-invalid @enderror" type="text" id="name"
+                                name="name" value="{{ $member->name }}" autofocus required />
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="inputUsername" class="form-label">Username</label>
-                            <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" id="username"
-                                value="{{ $member->username }}" required />
-                                @error('username')
+                            <input class="form-control @error('username') is-invalid @enderror" type="text"
+                                name="username" id="username" value="{{ $member->username }}" required />
+                            @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="inputEmail" class="form-label">E-mail</label>
                             <input class="form-control @error('email') is-invalid @enderror" id="email" name="email"
                                 value="{{ $member->email }}" required />
-                                @error('email')
+                            @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">No. Telpon</label>
-                            <input type="number" class="form-control @error('nohp') is-invalid @enderror" id="nohp" name="nohp"
-                                value="{{ $member->nohp }}" required />
-                                @error('nohp')
+                            <input type="number" class="form-control @error('nohp') is-invalid @enderror" id="nohp"
+                                name="nohp" value="{{ $member->nohp }}" required />
+                            @error('nohp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                 required/>
-                                @error('password')
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password" required />
+                            @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <div class="text-danger">Isi password apabila ingin mengubah
@@ -92,7 +92,7 @@
                         <button type="submit" class="btn btn-primary me-2">Simpan perubahan</button>
                         <a class="btn btn-label-danger" href="/data-member">Batal</a>
                     </div>
-                </form>
+                    </form>
                 </div>
 
             </div>
@@ -102,5 +102,21 @@
         <!--/ Responsive Table -->
     </div>
     <!-- / Content -->
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('uploadedAvatar');
+            var file = input.files[0];
+            var reader = new FileReader();
 
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "{{ asset('img/default.png') }}";
+            }
+        }
+    </script>
 @endsection

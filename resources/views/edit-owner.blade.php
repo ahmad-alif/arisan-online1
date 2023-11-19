@@ -113,7 +113,7 @@
             if (file) {
                 reader.readAsDataURL(file);
             } else {
-                preview.src = "{{ asset('img/default.png') }}"; // Ganti dengan URL gambar default
+                preview.src = "{{ asset('img/default.png') }}";
             }
         }
     </script>

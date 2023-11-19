@@ -65,22 +65,24 @@
                                     <td style="align-items: center; justify-content: center;">
                                         @if ($owner->active == 0)
                                             <button type="button" class="btn btn-label-danger btn-sm"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#confirmDeactivateModal">Mati</button>
+                                                data-bs-toggle="modal" data-bs-target="#confirmActivateModal">Mati</button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="confirmDeactivateModal" tabindex="-1"
-                                                role="dialog" aria-labelledby="confirmDeactivateModalLabel"
-                                                aria-hidden="true">
+                                            <div class="modal fade" id="confirmActivateModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="confirmActivateModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="confirmDeactivateModalLabel">
-                                                                Konfirmasi Deaktivasi Akun</h5>
+                                                            <h5 class="modal-title" id="confirmActivateModalLabel">
+                                                                Konfirmasi Aktivasi Akun</h5>
 
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Apakah Anda yakin ingin mengaktifkan akun ini?</p>
+                                                            <p>Apakah Anda yakin ingin mengaktifkan akun
+                                                                <strong>
+                                                                    {{ $owner->name }}?
+                                                                </strong>
+                                                            </p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -164,7 +166,31 @@
                                                         <label class="form-label">No HP: </label>
                                                         <p>{{ $owner->nohp }}</p>
                                                     </div>
-                                                    <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
+                                                    <div class="col-12">
+                                                        <label class="form-label">Arisans:</label>
+                                                        @if ($owner->arisans_owner->isEmpty())
+                                                            <p>Tidak ada arisan.</p>
+                                                        @else
+                                                            <div class="row">
+                                                                @foreach ($owner->arisans_owner as $arisan)
+                                                                    <div class="col-md-4 mb-3">
+                                                                        <div class="card">
+                                                                            <img src="{{ Storage::url($arisan->img_arisan) }}"
+                                                                                class="card-img-top" alt="Arisan Image">
+                                                                            <div class="card-body">
+                                                                                <h5 class="card-title"
+                                                                                    style="font-size: 14px;">
+                                                                                    {{ $arisan->nama_arisan }}</h5>
+                                                                                <p class="card-text"
+                                                                                    style="font-size: 12px;">
+                                                                                    {{ $arisan->deskripsi }}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

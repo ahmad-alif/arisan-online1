@@ -18,6 +18,12 @@ return new class extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->bigint('id_user');
+            $table->text('deskripsi');
+            $table->integer('status');
+            $table->integer('active');
+            $table->integer('max_member');
+            $table->string('deposit_frequency');
+            $table->string('payment_amount');
             $table->timestamps();
         });
     }

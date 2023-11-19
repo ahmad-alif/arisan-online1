@@ -79,14 +79,44 @@
                                     @if (Auth::user()->role == 2)
                                         <td>
                                             @if ($member->active == 0)
-                                                <form action="{{ route('activate-account', ['id' => $member->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <span class="badge bg-label-success me-1">Aktif</span>
-                                                </form>
+                                                <button type="button" class="btn btn-label-danger btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#confirmActivateModal-{{ $member->id }}">Mati</button>
+
+                                                <div class="modal fade" id="confirmActivateModal-{{ $member->id }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="confirmActivateModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="confirmActivateModalLabel">
+                                                                    Konfirmasi Aktivasi Akun</h5>
+
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Apakah Anda yakin ingin mengaktifkan akun
+                                                                    <strong>
+                                                                        {{ $member->name }}?
+                                                                    </strong>
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <form
+                                                                    action="{{ route('activate-account', ['id' => $member->id]) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit" class="btn btn-success">Ya,
+                                                                        Aktifkan</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @elseif ($member->active == 1)
-                                                <button type="button" class="btn btn-label-danger btn-sm">Mati</button>
+                                                <span class="badge bg-label-success me-1">Aktif</span>
                                             @endif
                                         </td>
                                     @endif
@@ -116,12 +146,58 @@
                                                     <i class="ti ti-trash me-1"></i> Hapus
                                                 </button>
                                                 {{-- </form> --}}
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="ti ti-info-square me-1"></i> Info</a>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#memberInfoModal-{{ $member->id }}">
+                                                    <i class="ti ti-info-square me-1"></i> Info
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
+                            @endforeach
+                            @foreach ($members as $member)
+                                <div class="modal fade" id="memberInfoModal-{{ $member->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="memberInfoModalLabel-{{ $member->id }}"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
+                                        <div class="modal-content p-3 p-md-5">
+                                            <div class="modal-body">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                                <div class="text-center mb-4">
+                                                    <h1 class="mb-2">ℹ️</h1>
+                                                    {{-- <h3 class="mb-2">Informasi member</h3> --}}
+                                                    <h2 class="mb-2">{{ $member->username }}</h2>
+                                                </div>
+                                                <div class="row g-3">
+                                                    <div class="col-12 text-center">
+                                                        @if ($member->foto_profil)
+                                                            <img src="{{ Storage::url($member->foto_profil) }}"
+                                                                alt="Foto Profil" class="rounded-circle" width="100">
+                                                        @else
+                                                            <img src="{{ asset('img/default.png') }}"
+                                                                alt="Default Profile" class="rounded-circle"
+                                                                width="100">
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label">Nama: </label>
+                                                        <p>{{ $member->name }}</p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label">Email: </label>
+                                                        <p>{{ $member->email }}</p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label">No HP: </label>
+                                                        <p>{{ $member->nohp }}</p>
+                                                    </div>
+                                                    <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                             @foreach ($members as $member)
                                 <!-- Add New Credit Card Modal -->
@@ -139,7 +215,8 @@
                                                     <h2 class="mb-2">
                                                         {{ $member->username }}
                                                     </h2>
-                                                    <p class="text-danger">*Data yang sudah dihapus tidak dapat dikembalikan
+                                                    <p class="text-danger">*Data yang sudah dihapus tidak dapat
+                                                        dikembalikan
                                                     </p>
                                                 </div>
                                                 <form id="addNewCCForm" class="row g-3"

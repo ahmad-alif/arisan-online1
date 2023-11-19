@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Arisan::class, 'member_arisans', 'id_user', 'id_arisan')->withTimestamps();
     }
+    public function arisans_owner()
+    {
+        return $this->hasMany(Arisan::class, 'id_user', 'id');
+    }
 }

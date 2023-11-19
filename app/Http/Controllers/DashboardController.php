@@ -17,16 +17,25 @@ class DashboardController extends Controller
         return view('dashboard', ['active' => 'dashboard'])->with('role', $request);
     }
 
+    // public function manageOwner(Request $request)
+    // {
+    //     // Logika untuk halaman dashboard user
+    //     $search = $request->query('search');
+
+    //     $query = User::where('role', 1);
+
+    //     $owners = User::where('role', 1)->orderby('id', 'DESC')->paginate(10);
+
+    //     return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners])->with('role', $request);
+    // }
+
     public function manageOwner(Request $request)
     {
-        // Logika untuk halaman dashboard user
         $search = $request->query('search');
 
-        $query = User::where('role', 1);
-
-        $owners = User::where('role', 1)->orderby('id', 'DESC')->paginate(10);
-
-        return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners])->with('role', $request);
+        $owners = User::with('arisans_owner')->where('role', 1)->orderBy('id', 'DESC')->paginate(10);
+        // dd($owners);
+        return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners]);
     }
 
     public function addOwner(Request $request)
@@ -195,7 +204,7 @@ class DashboardController extends Controller
         // dd(auth()->user()->role);
         $member->save();
 
-        return redirect('/data-member')->with('success', 'Perubahan Owner telah disimpan.');
+        return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
     }
 
     public function deleteMember($id)
@@ -231,12 +240,12 @@ class DashboardController extends Controller
 
         if (!$member) {
             // Handle the case where the member is not found
-            return redirect()->route('manage-member')->with('error', 'Member Tidak Ditemukan.');
+            return redirect()->route('data-member')->with('error', 'Member Tidak Ditemukan.');
         }
 
         $member->active = 1;
         $member->save();
 
-        return redirect('/manage-member')->with('success', 'Perubahan Owner telah disimpan.');
+        return redirect('/data-member')->with('success', 'Perubahan Owner telah disimpan.');
     }
 }
