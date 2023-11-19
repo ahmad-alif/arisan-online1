@@ -152,6 +152,21 @@
                                             @enderror
                   </div>
                 </div>
+                <div class="mb-3 form-password-toggle">
+                    <label class="form-label" for="konfirmasiPassword">Konfirmasi Password</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="password"
+                        id="konfirmasiPassword"
+                        class="form-control"
+                        name="konfirmasipassword"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        aria-describedby="password"
+                        required
+                        />
+                      <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                    </div>
+                  </div>
 
                 <div class="mb-3">
                     <label for="nohp" class="form-label">Nomor Handphone (Whatsapp)</label>
@@ -343,6 +358,28 @@
         acceptTermsCheckbox.on('change', function() {
             checkCheckboxStatus();
         });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var passwordInput = document.getElementById('yourPassword');
+        var confirmPasswordInput = document.getElementById('konfirmasiPassword');
+        var confirmPasswordIcon = document.querySelector('#konfirmasiPassword + .input-group-text i');
+
+        function checkPasswordMatch() {
+            var password = passwordInput.value;
+            var confirmPassword = confirmPasswordInput.value;
+
+            if (password === confirmPassword) {
+                confirmPasswordInput.classList.remove('is-invalid');
+                confirmPasswordIcon.classList.remove('text-danger');
+            } else {
+                confirmPasswordInput.classList.add('is-invalid');
+                confirmPasswordIcon.classList.add('text-danger');
+            }
+        }
+
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch);
     });
 </script>
   </body>
