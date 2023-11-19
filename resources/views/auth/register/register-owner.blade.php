@@ -102,7 +102,7 @@
               <h4 class="mb-1 pt-2">Mulai perjalanan arisan anda🚀</h4>
               <p class="mb-4">Daftar sebagai pemilik</p>
 
-              <form class="mb-3" enctype="multipart/form-data" action="{{ route('register.processUser') }}" method="POST" novalidate>
+              <form class="mb-3" id="formregisterowner" enctype="multipart/form-data" action="{{ route('register.processOwner') }}" method="POST" novalidate>
                 @csrf
                 <div class="mb-3">
                   <label for="yourName" class="form-label">Nama</label>
@@ -382,5 +382,21 @@
         confirmPasswordInput.addEventListener('input', checkPasswordMatch);
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById('formregisterowner');
+
+        form.addEventListener('submit', function () {
+            var nohpInput = document.getElementById('nohp');
+            var inputValue = nohpInput.value;
+
+            // Menghapus angka 0 di depan nomor handphone sebelum mengirim formulir
+            if (inputValue.charAt(0) === '0') {
+                nohpInput.value = inputValue.slice(1);
+            }
+        });
+    });
+</script>
+
   </body>
 </html>
