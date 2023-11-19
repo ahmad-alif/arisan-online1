@@ -133,9 +133,6 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="yourPassword">Password</label>
-                    <a href="auth-forgot-password-basic.html">
-                      <small>Lupa Sandi?</small>
-                    </a>
                   </div>
                   <div class="input-group input-group-merge">
                     <input
@@ -159,10 +156,16 @@
                 </div>
               </form>
 
-              <p class="text-center">
+              <p class="text-center m-1 p-1">
                 <span>Belum punya akun?</span>
-                <a href="{{ route('register') }}">
+                <a href="/register/choose-role">
                   <span>Buat akun</span>
+                </a>
+              </p>
+              <p class="text-center">
+                <span>Lupa Password?</span>
+                <a href="/reset-password">
+                  <span>Reset Password</span>
                 </a>
               </p>
 
