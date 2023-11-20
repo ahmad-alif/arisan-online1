@@ -226,7 +226,7 @@ class ArisanController extends Controller
             'start_date' => 'required|date',
             'max_member' => 'required|integer',
             'deposit_frequency' => 'required|in:1,2,4',
-            'payment_amount' => 'required|numeric',
+            'payment_amount' => 'required|string',
             'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
