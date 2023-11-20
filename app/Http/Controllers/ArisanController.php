@@ -242,7 +242,9 @@ class ArisanController extends Controller
         $arisan->active = 0; // Atur active sesuai kebutuhan
         $arisan->max_member = $request->input('max_member');
         $arisan->deposit_frequency = $request->input('deposit_frequency');
-        $arisan->payment_amount = $request->input('payment_amount');
+        // $arisan->payment_amount = $request->input('payment_amount');
+        $paymentAmount = preg_replace("/[^0-9]/", "", $request->input('payment_amount'));
+        $arisan->payment_amount = $paymentAmount;
         $arisan->id_user = $userId; // Simpan ID pengguna
 
         // Upload gambar jika ada

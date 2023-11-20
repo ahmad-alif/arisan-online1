@@ -23,7 +23,8 @@
                                     <span class="d-none d-sm-block">Unggah foto baru</span>
                                     <i class="ti ti-upload d-block d-sm-none"></i>
                                     <input type="file" id="upload" name="img_arisan" class="account-file-input "
-                                        hidden accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this);" />
+                                        hidden accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this);"
+                                        required />
                                 </label>
                                 @error('img_arisan')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -86,16 +87,25 @@
                             <div class="mb-3 col-md-6">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
                                 <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi"
-                                    value="{{ old('deskripsi') }}" rows="3"></textarea>
+                                    value="{{ old('deskripsi') }}" rows="3" required></textarea>
                                 @error('deskripsi')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-3 col-md-6">
+                            {{-- <div class="mb-3 col-md-6">
                                 <label for="payment_amount" class="form-label">Jumlah Deposit</label>
                                 <input class="form-control @error('payment_amount') is-invalid @enderror" type="text"
                                     id="payment_amount" name="payment_amount" value="{{ old('payment_amount') }}" autofocus
                                     required placeholder="contoh: Rp. 100.000" />
+                                @error('payment_amount')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div> --}}
+                            <div class="mb-3 col-md-6">
+                                <label for="payment_amount" class="form-label">Jumlah Deposit</label>
+                                <input class="form-control @error('payment_amount') is-invalid @enderror" type="text"
+                                    id="payment_amount" name="payment_amount" value="{{ old('payment_amount') }}" autofocus
+                                    required placeholder="contoh: 100000" />
                                 @error('payment_amount')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
