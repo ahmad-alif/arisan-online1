@@ -47,6 +47,7 @@ Route::get('/register/user', [AuthController::class, 'registerUser'])->name('reg
 Route::post('/register/user', [AuthController::class, 'processUserRegistration'])->name('register.processUser');
 
 Route::post('/check-username-availability', [AuthController::class, 'checkUsernameAvailability'])->name('checkUsernameAvailability');
+Route::post('/check-email-availability', [AuthController::class, 'checkEmailAvailability'])->name('checkEmailAvailability');
 Route::post('/check-nohp-availability', [AuthController::class, 'checkNoHpAvailability'])->name('checkNoHpAvailability');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
@@ -120,8 +121,8 @@ Route::group(['middleware' => ['allowAllUsers']], function () {
 
 
 Route::get('/reset-password', function () {
-     return view('reset-password');
- });
+    return view('reset-password');
+});
 
 
 // Route::get('/dashboard', function () {

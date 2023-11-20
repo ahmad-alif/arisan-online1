@@ -60,6 +60,22 @@ class AuthController extends Controller
         }
     }
 
+    public function checkEmailAvailability(Request $request)
+    {
+        $email = $request->input('email');
+
+        // Cek apakah username sudah ada di database
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
+    }
+
     public function checkNoHpAvailability(Request $request)
     {
         $nohp = $request->input('nohp');
