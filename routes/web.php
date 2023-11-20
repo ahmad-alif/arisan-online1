@@ -50,14 +50,32 @@ Route::post('/check-username-availability', [AuthController::class, 'checkUserna
 Route::post('/check-email-availability', [AuthController::class, 'checkEmailAvailability'])->name('checkEmailAvailability');
 Route::post('/check-nohp-availability', [AuthController::class, 'checkNoHpAvailability'])->name('checkNoHpAvailability');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
-Route::get('/profile/ubah-profile', [ProfileController::class, 'ubahProfile'])->name('ubah-profile')->middleware('auth');
-Route::post('/profile/ubah-profile', [ProfileController::class, 'updateProfile'])->name('update-profile')->middleware('auth');
-Route::get('/profile/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto')->middleware('auth');
-Route::post('/profile/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto')->middleware('auth');
-Route::get('/profile/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password')->middleware('auth');
-Route::post('/profile/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password')->middleware('auth');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+// Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+// Route::get('/profile/ubah-profile', [ProfileController::class, 'ubahProfile'])->name('ubah-profile')->middleware('auth');
+// Route::post('/profile/ubah-profile', [ProfileController::class, 'updateProfile'])->name('update-profile')->middleware('auth');
+// Route::get('/profile/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto')->middleware('auth');
+// Route::post('/profile/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto')->middleware('auth');
+// Route::get('/profile/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password')->middleware('auth');
+// Route::post('/profile/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password')->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('/profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'index']);
+
+        Route::get('/ubah-profile', [ProfileController::class, 'ubahProfile'])->name('ubah-profile');
+        Route::post('/ubah-profile', [ProfileController::class, 'updateProfile'])->name('update-profile');
+
+        Route::get('/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto');
+        Route::post('/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto');
+
+        Route::get('/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password');
+        Route::post('/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+    });
+});
+
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
@@ -94,8 +112,8 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::get('/manage-arisan', [ArisanController::class, 'manageArisan'])->name('manage-arisan');
     Route::get('/arisan/add', [ArisanController::class, 'addArisanOwner'])->name('add-arisan-owner');
     Route::post('/arisan/add', [ArisanController::class, 'processAddArisanOwner'])->name('processAddArisanOwner');
-    Route::get('/edit-arisan/{id}', [ArisanController::class, 'editArisan'])->name('edit-arisan');
-    Route::post('/edit-arisan/{id}', [ArisanController::class, 'processEditArisan'])->name('processEditArisan');
+    Route::get('/arisan/edit/{id}', [ArisanController::class, 'editArisanOwner'])->name('edit-arisan-owner');
+    Route::post('/arisan/edit/{id}', [ArisanController::class, 'processEditArisanOwner'])->name('processEditArisanOwner');
     Route::get('/manage-member', [MemberArisanController::class, 'index'])->name('manage-member');
     // Route::get('/member-detail/{id}', [MemberController::class, 'showDetail'])->name('member-detail');
     Route::get('/add-member-arisan', [MemberArisanController::class, 'addMember'])->name('add-member-arisan');
