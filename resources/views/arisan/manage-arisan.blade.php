@@ -123,9 +123,13 @@
                                                         data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
                                                         <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
                                                 @endif
-                                                <a href="#arisanInfoModal-{{ $arisan->id_arisan }}" class="dropdown-item"
+                                                {{-- <a href="#arisanInfoModal-{{ $arisan->id_arisan }}" class="dropdown-item"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#arisanInfoModal-{{ $arisan->id_arisan }}">
+                                                    <i class="ti ti-info-circle me-1"></i> Detail
+                                                </a> --}}
+                                                <a href="{{ route('detail-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                    class="dropdown-item">
                                                     <i class="ti ti-info-circle me-1"></i> Detail
                                                 </a>
                                             </div>
