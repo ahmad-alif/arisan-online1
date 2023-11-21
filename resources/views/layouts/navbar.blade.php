@@ -91,16 +91,40 @@
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
+                        @if (auth()->user()->role == 1)
+                            @if (auth()->user()->active == 0)
+                                <li>
+                                    <a class="dropdown-item text-danger" href="/verification-account">
+                                        <i class="ti ti-discount-check me-2 ti-sm"></i>
+                                        <span class="align-middle">Verifikasi Akun</span>
+                                    </a>
+                                </li>
+                            @endif
+                        @endif
+
+                        @if (auth()->user()->role == 0)
+                            @if (auth()->user()->active == 0)
+                                <li>
+                                    <a class="dropdown-item text-danger" href="/verification-account-member">
+                                        <i class="ti ti-discount-check me-2 ti-sm"></i>
+                                        <span class="align-middle">Verifikasi Akun</span>
+                                    </a>
+                                </li>
+                            @endif
+                        @endif
+
                         <li>
                             <a class="dropdown-item" href="/profile">
                                 <i class="ti ti-user-check me-2 ti-sm"></i>
                                 <span class="align-middle">Profile Saya</span>
                             </a>
                         </li>
-                        <a class="dropdown-item" href="/profile/ubah-profile">
-                            <i class="ti ti-settings me-2 ti-sm"></i>
-                            <span class="align-middle">Pengaturan Akun</span>
-                        </a>
+                        <li>
+                            <a class="dropdown-item" href="/profile/ubah-profile">
+                                <i class="ti ti-settings me-2 ti-sm"></i>
+                                <span class="align-middle">Pengaturan Akun</span>
+                            </a>
+                        </li>
                 </li>
                 <li>
                     <div class="dropdown-divider"></div>

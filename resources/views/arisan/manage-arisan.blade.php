@@ -251,22 +251,25 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                         <div class="text-center mb-4">
-                                            <h1 class="mb-2" id="confirmStartModalLabel-{{ $arisan->id_arisan }}">🤔</h1>
+                                            <h1 class="mb-2" id="confirmStartModalLabel-{{ $arisan->id_arisan }}">🤔
+                                            </h1>
                                             <h3 class="mb-2">Apakah anda ingin memulai arisan ini?</h3>
                                             <h2 class="mb-2">
                                                 {{ $arisan->nama_arisan }}
                                             </h2>
-                                            <p class="text-danger">*Arisan yang sudah dimulai tidak dapat diubah dan dihapu</p>
+                                            <p class="text-danger">*Arisan yang sudah dimulai tidak dapat diubah dan
+                                                dihapus!
+                                            </p>
                                         </div>
 
-                                            <div class="col-12 text-center">
-                                                <a href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
-                                                    class="btn btn-success me-sm-3 me-1">Ya, Mulai Arisan</a>
-                                                <button class="btn btn-danger me-sm-3 me-1"
-                                                    data-bs-dismiss="modal" aria-label="Close">
-                                                    Batal
-                                                </button>
-                                            </div>
+                                        <div class="col-12 text-center">
+                                            <a href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
+                                                class="btn btn-success me-sm-3 me-1">Ya, Mulai Arisan</a>
+                                            <button class="btn btn-danger me-sm-3 me-1" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                                Batal
+                                            </button>
+                                        </div>
 
                                     </div>
                                 </div>

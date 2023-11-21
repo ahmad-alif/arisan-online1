@@ -311,7 +311,46 @@ class AuthController extends Controller
             ]);
         }
 
-        return redirect()->route('verification-account')->with('success', 'Foto KTP berhasil di upload!.');
+        return redirect()->route('dashboard')->with('success', 'Foto KTP berhasil di upload. Akun anda dalam proses aktivasi!');
+    }
+
+    public function verificationAccountMember()
+    {
+        $id = Auth::user()->id;
+        $verificationAccount = User::findOrFail($id);
+
+        return view('verification-account', [
+            'title' => 'Verifikasi Akun',
+            'active' => 'Verifikasi Akun',
+            'users' => $verificationAccount,
+        ], compact('verificationAccount'));
+    }
+
+    public function processVerificationAccountMember(Request $request)
+    {
+        // Validasi form jika diperlukan
+        $request->validate([
+            'foto_ktp' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        $id = Auth::user()->id;
+        $verificationAccount = User::findOrFail($id);
+
+        if ($request->hasFile('foto_ktp')) {
+            if ($verificationAccount->foto_ktp && Storage::exists($verificationAccount->foto_ktp)) {
+                Storage::delete($verificationAccount->foto_ktp);
+            }
+
+            $filename = uniqid() . '.' . $request->file('foto_ktp')->extension();
+
+            $foto_ktpPath = $request->file('foto_ktp')->storeAs('public/foto_ktp', $filename);
+
+            $verificationAccount->update([
+                'foto_ktp' => $foto_ktpPath,
+            ]);
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Foto KTP berhasil di upload. Akun anda dalam proses aktivasi!');
     }
 
 
