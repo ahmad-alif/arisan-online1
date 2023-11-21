@@ -186,6 +186,9 @@ class ArisanController extends Controller
             'deposit_frequency' => 'required|in:1,2,4',
             'payment_amount' => 'required|string',
             'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_bank' => 'required|string|max:255',
+            'no_rekening' => 'required|string|max:255',
+            'nama_pemilik_rekening' => 'required|string|max:255',
         ]);
 
         // Dapatkan ID pengguna yang sedang login
@@ -203,7 +206,10 @@ class ArisanController extends Controller
         // $arisan->payment_amount = $request->input('payment_amount');
         $paymentAmount = preg_replace("/[^0-9]/", "", $request->input('payment_amount'));
         $arisan->payment_amount = $paymentAmount;
-        $arisan->id_user = $userId; // Simpan ID pengguna
+        $arisan->id_user = $userId;
+        $arisan->nama_bank = $request->input('nama_bank');
+        $arisan->no_rekening = $request->input('no_rekening');
+        $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
 
         // Upload gambar jika ada
         if ($request->hasFile('img_arisan')) {
@@ -211,11 +217,9 @@ class ArisanController extends Controller
             $arisan->img_arisan = $imagePath;
         }
 
-        // Simpan data arisan
         $arisan->save();
         // dd($arisan);
 
-        // Redirect atau berikan pesan sukses
         return redirect('/manage-arisan')->with('success', 'Arisan berhasil ditambahkan');
     }
 

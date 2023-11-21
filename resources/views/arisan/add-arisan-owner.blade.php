@@ -29,7 +29,7 @@
                                 @error('img_arisan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 800kb</div>
+                                <div class="text-muted">Format yang didukung JPG, GIF atau PNG. Ukuran Max 2MB</div>
                             </div>
                             {{-- </form> --}}
                         </div>
@@ -107,6 +107,40 @@
                                     id="payment_amount" name="payment_amount" value="{{ old('payment_amount') }}" autofocus
                                     required placeholder="contoh: 100000" />
                                 @error('payment_amount')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="nama_bank" class="form-label">Nama Bank</label>
+                                <select class="form-select @error('nama_bank') is-invalid @enderror" id="nama_bank"
+                                    name="nama_bank" required>
+                                    <option disabled selected>Pilih Bank</option>
+                                    <option value="BRI">Bank Rakyat Indonesia (BRI)</option>
+                                    <option value="BCA">Bank Central Asia (BCA)</option>
+                                    <option value="BNI">Bank Negara Indonesia (BNI)</option>
+                                </select>
+                                @error('nama_bank')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="no_rekening" class="form-label">Nomor Rekening</label>
+                                <input class="form-control @error('no_rekening') is-invalid @enderror" type="text"
+                                    id="no_rekening" name="no_rekening" value="{{ old('no_rekening') }}" required
+                                    placeholder="contoh: 1234 5678 9012 3456" />
+                                @error('no_rekening')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="nama_pemilik_rekening" class="form-label">Nama Pemilik Rekening</label>
+                                <input class="form-control @error('nama_pemilik_rekening') is-invalid @enderror"
+                                    type="text" id="nama_pemilik_rekening" name="nama_pemilik_rekening"
+                                    value="{{ old('nama_pemilik_rekening') }}" required
+                                    placeholder="contoh: Budi Setiawan" />
+                                @error('nama_pemilik_rekening')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

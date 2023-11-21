@@ -31,19 +31,21 @@
                     </div>
                 @endif
             @endif
-            @if (auth()->user()->role == 1)
-                <div class="alert bg-label-success">
-                    <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6><br>
-                    <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
-                    <a href="/verification-account" class="btn btn-sm btn-warning mt-2">Verifikasi Akun</a>
-                </div>
-            @endif
-            @if (auth()->user()->role == 0)
-                <div class="alert bg-label-success">
-                    <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6><br>
-                    <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
-                    <a href="/verification-account-member" class="btn btn-sm btn-warning mt-2">Verifikasi Akun</a>
-                </div>
+            @if (auth()->user()->active == 0)
+                @if (auth()->user()->role == 1)
+                    <div class="alert bg-label-success">
+                        <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6><br>
+                        <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
+                        <a href="/verification-account" class="btn btn-sm btn-warning mt-2">Verifikasi Akun</a>
+                    </div>
+                @endif
+                @if (auth()->user()->role == 0)
+                    <div class="alert bg-label-success">
+                        <h6 class="alert-heading mb-1">Verifikasi akun🤔</h6><br>
+                        <p class="mb-0">Silahkan verifikasi akun Anda dengan melengkapi data diri.</p>
+                        <a href="/verification-account-member" class="btn btn-sm btn-warning mt-2">Verifikasi Akun</a>
+                    </div>
+                @endif
             @endif
 
         </div>
