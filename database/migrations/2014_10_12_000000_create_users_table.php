@@ -22,7 +22,8 @@ return new class extends Migration
             $table->tinyInteger('role');
             // $table->enum('role', [0, 1, 2]);
             $table->boolean('active')->default(0);
-            $table->string('foto_profil')->default('img/default.png');
+            $table->string('foto_profil');
+            $table->string('foto_ktp');
             $table->rememberToken();
             $table->timestamps();
         });
