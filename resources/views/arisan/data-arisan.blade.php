@@ -117,7 +117,7 @@
                                                     data-bs-target="#confirmDeleteModal-{{ $arisan->id_arisan }}">
                                                     <i class="ti ti-trash me-1"></i> Hapus
                                                 </button>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
+                                                <a class="dropdown-item" href="{{ route('page-arisan', ['id' => $arisan->id_arisan]) }}"><i
                                                         class="ti ti-info-square me-1"></i> Info</a>
                                             </div>
                                         </div>

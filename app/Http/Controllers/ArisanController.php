@@ -311,6 +311,12 @@ class ArisanController extends Controller
         return view('arisan.list-arisan', ['active' => 'list-arisan', 'search' => $search, 'arisans' => $arisans]);
     }
 
+    public function pageArisan($id)
+    {
+
+        $arisan = Arisan::where('id_arisan', $id)->first();
+        return view('arisan.page-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
+    }
 
     public function create()
     {

@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::get('/edit-category/{id}', [CategoryController::class, 'editCategory'])->name('edit-category');
     Route::put('/edit-category/{id}', [CategoryController::class, 'processEditCategory'])->name('processEditCategory');
     Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete-category');
+    Route::get('/page-arisan/{id}', [ArisanController::class, 'pageArisan'])->name('page-arisan');
 });
 
 // Route owner
