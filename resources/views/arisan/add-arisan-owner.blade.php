@@ -92,15 +92,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            {{-- <div class="mb-3 col-md-6">
-                                <label for="payment_amount" class="form-label">Jumlah Deposit</label>
-                                <input class="form-control @error('payment_amount') is-invalid @enderror" type="text"
-                                    id="payment_amount" name="payment_amount" value="{{ old('payment_amount') }}" autofocus
-                                    required placeholder="contoh: Rp. 100.000" />
-                                @error('payment_amount')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div> --}}
+
                             <div class="mb-3 col-md-6">
                                 <label for="payment_amount" class="form-label">Jumlah Deposit</label>
                                 <input class="form-control @error('payment_amount') is-invalid @enderror" type="text"

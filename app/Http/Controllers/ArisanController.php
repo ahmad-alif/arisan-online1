@@ -32,9 +32,14 @@ class ArisanController extends Controller
         return view('arisan.manage-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function detailArisan($id)
+    {
+        $arisan = Arisan::with('members')->findOrFail($id);
+        // $arisan = Arisan::findOrFail($id);
+        // dd($arisans);
+
+        return view('arisan.detail-arisan', ['active' => 'manage-arisan'], compact('arisan'));
+    }
 
     public function addArisan()
     {
