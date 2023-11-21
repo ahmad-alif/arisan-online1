@@ -150,7 +150,7 @@
 
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
-                            <a class="btn btn-label-danger" href="/manage-arisan">Batal</a>
+                            <a class="btn btn-label-danger" href="/data-arisan">Batal</a>
                         </div>
                     </div>
                 </form>
