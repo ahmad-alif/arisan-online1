@@ -91,6 +91,43 @@ class ArisanController extends Controller
         $request->validate([
             'nama_arisan' => 'required',
             'start_date' => 'required',
+            // 'end_date' => 'required'
+        ]);
+
+        $arisan->nama_arisan = $request->input('nama_arisan');
+        $arisan->start_date = $request->input('start_date');
+        $arisan->end_date = $request->input('end_date');
+
+        if ($request->hasFile('img_arisan')) {
+            // Delete the old profile picture
+            if ($arisan->img_arisan && Storage::exists($arisan->img_arisan)) {
+                Storage::delete($arisan->img_arisan);
+            }
+
+            // Upload and save the new profile picture
+            $filename = uniqid() . '.' . $request->file('img_arisan')->extension();
+            $img_arisanPath = $request->file('img_arisan')->storeAs('public/arisan_images', $filename);
+            $arisan->img_arisan = $img_arisanPath;
+        }
+        $arisan->save();
+        // dd($arisan);
+        return redirect('/data-arisan')->with('success', 'Perubahan Owner telah disimpan.');
+    }
+
+    public function editArisanOwner($id)
+    {
+
+        $arisan = Arisan::where('id_arisan', $id)->first();
+        return view('arisan.edit-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
+    }
+
+    public function processEditArisanOwner(Request $request, $id)
+    {
+        $arisan = Arisan::where('id_arisan', $id)->first();
+
+        $request->validate([
+            'nama_arisan' => 'required',
+            'start_date' => 'required',
             'end_date' => 'required'
         ]);
 
@@ -138,85 +175,6 @@ class ArisanController extends Controller
         return view('arisan.add-arisan-owner', ['active' => 'manage-arisan', 'users' => $users]);
     }
 
-    // public function processAddArisanOwner(Request $request)
-    // {
-    //     $request->validate([
-    //         'nama_arisan' => 'required|string|max:255',
-    //         'start_date' => 'required',
-    //         'end_date' => 'required',
-    //         'img_arisan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'id_user' => 'required',
-    //     ]);
-
-    //     if ($request->hasFile('img_arisan')) {
-    //         $img_arisanPath = $request->file('img_arisan')->store('arisan_images', 'public');
-    //     }
-
-    //     $arisan = new Arisan();
-    //     $arisan->nama_arisan = $request->input('nama_arisan');
-    //     $arisan->start_date = $request->input('start_date');
-    //     $arisan->end_date = $request->input('end_date');
-
-    //     // Store the image path in the database if an image was uploaded
-    //     if (isset($img_arisanPath)) {
-    //         $arisan->img_arisan = $img_arisanPath;
-    //     }
-
-    //     $arisan->id_user = $request->input('id_user');
-
-    //     $arisan->save();
-
-
-    //     return redirect('/manage-arisan')->with('success', 'Data Owner telah ditambahkan.');
-    // }
-    // public function processAddArisanOwner(Request $request)
-    // {
-    //     // Validasi input data
-    //     $request->validate([
-    //         'nama_arisan' => 'required|string|max:255',
-    //         'deskripsi' => 'required|string',
-    //         'start_date' => 'required|date',
-    //         'max_member' => 'required|integer',
-    //         'deposit_frequency' => 'required|in:1,2,4',
-    //         'payment_amount' => 'required|numeric',
-    //         'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     // Hitung end_date berdasarkan max_member dan deposit_frequency
-    //     $maxMember = $request->input('max_member');
-    //     $depositFrequency = $request->input('deposit_frequency');
-    //     $startDate = \Carbon\Carbon::parse($request->input('start_date'));
-    //     $endDate = $startDate->copy()->addWeeks($maxMember * $depositFrequency);
-
-    //     // Dapatkan ID pengguna yang sedang login
-    //     $userId = Auth::id();
-
-    //     // Simpan data arisan ke dalam database
-    //     $arisan = new Arisan();
-    //     $arisan->nama_arisan = $request->input('nama_arisan');
-    //     $arisan->deskripsi = $request->input('deskripsi');
-    //     $arisan->start_date = $startDate;
-    //     $arisan->end_date = $endDate;
-    //     $arisan->status = 0;
-    //     $arisan->active = 0;
-    //     $arisan->max_member = $maxMember;
-    //     $arisan->deposit_frequency = $depositFrequency;
-    //     $arisan->payment_amount = $request->input('payment_amount');
-    //     $arisan->id_user = $userId; // Simpan ID pengguna
-
-    //     // Upload gambar jika ada
-    //     if ($request->hasFile('img_arisan')) {
-    //         $imagePath = $request->file('img_arisan')->store('arisan_images', 'public');
-    //         $arisan->img_arisan = $imagePath;
-    //     }
-
-    //     // Simpan data arisan
-    //     // $arisan->save();
-    //     dd($arisan);
-
-    //     // Redirect atau berikan pesan sukses
-    //     return redirect('/manage-arisan')->with('success', 'Arisan berhasil ditambahkan');
-    // }
     public function processAddArisanOwner(Request $request)
     {
         // Validasi input data
@@ -226,7 +184,7 @@ class ArisanController extends Controller
             'start_date' => 'required|date',
             'max_member' => 'required|integer',
             'deposit_frequency' => 'required|in:1,2,4',
-            'payment_amount' => 'required|numeric',
+            'payment_amount' => 'required|string',
             'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -242,7 +200,9 @@ class ArisanController extends Controller
         $arisan->active = 0; // Atur active sesuai kebutuhan
         $arisan->max_member = $request->input('max_member');
         $arisan->deposit_frequency = $request->input('deposit_frequency');
-        $arisan->payment_amount = $request->input('payment_amount');
+        // $arisan->payment_amount = $request->input('payment_amount');
+        $paymentAmount = preg_replace("/[^0-9]/", "", $request->input('payment_amount'));
+        $arisan->payment_amount = $paymentAmount;
         $arisan->id_user = $userId; // Simpan ID pengguna
 
         // Upload gambar jika ada

@@ -28,6 +28,7 @@ class User extends Authenticatable
     // ];
     protected $guarded = [];
 
+    public $timestamps = true;
     /**
      * The attributes that should be hidden for serialization.
      *

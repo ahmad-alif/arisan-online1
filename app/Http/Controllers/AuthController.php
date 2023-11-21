@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,22 @@ class AuthController extends Controller
 
         // Cek apakah username sudah ada di database
         $user = User::where('username', $username)->first();
+
+        if ($user) {
+            // Username sudah terpakai
+            return response()->json(['available' => false]);
+        } else {
+            // Username tersedia
+            return response()->json(['available' => true]);
+        }
+    }
+
+    public function checkEmailAvailability(Request $request)
+    {
+        $email = $request->input('email');
+
+        // Cek apakah username sudah ada di database
+        $user = User::where('email', $email)->first();
 
         if ($user) {
             // Username sudah terpakai
@@ -145,6 +162,7 @@ class AuthController extends Controller
             'nohp' => $request->nohp,
             'role' => 1,
             'active' => 0,
+            'created_at' => Carbon::now(),
         ]);
 
         return redirect()->route('login');
@@ -189,9 +207,9 @@ class AuthController extends Controller
             'nohp' => $request->nohp,
             'role' => 0,
             'active' => 0,
-            // 'id_arisan' => $ids,
-            // 'id_arisan' => $request->id_arisan,
+            'created_at' => Carbon::now(),
         ]);
+        // dd($request->all());
 
         return redirect()->route('login')->with('success', 'Registrasi sukses, Silahkan Login!');
     }
