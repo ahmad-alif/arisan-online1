@@ -46,11 +46,13 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="mb-3 col-md-6">
-                                <label for="id_user" class="form-label">ID User (Owner)</label>
+                                <label for="id_user" class="form-label">Owner Arisan</label>
                                 <input class="form-control" type="text" id="id_user" name="id_user"
                                     value="{{ $arisan->user->name }}" readonly>
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="max_member" class="form-label">Maksimal Anggota</label>
                                 <input class="form-control @error('max_member') is-invalid @enderror" type="number"
@@ -60,6 +62,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="start_date" class="form-label">Tanggal Mulai</label>
                                 <input name="start_date" class="form-control @error('start_date') is-invalid @enderror"
@@ -68,6 +71,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="deposit_frequency" class="form-label">Jangka Deposit</label>
                                 <select class="form-select form-control @error('deposit_frequency') is-invalid @enderror"
@@ -85,6 +89,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
                                 <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="3"
@@ -93,6 +98,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="payment_amount" class="form-label">Jumlah Deposit</label>
                                 <input class="form-control @error('payment_amount') is-invalid @enderror" type="text"
@@ -102,7 +108,46 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="nama_bank" class="form-label">Nama Bank</label>
+                                <select class="form-select form-control @error('nama_bank') is-invalid @enderror"
+                                    id="nama_bank" name="nama_bank" aria-label="Default select example" required>
+                                    <option disabled selected>Harap pilih nama bank</option>
+                                    <option value="BCA" {{ $arisan->nama_bank == 'BCA' ? 'selected' : '' }}>BCA
+                                    </option>
+                                    <option value="BRI" {{ $arisan->nama_bank == 'BRI' ? 'selected' : '' }}>BRI
+                                    </option>
+                                    <option value="BNI" {{ $arisan->nama_bank == 'BNI' ? 'selected' : '' }}>BNI
+                                    </option>
+                                    <!-- Add more bank options as needed -->
+                                </select>
+                                @error('nama_bank')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="no_rekening" class="form-label">Nomor Rekening</label>
+                                <input class="form-control @error('no_rekening') is-invalid @enderror" type="text"
+                                    id="no_rekening" name="no_rekening" value="{{ $arisan->no_rekening }}" autofocus
+                                    required placeholder="contoh: 1234567890" />
+                                @error('no_rekening')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="nama_pemilik_rekening" class="form-label">Nama Pemilik Rekening</label>
+                                <input class="form-control @error('nama_pemilik_rekening') is-invalid @enderror"
+                                    type="text" id="nama_pemilik_rekening" name="nama_pemilik_rekening"
+                                    value="{{ $arisan->nama_pemilik_rekening }}" autofocus required />
+                                @error('nama_pemilik_rekening')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
+
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
                             <a class="btn btn-label-danger" href="/manage-arisan">Batal</a>

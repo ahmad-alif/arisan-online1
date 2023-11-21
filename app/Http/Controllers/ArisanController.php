@@ -96,7 +96,7 @@ class ArisanController extends Controller
 
         $arisan->nama_arisan = $request->input('nama_arisan');
         $arisan->start_date = $request->input('start_date');
-        $arisan->end_date = $request->input('end_date');
+        // $arisan->end_date = $request->input('end_date');
 
         if ($request->hasFile('img_arisan')) {
             // Delete the old profile picture
@@ -118,6 +118,7 @@ class ArisanController extends Controller
     {
 
         $arisan = Arisan::where('id_arisan', $id)->first();
+        // dd($arisan);
         return view('arisan.edit-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
     }
 
@@ -128,12 +129,17 @@ class ArisanController extends Controller
         $request->validate([
             'nama_arisan' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required'
+            'img_arisan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_bank' => 'required',
+            'no_rekening' => 'required',
+            'nama_pemilik_rekening' => 'required',
         ]);
 
         $arisan->nama_arisan = $request->input('nama_arisan');
         $arisan->start_date = $request->input('start_date');
-        $arisan->end_date = $request->input('end_date');
+        $arisan->nama_bank = $request->input('nama_bank');
+        $arisan->no_rekening = $request->input('no_rekening');
+        $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
 
         if ($request->hasFile('img_arisan')) {
             // Delete the old profile picture
@@ -146,9 +152,9 @@ class ArisanController extends Controller
             $img_arisanPath = $request->file('img_arisan')->storeAs('public/arisan_images', $filename);
             $arisan->img_arisan = $img_arisanPath;
         }
-        $arisan->save();
-
-        return redirect('/manage-arisan')->with('success', 'Perubahan Owner telah disimpan.');
+        // $arisan->save();
+        dd($arisan);
+        // return redirect('/manage-arisan')->with('success', 'Perubahan Arisan telah disimpan.');
     }
 
     public function deleteArisan($id)
