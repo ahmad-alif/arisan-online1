@@ -240,6 +240,41 @@
                         <!--/ Add New Credit Card Modal -->
                     @endforeach
 
+                    @foreach ($arisans as $arisan)
+                        <!-- Add New Credit Card Modal -->
+                        <div class="modal fade" id="confirmStartModal-{{ $arisan->id_arisan }}"
+                            aria-labelledby="confirmStartModalLabel-{{ $arisan->id_arisa }}" tabindex="-1"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
+                                <div class="modal-content p-3 p-md-5">
+                                    <div class="modal-body">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                        <div class="text-center mb-4">
+                                            <h1 class="mb-2" id="confirmStartModalLabel-{{ $arisan->id_arisan }}">🤔</h1>
+                                            <h3 class="mb-2">Apakah anda ingin memulai arisan ini?</h3>
+                                            <h2 class="mb-2">
+                                                {{ $arisan->nama_arisan }}
+                                            </h2>
+                                            <p class="text-danger">*Arisan yang sudah dimulai tidak dapat diubah dan dihapu</p>
+                                        </div>
+
+                                            <div class="col-12 text-center">
+                                                <a href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                    class="btn btn-success me-sm-3 me-1">Ya, Mulai Arisan</a>
+                                                <button class="btn btn-danger me-sm-3 me-1"
+                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                    Batal
+                                                </button>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ Add New Credit Card Modal -->
+                    @endforeach
+
                 </div>
             </div>
         </div>
