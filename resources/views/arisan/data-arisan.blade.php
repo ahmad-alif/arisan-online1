@@ -106,7 +106,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                    href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
                                                     class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
                                                     data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
                                                     <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
@@ -143,7 +143,7 @@
                                             <i class="bx bx-x d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block">Tidak</span>
                                         </button>
-                                        <a href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
+                                        <a href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
                                             class="btn btn-success ml-1">
                                             <i class="bx bx-check d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block">Ya, mulai</span>
