@@ -39,12 +39,12 @@
                                             <ul
                                                 class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                                 <li class="list-inline-item d-flex gap-1">
-                                                    Tanggal Mulai:
+                                                    <p class="fw-bold">Tanggal Mulai:</p>
                                                     {{ $arisan->start_date ? \Carbon\Carbon::parse($arisan->start_date)->isoFormat('D MMMM Y') : '-' }}
                                                 </li>
                                                 <li class="list-inline-item d-flex gap-1">
-                                                    Tanggal Berakhir:
-                                                    {{ $arisan->end_date ? \Carbon\Carbon::parse($arisan->end_date)->isoFormat('D MMMM Y') : '-' }}
+                                                    <p class="fw-bold">Tanggal Berakhir:</p>
+                                                    {{ $arisan->end_date ? \Carbon\Carbon::parse($arisan->end_date)->isoFormat('D MMMM Y') : 'Arisan Belum Dimulai' }}
                                                 </li>
 
                                             </ul>
