@@ -114,13 +114,16 @@
 
                                                 @elseif ($arisan->status == 1)
                                                         <a class="dropdown-item" href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
-                                                            class="btn btn-sm btn-success col-10 mb-1"
+
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
                                                         <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
                                                 @endif
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="ti ti-info-square me-1"></i> Info</a>
+                                                <a href="#arisanInfoModal-{{ $arisan->id_arisan }}"
+                                                    class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#arisanInfoModal-{{ $arisan->id_arisan }}">
+                                                    <i class="ti ti-info-circle me-1"></i> Detail
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
