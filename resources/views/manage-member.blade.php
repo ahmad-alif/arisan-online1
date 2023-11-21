@@ -130,11 +130,14 @@
                                             <div class="dropdown-menu">
                                                 @if (Auth::user()->role == 2)
                                                     @if ($member->active == 0)
-                                                        <a class="dropdown-item disabled" href="javascript:void(0);"><i
-                                                                class="ti ti-circle-check me-1"></i> Teraktifasi</a>
+                                                    <button type="button" class="dropdown-item"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#confirmActivateModal-{{ $member->id }}"><i
+                                                    class="ti ti-circle-check me-1"></i> Aktivasi</a></button>
                                                     @elseif ($member->active == 1)
-                                                        <a class="dropdown-item " href="javascript:void(0);"><i
-                                                                class="ti ti-circle-check me-1"></i> Aktifkan</a>
+
+                                                                <a class="dropdown-item disabled" href="javascript:void(0);"><i
+                                                                    class="ti ti-circle-check me-1"></i> Teraktivasi</a>
                                                     @endif
                                                 @endif
 
