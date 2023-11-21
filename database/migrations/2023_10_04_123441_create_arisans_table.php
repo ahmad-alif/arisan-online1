@@ -24,6 +24,9 @@ return new class extends Migration
             $table->integer('max_member');
             $table->string('deposit_frequency');
             $table->string('payment_amount');
+            $table->string('nama_bank');
+            $table->string('no_rekening');
+            $table->string('nama_pemilik_rekening');
             $table->timestamps();
         });
     }
