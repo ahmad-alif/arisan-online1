@@ -50,7 +50,8 @@
                             <div class="mb-3 col-md-6">
                                 <label for="id_user" class="form-label">Owner Arisan</label>
                                 <input class="form-control" type="text" id="id_user" name="id_user"
-                                    value="{{ $arisan->user->name }}" readonly>
+                                    value="{{ $arisan->user->name ?? 'Tidak diketahui' }}
+                                    " readonly>
                             </div>
 
                             <div class="mb-3 col-md-6">
