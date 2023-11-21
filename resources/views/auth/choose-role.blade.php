@@ -82,7 +82,7 @@
       <!-- Pricing plans: Start -->
 
         <div class="container">
-          <div class="text-center mb-3 pb-1 ">
+          <div class="text-center mb-3 pb-1 mt-5">
             <span class="badge bg-label-primary">Pilih Peran</span>
           </div>
           <h3 class="text-center mb-1"><span class="section-title">Pilih peran anda</span> dalam arisan</h3>
@@ -144,8 +144,8 @@
             <!-- Standard Plan: Start -->
             <!-- Standard Plan: End -->
             </form>
-            <h4 class="text-center mb-0">Sudah punya akun?</h4>
-            <div class="d-flex justify-content-center"> <a href="{{ route('login') }}" class="btn btn-primary mb-5">Masuk di sini!</a></div>
+            <h4 class="text-center mb-0 mt-4">Sudah punya akun?</h4>
+            <div class="d-flex justify-content-center mt-2"> <a href="{{ route('login') }}" class="btn btn-primary mb-5">Masuk di sini!</a></div>
           </div>
         </div>
 
