@@ -27,117 +27,209 @@
 
 
     <!-- Real customers reviews: Start -->
-    <section id="landingReviews" class="section-py bg-body landing-reviews pb-0">
-      <!-- What people say slider: Start -->
-      <div class="container">
-        <div class="row align-items-center gx-0 gy-4 g-lg-5">
-          <div class="col-md-6 col-lg-5 col-xl-3">
-            <div class="mb-3 pb-1">
-              <span class="badge bg-label-primary">Top Arisan</span>
-            </div>
-            <h3 class="mb-1"><span class="section-title">Arisan Populer</span></h3>
-            <p class="mb-3 mb-md-5">
-              See what our customers have to<br class="d-none d-xl-block" />
-              say about their experience.
-            </p>
-            <div class="landing-reviews-btns">
-              <button
-                id="reviews-previous-btn"
-                class="btn btn-label-primary reviews-btn me-3 scaleX-n1-rtl"
-                type="button">
-                <i class="ti ti-chevron-left ti-sm"></i>
-              </button>
-              <button id="reviews-next-btn" class="btn btn-label-primary reviews-btn scaleX-n1-rtl" type="button">
-                <i class="ti ti-chevron-right ti-sm"></i>
-              </button>
-            </div>
+    <section id="landingReviews">
+    <div class="container">
+        <div class="text-center mb-3 pb-1 mt-4">
+            <span class="badge bg-label-primary">Rekomendasi Arisan</span>
           </div>
-          <div class="col-md-6 col-lg-7 col-xl-9">
-            <div class="swiper-reviews-carousel overflow-hidden mb-5 pb-md-2 pb-md-3">
-              <div class="swiper" id="swiper-reviews">
-                <div class="swiper-wrapper">
-                    @foreach ($arisans as $arisan)
-                  <div class="swiper-slide">
-                    <div class="card h-100">
-                      <div class="card-body text-body d-flex flex-column justify-content-between h-100">
-                        <div class="rounded-2 text-center mb-3 width=">
-                          {{-- <img
-                            src="/assets/img/front-pages/branding/logo-1.png"
-                            alt="client logo"
-                            class="client-logo img-fluid" /> --}}
-                            @if ($arisan->img_arisan)
+          <h3 class="text-center mb-1"><span class="section-title">Arisan populer</span> untuk anda</h3>
+      <!-- What people say slider: Start -->
+      <div class="row align-items-center">
+        <!-- Sales last year -->
+        @foreach ($arisans as $arisan)
 
-                            {{-- <img src="{{ Storage::url($arisan->img_arisan) }}"
-                                class="me-3 rounded-circle"
-                                width="35"
-                                height="35"
-                                alt="{{ $arisan->nama_arisan }}"> --}}
-                            <img
-                            class="object-fit-sm-contain border rounded img-fluid"
-                                src="{{ Storage::url($arisan->img_arisan) }}"
-                                alt="{{ $arisan->nama_arisan }}"
 
-                                />
-                            @else
-                            <img src="{{ asset('img/default_arisan.jpg') }}"
-                            class="object-fit-sm-contain border rounded img-fluid"
-                                alt="client logo" >
-                            @endif
-                        </div>
-                        <h4 class="mb-0">{{ $arisan->nama_arisan }}</h4>
-                        <p class="small">
-                            @if ($arisan->user)
+        <div class="col-xl-2 col-md-4 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
+                <div class="rounded-2 text-center mb-3 width=">
+                    {{-- <img
+                      src="/assets/img/front-pages/branding/logo-1.png"
+                      alt="client logo"
+                      class="client-logo img-fluid" /> --}}
+                      @if ($arisan->img_arisan)
+
+                      {{-- <img src="{{ Storage::url($arisan->img_arisan) }}"
+                          class="me-3 rounded-circle"
+                          width="35"
+                          height="35"
+                          alt="{{ $arisan->nama_arisan }}"> --}}
+                      <img
+                      class="object-fit-sm-contain border rounded img-fluid"
+                          src="{{ Storage::url($arisan->img_arisan) }}"
+                          alt="{{ $arisan->nama_arisan }}"
+
+                          />
+                      @else
+                      <img src="{{ asset('img/default_arisan.jpg') }}"
+                      class="object-fit-sm-contain border rounded img-fluid"
+                          alt="client logo" >
+                      @endif
+                  </div>
+                <h5 class="card-title mb-0">{{ $arisan->nama_arisan }}</h5>
+                <small class="text-muted">
+                    @if ($arisan->user)
                             {{ $arisan->user->name }}
                             @else
                             Tidak Diketahui
                             @endif
-                          </p>
-                        <div class="row mb-3 g-3">
-                            <div class="col-6">
-                              <div class="d-flex">
-                                <div class="avatar flex-shrink-0 me-2">
-                                  <span class="avatar-initial rounded bg-label-primary"
-                                    ><i class="ti ti-calendar ti-md"></i
-                                  ></span>
-                                </div>
-                                <div>
-                                  <h6 class="mb-0 text-nowrap" >{{ $arisan->start_date }}</h6>
-                                  <small>Mulai</small>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-6">
-                              <div class="d-flex">
-                                <div class="avatar flex-shrink-0 me-2">
-                                  <span class="avatar-initial rounded bg-label-primary"
-                                    ><i class="ti ti-calendar-off ti-md"></i
-                                  ></span>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0 text-nowrap" >{{ $arisan->end_date }}</h6>
-                                  <small>Selesai</small>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100">Gabung</a>
+                </small>
+              </div>
+              <div id="salesLastYear"></div>
+              <div class="card-body pt-0">
+                {{-- <div class="row mb-3 g-3">
+                    <div class="col-6">
+                      <div class="d-flex">
+                        <div class="avatar flex-shrink-0 me-2">
+                          <span class="avatar-initial rounded bg-label-primary"
+                            ><i class="ti ti-calendar ti-md"></i
+                          ></span>
+                        </div>
+                        <div>
+                          <h6 class="mb-0 text-nowrap" >{{ $arisan->start_date }}</h6>
+                          <small>Mulai</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-flex">
+                        <div class="avatar flex-shrink-0 me-2">
+                          <span class="avatar-initial rounded bg-label-primary"
+                            ><i class="ti ti-calendar-off ti-md"></i
+                          ></span>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 text-nowrap" >{{ $arisan->end_date }}</h6>
+                          <small>Selesai</small>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  @endforeach
+                  <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100">Gabung</a>
+                </div> --}}
+                <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+                    <div class="row">
+                    <div class="col-sm">
+
+                        <small>Mulai</small>
+                        <small>{{ $arisan->start_date }}</small>
+                    </div>
+                    <div class="col-sm">
+                        <small>Selesai</small>
+                        <small>{{ $arisan->end_date }}</small>
+                        </div>
+                    </div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100 mt-2">Gabung</a>
               </div>
             </div>
           </div>
-        </div>
+        @endforeach
       </div>
       <!-- What people say slider: End -->
-      <hr class="m-0" />
+    </div>
     </section>
     <!-- Real customers reviews: End -->
 
+    <section id="landingReviews2">
+        <div class="container">
+              <h3 class="text-center mb-1"><span class="section-title">Arisan Terbaru</span></h3>
+          <!-- What people say slider: Start -->
+          <div class="row align-items-center">
+            <!-- Sales last year -->
+            @foreach ($arisans as $arisan)
+
+
+            <div class="col-xl-2 col-md-4 col-6 mb-4">
+                <div class="card h-100">
+                  <div class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
+                    <div class="rounded-2 text-center mb-3 width=">
+                        {{-- <img
+                          src="/assets/img/front-pages/branding/logo-1.png"
+                          alt="client logo"
+                          class="client-logo img-fluid" /> --}}
+                          @if ($arisan->img_arisan)
+
+                          {{-- <img src="{{ Storage::url($arisan->img_arisan) }}"
+                              class="me-3 rounded-circle"
+                              width="35"
+                              height="35"
+                              alt="{{ $arisan->nama_arisan }}"> --}}
+                          <img
+                          class="object-fit-sm-contain border rounded img-fluid"
+                              src="{{ Storage::url($arisan->img_arisan) }}"
+                              alt="{{ $arisan->nama_arisan }}"
+
+                              />
+                          @else
+                          <img src="{{ asset('img/default_arisan.jpg') }}"
+                          class="object-fit-sm-contain border rounded img-fluid"
+                              alt="client logo" >
+                          @endif
+                      </div>
+                    <h5 class="card-title mb-0">{{ $arisan->nama_arisan }}</h5>
+                    <small class="text-muted">
+                        @if ($arisan->user)
+                                {{ $arisan->user->name }}
+                                @else
+                                Tidak Diketahui
+                                @endif
+                    </small>
+                  </div>
+                  <div id="salesLastYear"></div>
+                  <div class="card-body pt-0">
+                    {{-- <div class="row mb-3 g-3">
+                        <div class="col-6">
+                          <div class="d-flex">
+                            <div class="avatar flex-shrink-0 me-2">
+                              <span class="avatar-initial rounded bg-label-primary"
+                                ><i class="ti ti-calendar ti-md"></i
+                              ></span>
+                            </div>
+                            <div>
+                              <h6 class="mb-0 text-nowrap" >{{ $arisan->start_date }}</h6>
+                              <small>Mulai</small>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="d-flex">
+                            <div class="avatar flex-shrink-0 me-2">
+                              <span class="avatar-initial rounded bg-label-primary"
+                                ><i class="ti ti-calendar-off ti-md"></i
+                              ></span>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 text-nowrap" >{{ $arisan->end_date }}</h6>
+                              <small>Selesai</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100">Gabung</a>
+                    </div> --}}
+                    <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+                        <div class="row">
+                        <div class="col-sm">
+
+                            <small>Mulai</small>
+                            <small>{{ $arisan->start_date }}</small>
+                        </div>
+                        <div class="col-sm">
+                            <small>Selesai</small>
+                            <small>{{ $arisan->end_date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100 mt-2">Gabung</a>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+          <!-- What people say slider: End -->
+        </div>
+        </section>
     <!-- Our great team: Start -->
     {{-- <section id="landingTeam" class="section-py landing-team">
       <div class="container">
