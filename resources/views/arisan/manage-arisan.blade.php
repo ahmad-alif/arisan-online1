@@ -117,14 +117,14 @@
                                                         <i class="ti ti-trash me-1"></i> Hapus
                                                     </button>
                                                 @elseif ($arisan->status == 1)
-                                                        <a class="dropdown-item" href="{{ route('start-arisan', ['id' => $arisan->id_arisan]) }}"
-                                                            class="btn btn-sm btn-success col-10 mb-1"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
+                                                        class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
                                                         <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
                                                 @endif
-                                                <a href="#arisanInfoModal-{{ $arisan->id_arisan }}"
-                                                    class="dropdown-item" data-bs-toggle="modal"
+                                                <a href="#arisanInfoModal-{{ $arisan->id_arisan }}" class="dropdown-item"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#arisanInfoModal-{{ $arisan->id_arisan }}">
                                                     <i class="ti ti-info-circle me-1"></i> Detail
                                                 </a>
