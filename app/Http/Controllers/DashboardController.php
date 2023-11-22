@@ -246,6 +246,6 @@ class DashboardController extends Controller
         $member->active = 1;
         $member->save();
 
-        return redirect('/data-member')->with('success', 'Perubahan Owner telah disimpan.');
+        return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
     }
 }

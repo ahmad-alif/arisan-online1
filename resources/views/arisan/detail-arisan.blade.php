@@ -117,7 +117,24 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span>{{ $arisan->deposit_frequency }}</span>
+                                            @php
+                                                $frequencyText = '';
+                                                switch ($arisan->deposit_frequency) {
+                                                    case 1:
+                                                        $frequencyText = '1 Minggu sekali';
+                                                        break;
+                                                    case 2:
+                                                        $frequencyText = '2 Minggu sekali';
+                                                        break;
+                                                    case 4:
+                                                        $frequencyText = '1 Bulan sekali';
+                                                        break;
+                                                    // Add more cases as needed
+                                                    default:
+                                                        $frequencyText = 'Tidak diketahui';
+                                                }
+                                            @endphp
+                                            <span>{{ $frequencyText }}</span>
                                         </div>
                                     </div>
                                 </div>
