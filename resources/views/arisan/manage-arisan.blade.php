@@ -122,7 +122,13 @@
                                                         class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
                                                         data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
                                                         <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
+                                                @elseif ($arisan->status == 2)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('show-winner', ['id' => $arisan->id_arisan]) }}">
+                                                        <i class="ti ti-trophy me-1"></i> Undi Pemenang
+                                                    </a>
                                                 @endif
+
                                                 {{-- <a href="#arisanInfoModal-{{ $arisan->id_arisan }}" class="dropdown-item"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#arisanInfoModal-{{ $arisan->id_arisan }}">

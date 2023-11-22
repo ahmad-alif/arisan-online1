@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberArisanController;
+use App\Http\Controllers\WinnerArisanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,7 +124,11 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::post('/verification-account', [AuthController::class, 'processVerificationAccount'])->name('processVerificationAccount');
     Route::get('/arisan/start/{id}', [ArisanController::class, 'startArisan'])->name('start-arisan-owner');
 
-    Route::get('/winner/{id}', [WinnerArisanController::class, 'index'])->name('winner-arisan');
+    Route::get('/winner/show/{id}', [WinnerArisanController::class, 'showWinner'])->name('show-winner');
+    Route::post('/winner/draw/{id}', [WinnerArisanController::class, 'drawWinner'])->name('draw-winner');
+
+    // Route::get('/winner/{id}', [WinnerArisanController::class, 'drawWinner'])->name('winner-arisan');
+    // Route::post('/winner/{id}', [WinnerArisanController::class, 'selectWinner'])->name('select-winner');
 });
 
 //Route User

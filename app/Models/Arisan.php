@@ -9,7 +9,13 @@ class Arisan extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    // protected $fillable = ['winner_drawn'];
     protected $primaryKey = 'id_arisan';
+
+    // public function setWinnerDrawnAttribute($value)
+    // {
+    //     $this->attributes['winner_drawn'] = $value ? 1 : 0;
+    // }
 
     public function user()
     {
