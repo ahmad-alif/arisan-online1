@@ -73,7 +73,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto');
 
         Route::get('/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password');
+        // Route::post('/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+        // Route::post('/ubah-password', [ProfileController::class, 'checkOldPassword'])->name('check-old-password');
         Route::post('/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+        Route::post('/ubah-password-check', [ProfileController::class, 'checkOldPassword'])->name('check-old-password');
     });
 });
 

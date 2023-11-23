@@ -1,11 +1,16 @@
 <?php
 
+// namespace App\Http\Controllers;
+namespace App\Http\Controllers\Hash;
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+// use App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
@@ -98,22 +103,42 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $id = Auth::user()->id;
-        $changePassword = User::findOrFail($id);
+        try {
+            // Validation
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|confirmed',
+            ]);
 
-        $request->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            // Match Old Password
+            if (!Hash::check($request->old_password, auth()->user()->password)) {
+                return back()->with('alert', 'error')->with('message', 'Password Lama Salah.');
+            }
 
-        if ($request->filled('password')) {
-            // $changePassword->password = bcrypt($request->input('password'));
-            $changePassword->password = $request->input('password');
+            // Update New Password
+            $updateResult = User::whereId(auth()->user()->id)->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+
+            if ($updateResult) {
+                return back()->with('alert', 'success')->with('message', 'Update Password Berhasil.');
+            } else {
+                throw new \Exception('Gagal mengupdate password.');
+            }
+        } catch (\Exception $e) {
+            // Handle the exception, you can log it or return a specific error message
+            return back()->with('alert', 'error')->with('message', $e->getMessage());
         }
+    }
 
-        // dd($request->all());
+    public function checkOldPassword(Request $request) {
+        $oldPassword = $request->input('old_password');
+        $user = Auth::user();
 
-        $changePassword->save();
-
-        return redirect()->route('ubah-password')->with('success', 'Password Telah Diubah!');
+        if (Hash::check($oldPassword, $user->password)) {
+            return response()->json(['valid' => true]);
+        } else {
+            return response()->json(['valid' => false]);
+        }
     }
 }

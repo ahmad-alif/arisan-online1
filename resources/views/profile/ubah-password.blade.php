@@ -5,28 +5,6 @@
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile"><i class="ti ti-user-check me-1 ti-xs"></i>
-                                Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/ubah-profile"><i class="ti-xs ti ti-id me-1"></i>
-                                Ubah Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/ubah-foto"><i class="ti ti-camera me-1 ti-xs"></i>
-                                Ubah Foto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/profile/ubah-password"><i class="ti-xs ti ti-lock me-1"></i>
-                                Ubah Password</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
             @if (session('success'))
                 <div class="alert alert-success d-flex align-items-center" role="alert">
@@ -51,30 +29,36 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="card-body">
-                                <form id="formAccountSettings" enctype="multipart/form-data" method="POST"
-                                    action="{{ route('update-password') }}">
+                                <form method="POST" action="{{ route('update-password') }}" novalidate="novalidate" enctype="multipart/form-data">
                                     @csrf
                                     <h5 class="card-text text-uppercase">Ubah Password</h5>
                                     <div class="row">
                                         <div class="mb-3 col-md-12">
+                                            <label for="firstName" class="form-label">Kata Sandi Lama</label>
+                                            <input class="form-control" type="password" id="old_password" name="old_password"
+                                                autofocus />
+                                            <div id="password-feedback"></div>
+                                        </div>
+                                        <div class="mb-3 col-md-12">
                                             <label for="firstName" class="form-label">Kata Sandi Baru</label>
-                                            <input class="form-control" type="password" id="password" name="password"
+                                            <input class="form-control" type="password" id="new_password" name="new_password"
                                                 autofocus />
                                         </div>
                                         <div class="mb-3 col-md-12">
                                             <label for="firstName" class="form-label">Konfirmasi Kata Sandi Baru</label>
-                                            <input class="form-control" type="password" id="password_confirmation"
-                                                name="password_confirmation" />
+                                            <input class="form-control" type="password" id="new_password_confirmation"
+                                                name="new_password_confirmation" />
                                         </div>
 
                                         <div class="mb-3 col-md-12">
-                                            <small id="passwordMismatch" class="text-danger"></small>
+                                            <div id="password-error" class="text-danger"></div>
                                         </div>
 
                                     </div>
                                     <div class="mt-2">
-                                        <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                                        <button type="submit" class="btn btn-primary me-2">Ubah sandi</button>
                                         {{-- <button type="reset" class="btn btn-label-secondary">Cancel</button> --}}
+                                        <button type="reset" class="btn btn-label-secondary waves-effect">Reset</button>
                                     </div>
                                 </form>
                             </div>
@@ -91,7 +75,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         const passwordInput = document.getElementById('password');
         const passwordConfirmationInput = document.getElementById('password_confirmation');
         const passwordMismatchElement = document.getElementById('passwordMismatch');
@@ -115,5 +99,47 @@
                 }
             }
         });
-    </script>
+    </script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#old_password').on('input', function() {
+                var oldPassword = $(this).val();
+
+                // Buat permintaan Ajax untuk memeriksa kata sandi lama
+                $.ajax({
+                    url: '{{ route('check-old-password') }}',
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'old_password': oldPassword
+                    },
+                    success: function(response) {
+                        if (response.valid) {
+                            $('#password-feedback').html('<p class="text-success">Password lama benar.</p>');
+                        } else {
+                            $('#password-feedback').html('<p class="text-danger">Password lama salah.</p>');
+                        }
+                    }
+                });
+            });
+        });
+      </script>
+
+
+      <script>
+        $(document).ready(function() {
+            $('#new_password_confirmation').on('input', function() {
+                var new_password = $('#new_password').val();
+                var confirmPassword = $(this).val();
+                var errorDiv = $('#password-error');
+
+                if (new_password === confirmPassword) {
+                    errorDiv.text('');
+                } else {
+                    errorDiv.text('Password Tidak Cocok');
+                }
+            });
+        });
+      </script>
 @endsection

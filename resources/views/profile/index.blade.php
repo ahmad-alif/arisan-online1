@@ -6,28 +6,6 @@
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/profile"><i class="ti ti-user-check me-1 ti-xs"></i>
-                                Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/ubah-profile"><i class="ti-xs ti ti-id me-1"></i>
-                                Ubah Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/ubah-foto"><i class="ti ti-camera me-1 ti-xs"></i>
-                                Ubah Foto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/ubah-password"><i class="ti-xs ti ti-lock me-1"></i>
-                                Ubah Password</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-12">

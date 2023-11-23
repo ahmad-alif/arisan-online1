@@ -163,9 +163,8 @@
                 </a>
               </p>
               <p class="text-center">
-                <span>Lupa Password?</span>
                 <a href="/reset-password">
-                  <span>Reset Password</span>
+                  <span>Lupa Password</span>
                 </a>
               </p>
 
