@@ -91,13 +91,13 @@
                                 </div> --}}
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="card p-2 h-100 shadow-none border">
-                                        <div class="rounded-2 text-center mb-3">
+                                        <div class="rounded-2 text-center mb-3 mt-3">
                                             @if ($arisan->img_arisan)
                                                 <img class="img-fluid" src="{{ Storage::url($arisan->img_arisan) }}"
-                                                    alt="{{ $arisan->nama_arisan }}" />
+                                                    alt="{{ $arisan->nama_arisan }}" width="200" height="200" />
                                             @else
                                                 <img src="{{ asset('img/default_arisan.jpg') }}" class="img-fluid"
-                                                    alt="Default Image">
+                                                    alt="Default Image" width="200" height="200">
                                             @endif
 
                                         </div>
