@@ -123,10 +123,14 @@
                 @auth
     @if(auth()->user()->role == 0)
         <!-- Tampilkan tautan "Gabung" jika role pengguna adalah 0 -->
+        @if (auth()->user()->active == 1)
+        <!-- Tampilkan tautan "Gabung" jika role pengguna adalah 0 -->
         <a href="/list-arisan" class="btn btn-primary w-100 mt-2">Gabung</a>
+        @else
+        @endif
     @else
         <!-- Nonaktifkan tombol jika role pengguna bukan 0 -->
-        <button class="btn btn-primary w-100 mt-2 disabled" >Gabung</button>
+        {{-- <button class="btn btn-primary w-100 mt-2 hidden disabled" >Gabung</button> --}}
     @endif
 @else
     <!-- Tampilkan tautan "Login" jika pengguna belum login -->
@@ -235,11 +239,14 @@
                     </div>
                     @auth
     @if(auth()->user()->role == 0)
+        @if (auth()->user()->active == 1)
         <!-- Tampilkan tautan "Gabung" jika role pengguna adalah 0 -->
         <a href="/list-arisan" class="btn btn-primary w-100 mt-2">Gabung</a>
+        @else
+        @endif
     @else
         <!-- Nonaktifkan tombol jika role pengguna bukan 0 -->
-        <button class="btn btn-primary w-100 mt-2 disabled" >Gabung</button>
+        {{-- <button class="btn btn-primary w-100 mt-2 disabled hidden" >Gabung</button> --}}
     @endif
 @else
     <!-- Tampilkan tautan "Login" jika pengguna belum login -->
