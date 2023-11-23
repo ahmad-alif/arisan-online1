@@ -103,7 +103,7 @@
                     fill="#7367F0" />
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Vuexy</span>
+              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Arisanku</span>
             </a>
           </div>
           <!-- Menu logo wrapper: End -->
@@ -156,10 +156,19 @@
 
             <!-- navbar button: Start -->
             <li>
-              <a href="{{ route('register.showRoleSelection') }}" class="btn btn-primary" target=""
-                ><span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span
-                ><span class="d-none d-md-block">Login/Register</span></a
-              >
+            @if(Auth::check())
+                <!-- Tampilkan tombol Dashboard jika pengguna sudah login -->
+                <a href="{{ route('dashboard') }}" class="btn btn-primary" target="">
+                    <span class="tf-icons ti ti-dashboard scaleX-n1-rtl me-md-1"></span>
+                    <span class="d-none d-md-block">Dashboard</span>
+                </a>
+            @else
+                <!-- Tampilkan tombol Login/Register jika pengguna belum login -->
+                <a href="{{ route('register.showRoleSelection') }}" class="btn btn-primary" target="">
+                    <span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span>
+                    <span class="d-none d-md-block">Login/Register</span>
+                </a>
+            @endif
             </li>
             <!-- navbar button: End -->
           </ul>
@@ -208,7 +217,7 @@
                       fill="#7367F0" />
                   </svg>
                 </span>
-                <span class="app-brand-text demo footer-link fw-bold ms-2 ps-1">Vuexy</span>
+                <span class="app-brand-text demo footer-link fw-bold ms-2 ps-1">Arisanku</span>
               </a>
               <p class="footer-text footer-logo-description mb-4">
                 Most developer friendly & highly customisable Admin Dashboard Template.

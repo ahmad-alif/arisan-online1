@@ -120,7 +120,19 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100 mt-2">Gabung</a>
+                @auth
+    @if(auth()->user()->role == 0)
+        <!-- Tampilkan tautan "Gabung" jika role pengguna adalah 0 -->
+        <a href="/list-arisan" class="btn btn-primary w-100 mt-2">Gabung</a>
+    @else
+        <!-- Nonaktifkan tombol jika role pengguna bukan 0 -->
+        <button class="btn btn-primary w-100 mt-2 disabled" >Gabung</button>
+    @endif
+@else
+    <!-- Tampilkan tautan "Login" jika pengguna belum login -->
+    <a href="/login" class="btn btn-primary w-100 mt-2">Gabung</a>
+@endauth
+
               </div>
             </div>
           </div>
@@ -221,7 +233,18 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ route('register.user', ['id_arisan' => $arisan->id_arisan]) }}" class="btn btn-primary w-100 mt-2">Gabung</a>
+                    @auth
+    @if(auth()->user()->role == 0)
+        <!-- Tampilkan tautan "Gabung" jika role pengguna adalah 0 -->
+        <a href="/list-arisan" class="btn btn-primary w-100 mt-2">Gabung</a>
+    @else
+        <!-- Nonaktifkan tombol jika role pengguna bukan 0 -->
+        <button class="btn btn-primary w-100 mt-2 disabled" >Gabung</button>
+    @endif
+@else
+    <!-- Tampilkan tautan "Login" jika pengguna belum login -->
+    <a href="/login" class="btn btn-primary w-100 mt-2">Gabung</a>
+@endauth
                   </div>
                 </div>
               </div>
