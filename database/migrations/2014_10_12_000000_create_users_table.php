@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('nohp');
             $table->tinyInteger('role');
-            // $table->enum('role', [0, 1, 2]);
             $table->boolean('active')->default(0);
             $table->string('foto_profil');
             $table->string('foto_ktp');

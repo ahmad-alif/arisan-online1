@@ -80,9 +80,9 @@ Route::middleware(['auth'])->group(function () {
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
-    Route::put('/activate-arisan/{id_arisan}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan')->middleware('auth');
-    Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account')->middleware('auth');
-    Route::put('/activate-account-owner/{id}', [DashboardController::class, 'processActivateAccountOwner'])->name('activate-account-owner')->middleware('auth');
+    Route::put('/activate-arisan/{id}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan');
+    Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account');
+    Route::put('/activate-account-owner/{id}', [DashboardController::class, 'processActivateAccountOwner'])->name('activate-account-owner');
     Route::get('/manage-owner', [DashboardController::class, 'manageOwner'])->name('manage-owner');
     Route::get('/add-owner', [DashboardController::class, 'addOwner'])->name('add-owner');
     Route::post('/add-owner', [DashboardController::class, 'processAddOwner'])->name('processAddOwner');

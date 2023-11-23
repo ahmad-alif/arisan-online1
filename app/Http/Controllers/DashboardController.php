@@ -236,7 +236,7 @@ class DashboardController extends Controller
 
     public function processActivateArisan($id)
     {
-        $arisan = User::findOrFail($id);
+        $arisan = Arisan::findOrFail($id);
 
         if (!$arisan) {
             return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');

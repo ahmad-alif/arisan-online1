@@ -98,40 +98,8 @@
                                     <td style="align-items: center; justify-content: center;">
                                         @if ($arisan->active == 0)
                                             <button type="button" class="btn btn-label-danger btn-sm"
-                                                data-bs-toggle="modal" data-bs-target="#confirmActivateModal">Mati</button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="confirmActivateModal" tabindex="-1" role="dialog"
-                                                aria-labelledby="confirmActivateModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="confirmActivateModalLabel">
-                                                                Konfirmasi Aktivasi Arisan</h5>
-
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Apakah Anda yakin ingin mengaktifkan arisan
-                                                                <strong>
-                                                                    {{ $arisan->nama_arisan }}?
-                                                                </strong>
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <form
-                                                                action="{{ route('activate-arisan', ['id' => $arisan->id_arisan]) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <button type="submit" class="btn btn-success">Ya,
-                                                                    Aktifkan</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirmActivateModal-{{ $arisan->id_arisan }}">Mati</button>
                                         @elseif ($arisan->active == 1)
                                             <span class="badge bg-label-success me-1">Aktif</span>
                                         @endif
@@ -158,7 +126,8 @@
                                                     data-bs-target="#confirmDeleteModal-{{ $arisan->id_arisan }}">
                                                     <i class="ti ti-trash me-1"></i> Hapus
                                                 </button>
-                                                <a class="dropdown-item" href="{{ route('page-arisan', ['id' => $arisan->id_arisan]) }}"><i
+                                                <a class="dropdown-item"
+                                                    href="{{ route('page-arisan', ['id' => $arisan->id_arisan]) }}"><i
                                                         class="ti ti-info-square me-1"></i> Info</a>
                                             </div>
                                         </div>
@@ -195,8 +164,45 @@
                         </div>
                     @endforeach
                     @foreach ($arisans as $arisan)
-                        <div class="modal fade" id="arisanInfoModal-{{ $arisan->id_arisan }}" tabindex="-1" role="dialog"
-                            aria-labelledby="arisanInfoModalLabel-{{ $arisan->id_arisan }}" aria-hidden="true">
+                        @if ($arisan->active == 0)
+                            <div class="modal fade" id="confirmActivateModal-{{ $arisan->id_arisan }}" tabindex="-1"
+                                role="dialog" aria-labelledby="confirmActivateModalLabel-{{ $arisan->id_arisan }}"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="confirmActivateModalLabel-{{ $arisan->id_arisan }}">
+                                                Konfirmasi Aktivasi</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Apakah Anda yakin ingin mengaktifkan arisan "{{ $arisan->nama_arisan }}"?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Tidak</span>
+                                            </button>
+                                            <form action="{{ route('activate-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-primary ml-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Ya, Aktifkan</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                    @foreach ($arisans as $arisan)
+                        <div class="modal fade" id="arisanInfoModal-{{ $arisan->id_arisan }}" tabindex="-1"
+                            role="dialog" aria-labelledby="arisanInfoModalLabel-{{ $arisan->id_arisan }}"
+                            aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
