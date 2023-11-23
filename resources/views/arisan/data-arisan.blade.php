@@ -71,7 +71,8 @@
                                 <th scope="col">Nama Arisan</th>
                                 <th scope="col">Mulai</th>
                                 <th scope="col">Berakhir</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
@@ -94,7 +95,47 @@
                                     <td>{{ $arisan->start_date }}</td>
                                     <td>{{ $arisan->end_date }}</td>
 
-                                    {{-- <td>{{ $arisan->active }}</td> --}}
+                                    <td style="align-items: center; justify-content: center;">
+                                        @if ($arisan->active == 0)
+                                            <button type="button" class="btn btn-label-danger btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#confirmActivateModal">Mati</button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmActivateModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="confirmActivateModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmActivateModalLabel">
+                                                                Konfirmasi Aktivasi Arisan</h5>
+
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Apakah Anda yakin ingin mengaktifkan arisan
+                                                                <strong>
+                                                                    {{ $arisan->nama_arisan }}?
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
+                                                            <form
+                                                                action="{{ route('activate-arisan', ['id' => $arisan->id_arisan]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-success">Ya,
+                                                                    Aktifkan</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif ($arisan->active == 1)
+                                            <span class="badge bg-label-success me-1">Aktif</span>
+                                        @endif
+                                    </td>
 
 
 
