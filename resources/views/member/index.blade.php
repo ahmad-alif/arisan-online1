@@ -46,7 +46,7 @@
                                     <td>{{ $member->nohp }}</td>
                                     <td>
                                         <a href="#memberInfoModal-{{ $member->id }}"
-                                            class="btn btn-sm btn-label-warning col-10 mb-1" data-bs-toggle="modal"
+                                            class="btn badge bg-label-info" data-bs-toggle="modal"
                                             data-bs-target="#memberInfoModal-{{ $member->id }}">
                                             Detail
                                         </a>
