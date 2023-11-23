@@ -38,7 +38,7 @@ class ArisanController extends Controller
         // $arisan = Arisan::findOrFail($id);
         // dd($arisans);
 
-        return view('arisan.detail-arisan', ['active' => 'manage-arisan'], compact('arisan'));
+        return view('arisan.detail-arisan', ['active' => 'list-arisan'], compact('arisan'));
     }
 
     public function addArisan()
@@ -200,6 +200,7 @@ class ArisanController extends Controller
             'nama_bank' => 'required|string|max:255',
             'no_rekening' => 'required|string|max:255',
             'nama_pemilik_rekening' => 'required|string|max:255',
+            'fee_admin' => 'required|string|max:255',
         ]);
 
         // Dapatkan ID pengguna yang sedang login
@@ -221,6 +222,7 @@ class ArisanController extends Controller
         $arisan->nama_bank = $request->input('nama_bank');
         $arisan->no_rekening = $request->input('no_rekening');
         $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
+        $arisan->fee_admin = $request->input('fee_admin');
 
         // Upload gambar jika ada
         if ($request->hasFile('img_arisan')) {

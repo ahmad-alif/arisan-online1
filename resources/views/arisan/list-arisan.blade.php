@@ -146,28 +146,36 @@
                                                 {{-- <button type="submit" class="btn btn-primary w-100">Gabung</button> --}}
                                                 <div class="d-flex flex-column flex-md-row gap-2 text-nowrap">
                                                     @if ($arisan->isUserJoined(auth()->user()))
-                                                    <button type="submit" class="btn btn-primary w-50 disabled">Gabung<i class="ti ti-chevron-right align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i
-                                                        ></button>
-                                                    <a
-                                                      class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-50"
-                                                      href="{{ route('arisan.detail', $arisan) }}" >
-                                                      <span class="me-2">Detail</span>
-                                                      <i class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i
-                                                        >
-                                                    </a>
-
+                                                        <button type="submit"
+                                                            class="btn btn-primary w-50 disabled">Gabung<i
+                                                                class="ti ti-chevron-right align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i></button>
+                                                        @if (auth()->user()->role == 1)
+                                                            <a class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-50"
+                                                                href="{{ route('arisan.detail', $arisan) }}">
+                                                                <span class="me-2">Detail</span>
+                                                                <i
+                                                                    class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
+                                                            </a>
+                                                        @elseif (auth()->user()->role == 0)
+                                                            <a class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-50"
+                                                                href="{{ route('arisan.detail.member', $arisan) }}">
+                                                                <span class="me-2">Detail</span>
+                                                                <i
+                                                                    class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
+                                                            </a>
+                                                        @endif
                                                     @else
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary w-50">Gabung<i class="ti ti-chevron-right align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i
-                                                        ></button>
-                                                    {{-- <a
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary w-50">Gabung<i
+                                                                class="ti ti-chevron-right align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i></button>
+                                                        {{-- <a
                                                       class="app-academy-md-50 btn btn-label-primary d-flex w-50 align-items-center"
                                                       type="submit">
                                                       <span class="me-2">Gabung</span
                                                       ><i class="ti ti-chevron-right scaleX-n1-rtl ti-sm"></i>
                                                     </a> --}}
                                                     @endif
-                                                  </div>
+                                                </div>
                                             </form>
 
                                         </div>

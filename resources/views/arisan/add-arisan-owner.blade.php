@@ -136,6 +136,15 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="fee_admin" class="form-label">Biaya Admin</label>
+                                <input class="form-control @error('fee_admin') is-invalid @enderror" type="text"
+                                    id="fee_admin" name="fee_admin" value="{{ old('fee_admin') }}" required />
+                                @error('fee_admin')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                         <div class="mt-2">
                             <button type="submit" class="btn btn-primary me-2">Tambah Arisan</button>
