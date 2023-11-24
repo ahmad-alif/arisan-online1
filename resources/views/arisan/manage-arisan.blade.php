@@ -85,10 +85,10 @@
                             @elseif ($arisan->status == 0) table-white @endif"> --}}
                                 <tr class="align-middles"
                                     style="
-                                @if ($arisan->status == 3) background-color: rgba(255, 102, 102, 0.4); @endif
-                                @if ($arisan->status == 2) background-color: rgba(102, 255, 102, 0.4); @endif
-                                @if ($arisan->status == 1) background-color: rgba(255, 214, 153, 0.4); @endif
-                                @if ($arisan->status == 0) background-color: rgba(255, 255, 102, 0.4); @endif
+                                @if ($arisan->status == 3) background-color: rgba(255, 102, 102, 0.35); @endif
+                                @if ($arisan->status == 2) background-color: rgba(102, 255, 102, 0.35); @endif
+                                @if ($arisan->status == 1) background-color: rgba(255, 214, 153, 0.35); @endif
+                                @if ($arisan->status == 0) background-color: rgba(255, 255, 102, 0.35); @endif
                             ">
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     {{-- <td><img src="{{ Storage::url($arisan->foto_profil) }}" alt="Profile"
@@ -103,7 +103,7 @@
                                         @endif
                                     </td>
 
-                                    <td>{{ $arisan->nama_arisan }}, {{ $arisan->status }}</td>
+                                    <td>{{ $arisan->nama_arisan }}</td>
                                     <td>{{ $arisan->start_date }}</td>
                                     <td>{{ $arisan->end_date }}</td>
 
