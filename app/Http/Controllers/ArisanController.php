@@ -276,7 +276,7 @@ class ArisanController extends Controller
             $query->where('nama_arisan', 'like', "%$search%");
         }
 
-        $arisans = $query->paginate(9);
+        $arisans = $query->paginate(32);
 
         return view('arisan.list-arisan', ['active' => 'list-arisan', 'search' => $search, 'arisans' => $arisans]);
     }
@@ -306,7 +306,7 @@ class ArisanController extends Controller
             $query->where('nama_arisan', 'like', "%$search%");
         }
 
-        $arisans = $query->paginate(9);
+        $arisans = $query->paginate(32);
 
         // Sanitasi data yang akan ditampilkan
         $search = htmlspecialchars($search, ENT_QUOTES, 'UTF-8');
