@@ -49,7 +49,7 @@
                                             <a href="app-academy-course-details.html"
                                                 class="h5">{{ $arisan->nama_arisan }}</a><br>
                                             <small class="mt-2 text-truncate">
-                                                {{ $arisan->user ? $arisan->user->name : 'Kesalahan menampilkan owner' }}
+                                                {{ $arisan->user ? $arisan->user->name : 'Kesalahan menampilkan' }}
                                             </small><br>
                                             <p class="mt-2 mb-2 text-truncate">
                                                 {{ $arisan->deskripsi ? $arisan->deskripsi : 'Tidak ada deskripsi' }}
@@ -59,12 +59,14 @@
                                             <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
                                                 <div class="row">
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar ti-sm"></i>Mulai</small>
-                                                        <small>{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</small>
+                                                        <small><i class="ti ti-calendar ti-sm"></i>Mulai</small><br>
+                                                        <small
+                                                            class="text-truncate">{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</small>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small>
-                                                        <small>{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
+                                                        <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small><br>
+                                                        <small
+                                                            class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -76,16 +78,15 @@
                                                     @if (auth()->user()->role == 1)
                                                         <a class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-60"
                                                             href="{{ route('arisan.detail', $arisan) }}">
-                                                            <span class="me-2">Detail</span>
+                                                            <span class="d-none d-sm-block">Detail</span>
                                                             <i
                                                                 class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
                                                         </a>
                                                     @elseif (auth()->user()->role == 0)
-                                                        <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center w-60"
+                                                        <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
                                                             href="{{ route('arisan.detail.member', $arisan) }}">
-                                                            <span class="me-2">Detail</span>
-                                                            <i
-                                                                class="ti ti-info-square align-middle scaleX-n1-rtl me-2 mt-n1"></i>
+                                                            <span class="d-none d-sm-block">Detail</span>
+                                                            <i class="ti ti-info-square d-block d-sm-none"></i>
                                                         </a>
                                                     @endif
                                                 @else
@@ -95,8 +96,8 @@
                                                         <button type="button" class="btn btn-primary"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#confirmationModal{{ $arisan->id_arisan }}">
-                                                            Gabung<i
-                                                                class="ti ti-heart-handshake align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
+                                                            <span class="d-none d-sm-block">Gabung</span><i
+                                                                class="ti ti-heart-handshake align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm d-block d-sm-none"></i>
                                                         </button>
                                                     </form>
                                                     <div class="modal fade" id="confirmationModal{{ $arisan->id_arisan }}"
