@@ -19,7 +19,8 @@ class ArisanController extends Controller
      */
     public function index(Request $request)
     {
-        $arisans = Arisan::paginate(10);
+        // $arisans = Arisan::paginate(10);
+        $arisans = Arisan::all();
         return view('arisan.data-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }
 
