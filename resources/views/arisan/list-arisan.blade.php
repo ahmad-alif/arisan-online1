@@ -47,9 +47,14 @@
                                         </div>
                                         <div class="card-body p-3 pt-2">
                                             <a href="app-academy-course-details.html"
-                                                class="h5">{{ $arisan->nama_arisan }}</a>
-                                            <p class="mt-2">
-                                                {{ $arisan->deskripsi ? $arisan->deskripsi : 'Tidak ada deskripsi' }}</p>
+                                                class="h5">{{ $arisan->nama_arisan }}</a><br>
+                                            <small class="mt-2 text-truncate">
+                                                {{ $arisan->user ? $arisan->user->name : 'Kesalahan menampilkan owner' }}
+                                            </small><br>
+                                            <p class="mt-2 mb-2 text-truncate">
+                                                {{ $arisan->deskripsi ? $arisan->deskripsi : 'Tidak ada deskripsi' }}
+                                            </p>
+
 
                                             <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
                                                 <div class="row">
