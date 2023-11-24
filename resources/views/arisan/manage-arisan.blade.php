@@ -77,7 +77,12 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($arisans as $arisan)
-                                <tr class="align-middles @if ($arisan->status == 3) table-light @endif" >
+                                <tr
+                                    class="align-middles
+                            @if ($arisan->status == 3) table-light
+                            @elseif ($arisan->status == 2) table-success
+                            @elseif ($arisan->status == 1) table-info
+                            @elseif ($arisan->status == 0) table-white @endif">
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     {{-- <td><img src="{{ Storage::url($arisan->foto_profil) }}" alt="Profile"
                             class="rounded-circle" width="100"></td> --}}
