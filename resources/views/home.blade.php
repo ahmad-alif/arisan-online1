@@ -50,8 +50,10 @@
                                                 class="object-fit-sm-contain border rounded img-fluid" alt="client logo">
                                         @endif
                                     </div>
-                                    <h5 class="card-title mb-0" style="font-size: 16px;">
-                                        {{ Str::limit($arisan->nama_arisan, 13, '...') }}</h5>
+                                    <h5 class="card-title mb-0" style="font-size: 14px;">
+                                        {{ Str::limit($arisan->nama_arisan, 14, '...') }}
+                                    </h5>
+
                                     <small class="text-muted">
                                         @if ($arisan->user)
                                             {{ Str::limit($arisan->user->name, 18, '...') }}
@@ -93,7 +95,6 @@
                 <!-- What people say slider: End -->
             </div>
         </section>
-
         <!-- Real customers reviews: End -->
 
         <section id="landingReviews2">
@@ -119,8 +120,10 @@
                                                 class="object-fit-sm-contain border rounded img-fluid" alt="client logo">
                                         @endif
                                     </div>
-                                    <h5 class="card-title mb-0" style="font-size: 16px;">
-                                        {{ Str::limit($arisan->nama_arisan, 13, '...') }}</h5>
+                                    <h5 class="card-title mb-0" style="font-size: 14px;">
+                                        {{ Str::limit($arisan->nama_arisan, 14, '...') }}
+                                    </h5>
+
                                     <small class="text-muted">
                                         @if ($arisan->user)
                                             {{ Str::limit($arisan->user->name, 18, '...') }}
