@@ -25,24 +25,6 @@
             <!-- Striped Rows -->
             <div class="card">
                 <div class="table-responsive text-nowrap">
-                    {{-- <div class="d-flex justify-content-between align-items-center ms-3 ">
-            <div class="col-1">
-                <button type="button" class="btn btn-sm btn-primary">
-                    <span class="ti-xs ti ti-plus me-1"></span>Tambah
-                </button>
-            </div>
-            <div class="col-1">
-                <!-- Area tengah kosong -->
-            </div>
-            <div class="">
-                <form action="/manage-member" method="GET">
-                    <div class="input-group input-group-merge card-body">
-                        <input type="text" class="form-control" name="search"
-                            value="{{ request('search') }}" placeholder="Cari member...">
-                    </div>
-                </form>
-            </div>
-        </div> --}}
                     <table class="table table-striped">
                         <div class="row p-3">
                             <div class="col-sm">

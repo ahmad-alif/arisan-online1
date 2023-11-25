@@ -209,38 +209,40 @@
                                 <small class="card-text text-uppercase">Member Arisan</small>
                             </div>
                             <div class="mt-3">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Foto Profil</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">No HP</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($arisan->members as $member)
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-striped">
+                                        <thead>
                                             <tr>
-                                                <th scope="row">{{ $loop->iteration }}</th>
-                                                <td>
-                                                    @if ($member->foto_profil)
-                                                        <img src="{{ Storage::url($member->foto_profil) }}"
-                                                            alt="Profile" class="rounded-circle" width="35"
-                                                            height="35">
-                                                    @else
-                                                        <i class="ti ti-user-circle ti-lg text-info"></i>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $member->username }}</td>
-                                                <td>{{ $member->name }}</td>
-                                                <td>{{ $member->email }}</td>
-                                                <td>{{ $member->nohp }}</td>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Foto Profil</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">No HP</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($arisan->members as $member)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>
+                                                        @if ($member->foto_profil)
+                                                            <img src="{{ Storage::url($member->foto_profil) }}"
+                                                                alt="Profile" class="rounded-circle" width="35"
+                                                                height="35">
+                                                        @else
+                                                            <i class="ti ti-user-circle ti-lg text-info"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $member->username }}</td>
+                                                    <td>{{ $member->name }}</td>
+                                                    <td>{{ $member->email }}</td>
+                                                    <td>{{ $member->nohp }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
