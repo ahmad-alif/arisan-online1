@@ -215,10 +215,11 @@
                                                                         </div>
                                                                         <div class="card-body">
                                                                             <h5 class="card-title"
-                                                                                style="font-size: 14px; padding-left:-3px;">
+                                                                                style="font-size: 14px; margin-left: -8px;">
                                                                                 {{ Str::limit($arisan->nama_arisan, 10, '...') }}
                                                                             </h5>
-                                                                            <p class="card-text" style="font-size: 12px;">
+                                                                            <p class="card-text"
+                                                                                style="font-size: 12px; margin-left: -8px;">
                                                                                 {{ Str::limit($arisan->deskripsi, 12, '...') }}
                                                                             </p>
                                                                         </div>
