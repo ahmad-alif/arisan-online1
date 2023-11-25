@@ -130,14 +130,12 @@
                                             <div class="dropdown-menu">
                                                 @if (Auth::user()->role == 2)
                                                     @if ($member->active == 0)
-                                                    <button type="button" class="dropdown-item"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#confirmActivateModal-{{ $member->id }}"><i
-                                                    class="ti ti-circle-check me-1"></i> Aktivasi</a></button>
+                                                        <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#confirmActivateModal-{{ $member->id }}"><i
+                                                                class="ti ti-circle-check me-1"></i> Aktivasi</a></button>
                                                     @elseif ($member->active == 1)
-
-                                                                <a class="dropdown-item disabled" href="javascript:void(0);"><i
-                                                                    class="ti ti-circle-check me-1"></i> Teraktivasi</a>
+                                                        <a class="dropdown-item disabled" href="javascript:void(0);"><i
+                                                                class="ti ti-circle-check me-1"></i> Teraktivasi</a>
                                                     @endif
                                                 @endif
 
@@ -168,8 +166,6 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h1 class="mb-2">ℹ️</h1>
-                                                    {{-- <h3 class="mb-2">Informasi member</h3> --}}
                                                     <h2 class="mb-2">{{ $member->username }}</h2>
                                                 </div>
                                                 <div class="row g-3">
@@ -188,6 +184,10 @@
                                                         <p>{{ $member->name }}</p>
                                                     </div>
                                                     <div class="col-12">
+                                                        <label class="form-label">Username: </label>
+                                                        <p>{{ $member->username }}</p>
+                                                    </div>
+                                                    <div class="col-12">
                                                         <label class="form-label">Email: </label>
                                                         <p>{{ $member->email }}</p>
                                                     </div>
@@ -195,7 +195,38 @@
                                                         <label class="form-label">No HP: </label>
                                                         <p>{{ $member->nohp }}</p>
                                                     </div>
-                                                    <!-- Tambahkan informasi lainnya sesuai kebutuhan -->
+                                                    <div class="row">
+                                                        <label class="form-label">Arisan yg diikuti: </label>
+                                                        @if ($member->joinedArisans->isEmpty())
+                                                            <p>{{ $member->name }} belum mengikuti arisan.</p>
+                                                        @else
+                                                            @foreach ($member->joinedArisans as $arisan)
+                                                                {{-- <div class="col-md-4 mb-3"> --}}
+                                                                <div class="col-xl-4 col-md-4 col-6 mb-3">
+                                                                    <div class="card">
+                                                                        {{-- <img src="{{ Storage::url($arisan->img_arisan) }}"
+                                                                        class="card-img-top" alt="Arisan Image"> --}}
+                                                                        <div
+                                                                            style="position: relative; width: 100%; padding-bottom: 100%;">
+                                                                            <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                                                class="border rounded img-fluid"
+                                                                                src="{{ Storage::url($arisan->img_arisan) }}"
+                                                                                alt="{{ $arisan->nama_arisan }}" />
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <h5 class="card-title"
+                                                                                style="font-size: 14px; padding-left:-3px;">
+                                                                                {{ Str::limit($arisan->nama_arisan, 10, '...') }}
+                                                                            </h5>
+                                                                            <p class="card-text" style="font-size: 12px;">
+                                                                                {{ Str::limit($arisan->deskripsi, 12, '...') }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
