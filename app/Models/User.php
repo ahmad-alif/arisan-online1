@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -62,4 +63,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Arisan::class, 'id_user', 'id');
     }
+
+    // public function getTotalArisan()
+    // {
+    //     return $this->arisans()->count();
+    // }
+
+    // public function getTotalMember()
+    // {
+    //     return DB::table('member_arisans')
+    //         ->join('arisans', 'member_arisans.id_arisan', '=', 'arisans.id_arisan')
+    //         ->where('arisans.id_user', $this->id)
+    //         ->count();
+    // }
 }

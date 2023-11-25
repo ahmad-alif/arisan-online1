@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Arisan;
+use App\Models\MemberArisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -13,8 +14,30 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
+        // Mendapatkan id_user yang sedang login
+        $userId = Auth::id();
 
-        return view('dashboard', ['active' => 'dashboard'])->with('role', $request);
+        $user = auth()->user();
+
+        $arisans = Arisan::where('id_user', $user->id)
+            ->where('status', 2)
+            ->paginate(10);
+
+        $totalArisan = Arisan::where('id_user', $userId)->count();
+
+        $totalMember = MemberArisan::join('arisans', 'member_arisans.id_arisan', '=', 'arisans.id_arisan')
+            ->where('arisans.id_user', $userId)
+            ->distinct('member_arisans.id_user')
+            ->count('member_arisans.id_user');
+
+
+        return view('dashboard', [
+            'active' => 'dashboard',
+            'arisans' => $arisans,
+            'role' => $request,
+            'totalArisan' => $totalArisan,
+            'totalMember' => $totalMember,
+        ]);
     }
 
     // public function manageOwner(Request $request)
