@@ -175,15 +175,24 @@
                                                                 @foreach ($owner->arisans_owner as $arisan)
                                                                     <div class="col-md-4 mb-3">
                                                                         <div class="card">
-                                                                            <img src="{{ Storage::url($arisan->img_arisan) }}"
-                                                                                class="card-img-top" alt="Arisan Image">
+                                                                            {{-- <img src="{{ Storage::url($arisan->img_arisan) }}"
+                                                                                class="card-img-top" alt="Arisan Image"> --}}
+                                                                            <div
+                                                                                style="position: relative; width: 100%; padding-bottom: 100%;">
+                                                                                <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                                                    class="border rounded img-fluid"
+                                                                                    src="{{ Storage::url($arisan->img_arisan) }}"
+                                                                                    alt="{{ $arisan->nama_arisan }}" />
+                                                                            </div>
                                                                             <div class="card-body">
                                                                                 <h5 class="card-title"
                                                                                     style="font-size: 14px;">
-                                                                                    {{ $arisan->nama_arisan }}</h5>
+                                                                                    {{ Str::limit($arisan->nama_arisan, 10, '...') }}
+                                                                                </h5>
                                                                                 <p class="card-text"
                                                                                     style="font-size: 12px;">
-                                                                                    {{ $arisan->deskripsi }}</p>
+                                                                                    {{ Str::limit($arisan->deskripsi, 12, '...') }}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </div>

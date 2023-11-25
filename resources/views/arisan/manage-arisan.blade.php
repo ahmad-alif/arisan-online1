@@ -27,24 +27,6 @@
             <!-- Striped Rows -->
             <div class="card">
                 <div class="table-responsive text-nowrap">
-                    {{-- <div class="d-flex justify-content-between align-items-center ms-3 ">
-            <div class="col-1">
-                <button type="button" class="btn btn-sm btn-primary">
-                    <span class="ti-xs ti ti-plus me-1"></span>Tambah
-                </button>
-            </div>
-            <div class="col-1">
-                <!-- Area tengah kosong -->
-            </div>
-            <div class="">
-                <form action="/manage-member" method="GET">
-                    <div class="input-group input-group-merge card-body">
-                        <input type="text" class="form-control" name="search"
-                            value="{{ request('search') }}" placeholder="Cari member...">
-                    </div>
-                </form>
-            </div>
-        </div> --}}
                     <table class="table text-nowrap">
                         <div class="row p-3">
                             <div class="col-sm">
@@ -77,12 +59,6 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($arisans as $arisan)
-                                {{-- <tr
-                                    class="align-middles
-                            @if ($arisan->status == 3) table-light
-                            @elseif ($arisan->status == 2) table-success
-                            @elseif ($arisan->status == 1) table-info
-                            @elseif ($arisan->status == 0) table-white @endif"> --}}
                                 <tr class="align-middles"
                                     style="
                                 @if ($arisan->status == 3) background-color: rgba(255, 102, 102, 0.35); @endif
@@ -91,8 +67,6 @@
                                 @if ($arisan->status == 0) background-color: rgba(255, 255, 102, 0.35); @endif
                             ">
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    {{-- <td><img src="{{ Storage::url($arisan->foto_profil) }}" alt="Profile"
-                            class="rounded-circle" width="100"></td> --}}
                                     <td>
                                         @if ($arisan->img_arisan)
                                             <img src="{{ Storage::url($arisan->img_arisan) }}" alt="Arisan"
@@ -106,11 +80,6 @@
                                     <td>{{ $arisan->nama_arisan }}</td>
                                     <td>{{ $arisan->start_date }}</td>
                                     <td>{{ $arisan->end_date }}</td>
-
-                                    {{-- <td>{{ $arisan->active }}</td> --}}
-
-
-
                                     <td class="">
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -140,12 +109,6 @@
                                                         <i class="ti ti-trophy me-1"></i> Undi Pemenang
                                                     </a>
                                                 @endif
-
-                                                {{-- <a href="#arisanInfoModal-{{ $arisan->id_arisan }}" class="dropdown-item"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#arisanInfoModal-{{ $arisan->id_arisan }}">
-                                                    <i class="ti ti-info-circle me-1"></i> Detail
-                                                </a> --}}
                                                 <a href="{{ route('detail-arisan', ['id' => $arisan->id_arisan]) }}"
                                                     class="dropdown-item">
                                                     <i class="ti ti-info-circle me-1"></i> Detail
