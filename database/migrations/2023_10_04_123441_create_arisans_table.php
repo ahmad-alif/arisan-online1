@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('arisans', function (Blueprint $table) {
             $table->id('id_arisan');
+            $table->uuid('uuid')->unique();
             $table->string('nama_arisan');
             $table->string('img_arisan');
             $table->date('start_date')->nullable();

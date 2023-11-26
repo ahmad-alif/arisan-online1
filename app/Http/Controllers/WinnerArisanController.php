@@ -78,9 +78,54 @@ class WinnerArisanController extends Controller
     //     return redirect()->route('manage-arisan')->with('success', 'Pemenang Arisan berhasil dipilih.');
     // }
 
-    public function showWinner($id)
+    // public function showWinner($id)
+    // {
+    //     $arisan = Arisan::findOrFail($id);
+
+    //     // Ambil ID pengguna-pemenang sebelumnya
+    //     $previousWinners = WinnerArisan::where('id_arisan', $arisan->id_arisan)->pluck('id_user')->toArray();
+
+    //     // Ambil pemenang secara acak dari member arisan, sambil memastikan tidak mengulangi pemenang sebelumnya
+    //     $selectedWinner = $arisan->members->reject(function ($member) use ($previousWinners) {
+    //         return in_array($member->id, $previousWinners);
+    //     })->random();
+
+    //     // Cek apakah hanya tersisa satu id_user
+    //     $remainingUsers = count($arisan->members) - count($previousWinners);
+
+    //     return view('arisan.winner-arisan', ['active' => 'manage-arisan'], compact('arisan', 'selectedWinner', 'remainingUsers'));
+    // }
+
+    // public function drawWinner(Request $request, $id)
+    // {
+    //     // Validasi form, pastikan hanya owner yang bisa mengakses fungsi ini
+    //     $this->validate($request, [
+    //         'winner_id' => 'required|exists:users,id',
+    //     ]);
+
+    //     $arisan = Arisan::findOrFail($id);
+    //     $winnerId = $request->input('winner_id');
+
+    //     // Tambahkan pemenang ke tabel pemenang_arisan
+    //     WinnerArisan::create([
+    //         'id_arisan' => $arisan->id_arisan,
+    //         'id_user' => $winnerId,
+    //     ]);
+
+    //     // Tandai arisan sebagai sudah diundi
+    //     $arisan->update(['status' => 2]);
+
+    //     // Jika hanya tersisa satu id_user, ubah status menjadi 3
+    //     if ($request->input('remaining_users') == 1) {
+    //         $arisan->update(['status' => 3]);
+    //     }
+
+    //     return redirect()->route('manage-arisan')->with('success', 'Pemenang Arisan berhasil dipilih.');
+    // }
+
+    public function showWinner($uuid)
     {
-        $arisan = Arisan::findOrFail($id);
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
 
         // Ambil ID pengguna-pemenang sebelumnya
         $previousWinners = WinnerArisan::where('id_arisan', $arisan->id_arisan)->pluck('id_user')->toArray();
@@ -96,14 +141,14 @@ class WinnerArisanController extends Controller
         return view('arisan.winner-arisan', ['active' => 'manage-arisan'], compact('arisan', 'selectedWinner', 'remainingUsers'));
     }
 
-    public function drawWinner(Request $request, $id)
+    public function drawWinner(Request $request, $uuid)
     {
         // Validasi form, pastikan hanya owner yang bisa mengakses fungsi ini
         $this->validate($request, [
             'winner_id' => 'required|exists:users,id',
         ]);
 
-        $arisan = Arisan::findOrFail($id);
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
         $winnerId = $request->input('winner_id');
 
         // Tambahkan pemenang ke tabel pemenang_arisan

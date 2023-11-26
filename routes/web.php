@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
-    Route::put('/activate-arisan/{id}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan');
+    Route::put('/activate-arisan/{uuid}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan');
     Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account');
     Route::put('/activate-account-owner/{id}', [DashboardController::class, 'processActivateAccountOwner'])->name('activate-account-owner');
     Route::get('/manage-owner', [DashboardController::class, 'manageOwner'])->name('manage-owner');
@@ -101,16 +101,16 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::get('/data-arisan', [ArisanController::class, 'index'])->name('data-arisan');
     Route::get('/add-arisan', [ArisanController::class, 'addArisan'])->name('add-arisan');
     Route::post('/add-arisan', [ArisanController::class, 'processAddArisan'])->name('processAddArisan');
-    Route::get('/edit-arisan/{id}', [ArisanController::class, 'editArisan'])->name('edit-arisan');
-    Route::post('/edit-arisan/{id}', [ArisanController::class, 'processEditArisan'])->name('processEditArisan');
-    Route::delete('/delete-arisan/{id}', [ArisanController::class, 'deleteArisan'])->name('delete-arisan');
+    Route::get('/edit-arisan/{uuid}', [ArisanController::class, 'editArisan'])->name('edit-arisan');
+    Route::post('/edit-arisan/{uuid}', [ArisanController::class, 'processEditArisan'])->name('processEditArisan');
+    Route::delete('/delete-arisan/{uuid}', [ArisanController::class, 'deleteArisan'])->name('delete-arisan');
     Route::get('/data-category', [CategoryController::class, 'index']);
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add-category');
     Route::post('/process-add-category', [CategoryController::class, 'store'])->name('processAddCategory');
     Route::get('/edit-category/{id}', [CategoryController::class, 'editCategory'])->name('edit-category');
     Route::put('/edit-category/{id}', [CategoryController::class, 'processEditCategory'])->name('processEditCategory');
     Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete-category');
-    Route::get('/page-arisan/{id}', [ArisanController::class, 'pageArisan'])->name('page-arisan');
+    Route::get('/page-arisan/{uuid}', [ArisanController::class, 'pageArisan'])->name('page-arisan');
 });
 
 // Route owner
@@ -118,18 +118,19 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::get('/manage-arisan', [ArisanController::class, 'manageArisan'])->name('manage-arisan');
     Route::get('/arisan/add', [ArisanController::class, 'addArisanOwner'])->name('add-arisan-owner');
     Route::post('/arisan/add', [ArisanController::class, 'processAddArisanOwner'])->name('processAddArisanOwner');
-    Route::get('/arisan/edit/{id}', [ArisanController::class, 'editArisanOwner'])->name('edit-arisan-owner');
-    Route::post('/arisan/edit/{id}', [ArisanController::class, 'processEditArisanOwner'])->name('processEditArisanOwner');
-    Route::get('/arisan/{id}', [ArisanController::class, 'detailArisan'])->name('detail-arisan');
+    Route::get('/arisan/edit/{uuid}', [ArisanController::class, 'editArisanOwner'])->name('edit-arisan-owner');
+    Route::post('/arisan/edit/{uuid}', [ArisanController::class, 'processEditArisanOwner'])->name('processUbahArisanOwner');
+    Route::get('/arisan/{uuid}', [ArisanController::class, 'detailArisan'])->name('detail-arisan');
+    Route::delete('/arisan/delete/{uuid}', [ArisanController::class, 'deleteArisanOwner'])->name('hapus-arisan-owner');
     Route::get('/manage-member', [MemberArisanController::class, 'index'])->name('manage-member');
     // Route::get('/member-detail/{id}', [MemberController::class, 'showDetail'])->name('member-detail');
     Route::get('/add-member-arisan', [MemberArisanController::class, 'addMember'])->name('add-member-arisan');
     Route::get('/verification-account', [AuthController::class, 'verificationAccount'])->name('verification-account');
     Route::post('/verification-account', [AuthController::class, 'processVerificationAccount'])->name('processVerificationAccount');
-    Route::get('/arisan/start/{id}', [ArisanController::class, 'startArisan'])->name('start-arisan-owner');
+    Route::get('/arisan/start/{uuid}', [ArisanController::class, 'startArisan'])->name('start-arisan-owner');
 
-    Route::get('/winner/show/{id}', [WinnerArisanController::class, 'showWinner'])->name('show-winner');
-    Route::post('/winner/draw/{id}', [WinnerArisanController::class, 'drawWinner'])->name('draw-winner');
+    Route::get('/winner/show/{uuid}', [WinnerArisanController::class, 'showWinner'])->name('show-winner');
+    Route::post('/winner/draw/{uuid}', [WinnerArisanController::class, 'drawWinner'])->name('draw-winner');
 
     // Route::get('/winner/{id}', [WinnerArisanController::class, 'drawWinner'])->name('winner-arisan');
     // Route::post('/winner/{id}', [WinnerArisanController::class, 'selectWinner'])->name('select-winner');
@@ -138,7 +139,7 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
 //Route User
 Route::group(['middleware' => ['auth', 'user-access:0']], function () {
     Route::get('/list-arisan', [ArisanController::class, 'listArisan'])->name('list-arisan');
-    Route::get('/detail-arisan/{id}', [ArisanController::class, 'detailArisan'])->name('arisan.detail.member');
+    Route::get('/detail-arisan/{uuid}', [ArisanController::class, 'detailArisan'])->name('arisan.detail.member');
     Route::get('/verification-account-member', [AuthController::class, 'verificationAccountMember'])->name('verification-account-member');
     Route::post('/verification-account-member', [AuthController::class, 'processVerificationAccountMember'])->name('processVerificationAccountMember');
 });

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Arisan;
-use App\Models\MemberArisan;
+use Illuminate\Support\Str;
 // use GuzzleHttp\Psr7\Request;
+use App\Models\MemberArisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,9 +34,9 @@ class ArisanController extends Controller
         return view('arisan.manage-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }
 
-    public function detailArisan($id)
+    public function detailArisan($uuid)
     {
-        $arisan = Arisan::with('members')->findOrFail($id);
+        $arisan = Arisan::with('members')->where('uuid', $uuid)->firstOrFail();
         // $arisan = Arisan::findOrFail($id);
         // dd($arisans);
 
@@ -55,10 +56,17 @@ class ArisanController extends Controller
     {
         $request->validate([
             'nama_arisan' => 'required|string|max:255',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'img_arisan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'id_user' => 'required',
+            'id_user' => 'required|integer',
+            'deskripsi' => 'required|string',
+            'start_date' => 'required|date',
+            'max_member' => 'required|integer',
+            'deposit_frequency' => 'required|in:1,2,4',
+            'payment_amount' => 'required|string',
+            'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_bank' => 'required|string|max:255',
+            'no_rekening' => 'required|string|max:255',
+            'nama_pemilik_rekening' => 'required|string|max:255',
+            'fee_admin' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('img_arisan')) {
@@ -66,43 +74,79 @@ class ArisanController extends Controller
         }
 
         $arisan = new Arisan();
+        // $arisan->uuid = Str::uuid();
+        // $arisan->nama_arisan = $request->input('nama_arisan');
+        // $arisan->start_date = $request->input('start_date');
+        // $arisan->end_date = $request->input('end_date');
+        $arisan->uuid = Str::uuid();
         $arisan->nama_arisan = $request->input('nama_arisan');
-        $arisan->start_date = $request->input('start_date');
-        $arisan->end_date = $request->input('end_date');
+        $arisan->deskripsi = $request->input('deskripsi');
+        $arisan->start_date = \Carbon\Carbon::parse($request->input('start_date'));
+        $arisan->status = 0; // Status awal (tidak aktif)
+        $arisan->active = 0; // Atur active sesuai kebutuhan
+        $arisan->max_member = $request->input('max_member');
+        $arisan->deposit_frequency = $request->input('deposit_frequency');
+        // $arisan->payment_amount = $request->input('payment_amount');
+        $paymentAmount = preg_replace("/[^0-9]/", "", $request->input('payment_amount'));
+        $arisan->payment_amount = $paymentAmount;
+        $arisan->id_user = $request->input('id_user');
+        $arisan->nama_bank = $request->input('nama_bank');
+        $arisan->no_rekening = $request->input('no_rekening');
+        $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
+        $arisan->fee_admin = $request->input('fee_admin');
 
         // Store the image path in the database if an image was uploaded
         if (isset($img_arisanPath)) {
             $arisan->img_arisan = $img_arisanPath;
         }
 
-        $arisan->id_user = $request->input('id_user');
-
         $arisan->save();
 
 
-        return redirect('/manage-arisan')->with('success', 'Data Owner telah ditambahkan.');
+        return redirect('/data-arisan')->with('success', 'Data Owner telah ditambahkan.');
     }
 
-    public function editArisan($id)
+    public function editArisan($uuid)
     {
-
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
+        // $arisan = Arisan::where('id_arisan', $id)->first();
         return view('arisan.edit-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
     }
 
-    public function processEditArisan(Request $request, $id)
+    public function processEditArisan(Request $request, $uuid)
     {
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        // $arisan = Arisan::where('id_arisan', $id)->first();
+        $arisan = Arisan::where('uuid', $uuid)->first();
 
         $request->validate([
-            'nama_arisan' => 'required',
-            'start_date' => 'required',
-            // 'end_date' => 'required'
+            'nama_arisan' => 'required|string|max:255',
+            // 'id_user' => 'required|integer',
+            'deskripsi' => 'required|string',
+            'start_date' => 'required|date',
+            'max_member' => 'required|integer',
+            'deposit_frequency' => 'required|in:1,2,4',
+            'payment_amount' => 'required|string',
+            'img_arisan' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'nama_bank' => 'required|string|max:255',
+            'no_rekening' => 'required|string|max:255',
+            'nama_pemilik_rekening' => 'required|string|max:255',
+            'fee_admin' => 'required|string|max:255',
         ]);
 
+        if (!$arisan->uuid) {
+            $arisan->uuid = Str::uuid();
+        }
         $arisan->nama_arisan = $request->input('nama_arisan');
+        // $arisan->id_user = $request->input('id_user');
+        $arisan->deskripsi = $request->input('deskripsi');
         $arisan->start_date = $request->input('start_date');
-        // $arisan->end_date = $request->input('end_date');
+        $arisan->max_member = $request->input('max_member');
+        $arisan->deposit_frequency = $request->input('deposit_frequency');
+        $arisan->payment_amount = $request->input('payment_amount');
+        $arisan->nama_bank = $request->input('nama_bank');
+        $arisan->no_rekening = $request->input('no_rekening');
+        $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
+        $arisan->fee_admin = $request->input('fee_admin');
 
         if ($request->hasFile('img_arisan')) {
             // Delete the old profile picture
@@ -120,32 +164,48 @@ class ArisanController extends Controller
         return redirect('/data-arisan')->with('success', 'Perubahan Owner telah disimpan.');
     }
 
-    public function editArisanOwner($id)
+    public function editArisanOwner($uuid)
     {
-
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        $user = auth()->user();
+        $arisan = Arisan::where('uuid', $uuid)->where('id_user', $user->id)->firstOrFail();
         // dd($arisan);
-        return view('arisan.edit-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
+        return view('arisan.edit-arisan-owner', ['active' => 'manage-arisan', 'arisan' => $arisan]);
     }
 
-    public function processEditArisanOwner(Request $request, $id)
+    public function processEditArisanOwner(Request $request, $uuid)
     {
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        $user = auth()->user();
+        // $arisan = Arisan::where('id_arisan', $id)->first();
+        $arisan = Arisan::where('uuid', $uuid)->where('id_user', $user->id)->first();
 
         $request->validate([
-            'nama_arisan' => 'required',
-            'start_date' => 'required',
-            'img_arisan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'nama_bank' => 'required',
-            'no_rekening' => 'required',
-            'nama_pemilik_rekening' => 'required',
+            'nama_arisan' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'start_date' => 'required|date',
+            'max_member' => 'required|integer',
+            'deposit_frequency' => 'required|in:1,2,4',
+            'payment_amount' => 'required|string',
+            'img_arisan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_bank' => 'required|string|max:255',
+            'no_rekening' => 'required|string|max:255',
+            'nama_pemilik_rekening' => 'required|string|max:255',
+            'fee_admin' => 'required|string|max:255',
         ]);
 
+        if (!$arisan->uuid) {
+            $arisan->uuid = Str::uuid();
+        }
         $arisan->nama_arisan = $request->input('nama_arisan');
+        // $arisan->id_user = $request->input('id_user');
+        $arisan->deskripsi = $request->input('deskripsi');
         $arisan->start_date = $request->input('start_date');
+        $arisan->max_member = $request->input('max_member');
+        $arisan->deposit_frequency = $request->input('deposit_frequency');
+        $arisan->payment_amount = $request->input('payment_amount');
         $arisan->nama_bank = $request->input('nama_bank');
         $arisan->no_rekening = $request->input('no_rekening');
         $arisan->nama_pemilik_rekening = $request->input('nama_pemilik_rekening');
+        $arisan->fee_admin = $request->input('fee_admin');
 
         if ($request->hasFile('img_arisan')) {
             // Delete the old profile picture
@@ -158,16 +218,32 @@ class ArisanController extends Controller
             $img_arisanPath = $request->file('img_arisan')->storeAs('public/arisan_images', $filename);
             $arisan->img_arisan = $img_arisanPath;
         }
-        // $arisan->save();
-        dd($arisan);
-        // return redirect('/manage-arisan')->with('success', 'Perubahan Arisan telah disimpan.');
+        $arisan->save();
+        // dd($arisan);
+        return redirect('/manage-arisan')->with('success', 'Perubahan Arisan telah disimpan.');
     }
 
-    public function deleteArisan($id)
+    public function deleteArisanOwner($uuid)
     {
-        $arisan = Arisan::find($id)->first();
+        // Find the Arisan using the UUID
+        $arisan = Arisan::where('uuid', $uuid)->first();
+
+        // Check if the Arisan exists
+        if (!$arisan) {
+            return redirect('/manage-arisan')->with('error', 'Arisan tidak ditemukan.');
+        }
+
+        // Delete the Arisan
+        $arisan->delete();
+
+        return redirect('/manage-arisan')->with('success', 'Data Arisan telah dihapus.');
+    }
+
+    public function deleteArisan($uuid)
+    {
+        $arisan = Arisan::where('uuid', $uuid)->first();
         // dd($arisan);
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        // $arisan = Arisan::where('id_arisan', $id)->first();
         if (!$arisan) {
             return redirect('/data-arisan')->with('error', 'Arisan tidak ditemukan.');
         }
@@ -209,6 +285,7 @@ class ArisanController extends Controller
 
         // Simpan data arisan ke dalam database dengan status awal 0 (tidak aktif)
         $arisan = new Arisan();
+        $arisan->uuid = Str::uuid();
         $arisan->nama_arisan = $request->input('nama_arisan');
         $arisan->deskripsi = $request->input('deskripsi');
         $arisan->start_date = \Carbon\Carbon::parse($request->input('start_date'));
@@ -234,13 +311,14 @@ class ArisanController extends Controller
         $arisan->save();
         // dd($arisan);
 
-        return redirect('/manage-arisan')->with('success', 'Arisan berhasil ditambahkan');
+        return redirect('/data-arisan')->with('success', 'Arisan berhasil ditambahkan');
     }
 
-    public function startArisan($id)
+    public function startArisan($uuid)
     {
         // Pastikan owner atau pengguna yang berwenang melakukan konfirmasi
-        $arisan = Arisan::find($id);
+        // $arisan = Arisan::find($id);
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
         $userId = Auth::id();
 
         if ($arisan->id_user == $userId) {
@@ -248,7 +326,7 @@ class ArisanController extends Controller
             $arisan->status = 2;
 
             // Hitung jumlah anggota dari tabel member_arisans
-            $memberCount = MemberArisan::where('id_arisan', $id)->count();
+            $memberCount = MemberArisan::where('id_arisan', $arisan->id_arisan)->count();
 
             // Hitung end_date berdasarkan jumlah anggota dan deposit_frequency
             $depositFrequency = $arisan->deposit_frequency;
@@ -314,10 +392,11 @@ class ArisanController extends Controller
         return view('arisan.list-arisan', ['active' => 'list-arisan', 'search' => $search, 'arisans' => $arisans]);
     }
 
-    public function pageArisan($id)
+    public function pageArisan($uuid)
     {
 
-        $arisan = Arisan::where('id_arisan', $id)->first();
+        // $arisan = Arisan::where('id_arisan', $id)->first();
+        $arisan = Arisan::with('members')->where('uuid', $uuid)->firstOrFail();
         return view('arisan.page-arisan', ['active' => 'manage-arisan', 'arisan' => $arisan]);
     }
 

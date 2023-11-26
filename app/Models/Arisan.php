@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Arisan extends Model
 {
@@ -16,6 +17,15 @@ class Arisan extends Model
     // {
     //     $this->attributes['winner_drawn'] = $value ? 1 : 0;
     // }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
+    }
 
     public function user()
     {

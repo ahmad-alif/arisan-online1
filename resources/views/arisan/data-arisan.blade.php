@@ -81,7 +81,7 @@
                                         @if ($arisan->active == 0)
                                             <button type="button" class="btn btn-label-danger btn-sm"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#confirmActivateModal-{{ $arisan->id_arisan }}">Mati</button>
+                                                data-bs-target="#confirmActivateModal-{{ $arisan->uuid }}">Mati</button>
                                         @elseif ($arisan->active == 1)
                                             <span class="badge bg-label-success me-1">Aktif</span>
                                         @endif
@@ -97,19 +97,19 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
+                                                    href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
                                                     class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmStartModal-{{ $arisan->id_arisan }}">
+                                                    data-bs-target="#confirmStartModal-{{ $arisan->uuid }}">
                                                     <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('edit-arisan', ['id' => $arisan->id_arisan]) }}"><i
+                                                    href="{{ route('edit-arisan', ['uuid' => $arisan->uuid]) }}"><i
                                                         class="ti ti-pencil me-1"></i> Edit</a>
                                                 <button class="button dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmDeleteModal-{{ $arisan->id_arisan }}">
+                                                    data-bs-target="#confirmDeleteModal-{{ $arisan->uuid }}">
                                                     <i class="ti ti-trash me-1"></i> Hapus
                                                 </button>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('page-arisan', ['id' => $arisan->id_arisan]) }}"><i
+                                                    href="{{ route('page-arisan', ['uuid' => $arisan->uuid]) }}"><i
                                                         class="ti ti-info-square me-1"></i> Info</a>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                     </table>
                     <!-- Modal -->
                     @foreach ($arisans as $arisan)
-                        <div class="modal fade text-left" id="confirmStartModal-{{ $arisan->id_arisan }}" tabindex="-1"
+                        <div class="modal fade text-left" id="confirmStartModal-{{ $arisan->uuid }}" tabindex="-1"
                             role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
@@ -135,7 +135,7 @@
                                             <i class="bx bx-x d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block">Tidak</span>
                                         </button>
-                                        <a href="{{ route('start-arisan-owner', ['id' => $arisan->id_arisan]) }}"
+                                        <a href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
                                             class="btn btn-success ml-1">
                                             <i class="bx bx-check d-block d-sm-none"></i>
                                             <span class="d-none d-sm-block">Ya, mulai</span>
@@ -147,14 +147,13 @@
                     @endforeach
                     @foreach ($arisans as $arisan)
                         @if ($arisan->active == 0)
-                            <div class="modal fade" id="confirmActivateModal-{{ $arisan->id_arisan }}" tabindex="-1"
-                                role="dialog" aria-labelledby="confirmActivateModalLabel-{{ $arisan->id_arisan }}"
+                            <div class="modal fade" id="confirmActivateModal-{{ $arisan->uuid }}" tabindex="-1"
+                                role="dialog" aria-labelledby="confirmActivateModalLabel-{{ $arisan->uuid }}"
                                 aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title"
-                                                id="confirmActivateModalLabel-{{ $arisan->id_arisan }}">
+                                            <h5 class="modal-title" id="confirmActivateModalLabel-{{ $arisan->uuid }}">
                                                 Konfirmasi Aktivasi</h5>
                                         </div>
                                         <div class="modal-body">
@@ -166,7 +165,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Tidak</span>
                                             </button>
-                                            <form action="{{ route('activate-arisan', ['id' => $arisan->id_arisan]) }}"
+                                            <form action="{{ route('activate-arisan', ['uuid' => $arisan->uuid]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -182,13 +181,12 @@
                         @endif
                     @endforeach
                     @foreach ($arisans as $arisan)
-                        <div class="modal fade" id="arisanInfoModal-{{ $arisan->id_arisan }}" tabindex="-1"
-                            role="dialog" aria-labelledby="arisanInfoModalLabel-{{ $arisan->id_arisan }}"
-                            aria-hidden="true">
+                        <div class="modal fade" id="arisanInfoModal-{{ $arisan->uuid }}" tabindex="-1" role="dialog"
+                            aria-labelledby="arisanInfoModalLabel-{{ $arisan->uuid }}" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="arisanInfoModalLabel-{{ $arisan->id_arisan }}">
+                                        <h5 class="modal-title" id="arisanInfoModalLabel-{{ $arisan->uuid }}">
                                             Informasi arisan</h5>
 
                                     </div>
@@ -222,8 +220,8 @@
 
                     @foreach ($arisans as $arisan)
                         <!-- Add New Credit Card Modal -->
-                        <div class="modal fade" id="confirmDeleteModal-{{ $arisan->id_arisan }}"
-                            aria-labelledby="confirmDeleteModalLabel-{{ $arisan->id_arisan }}" tabindex="-1"
+                        <div class="modal fade" id="confirmDeleteModal-{{ $arisan->uuid }}"
+                            aria-labelledby="confirmDeleteModalLabel-{{ $arisan->uuid }}" tabindex="-1"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered1 modal-simple modal-add-new-cc">
                                 <div class="modal-content p-3 p-md-5">
@@ -239,7 +237,7 @@
                                             <p class="text-danger">*Data yang sudah dihapus tidak dapat dikembalikan</p>
                                         </div>
                                         <form id="addNewCCForm" class="row g-3"
-                                            action="{{ route('delete-arisan', ['id' => $arisan->id_arisan]) }}"
+                                            action="{{ route('delete-arisan', ['uuid' => $arisan->uuid]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')

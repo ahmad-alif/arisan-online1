@@ -77,14 +77,14 @@
                                                 @if ($arisan->isUserJoined(auth()->user()))
                                                     @if (auth()->user()->role == 1)
                                                         <a class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-60"
-                                                            href="{{ route('arisan.detail', $arisan) }}">
+                                                            href="{{ route('arisan.detail', $arisan->uuid) }}">
                                                             <span class="d-none d-sm-block">Detail</span>
                                                             <i
                                                                 class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
                                                         </a>
                                                     @elseif (auth()->user()->role == 0)
                                                         <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
-                                                            href="{{ route('arisan.detail.member', $arisan) }}">
+                                                            href="{{ route('arisan.detail.member', $arisan->uuid) }}">
                                                             <span class="d-none d-sm-block">Detail</span>
                                                             <i class="ti ti-info-square d-block d-sm-none"></i>
                                                         </a>

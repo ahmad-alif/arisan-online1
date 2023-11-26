@@ -257,15 +257,17 @@ class DashboardController extends Controller
         return redirect('/manage-owner')->with('success', 'Perubahan Owner telah disimpan.');
     }
 
-    public function processActivateArisan($id)
+    public function processActivateArisan($uuid)
     {
-        $arisan = Arisan::findOrFail($id);
+        // $arisan = Arisan::findOrFail($id);
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
 
         if (!$arisan) {
             return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
         }
 
         $arisan->active = 1;
+        $arisan->status = 1;
         $arisan->save();
 
         return redirect('/data-arisan')->with('success', 'Arisan berhasil diaktifkan.');

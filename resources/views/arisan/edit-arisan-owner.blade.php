@@ -11,7 +11,7 @@
 
             <div class="card">
                 <!-- Account -->
-                <form method="POST" action="{{ route('processEditArisan', ['uuid' => $arisan->uuid]) }}"
+                <form method="POST" action="{{ route('processUbahArisanOwner', ['uuid' => $arisan->uuid]) }}"
                     enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="card-body">
@@ -45,14 +45,6 @@
                                 @error('nama_arisan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3 col-md-6">
-                                <label for="id_user" class="form-label">Owner Arisan</label>
-                                <input class="form-control" type="text" id="id_user" name="id_user"
-                                    value="{{ $arisan->user->name ?? 'Tidak diketahui' }}
-                                    "
-                                    readonly>
                             </div>
 
                             <div class="mb-3 col-md-6">

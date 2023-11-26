@@ -19,7 +19,7 @@
             </h4>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('draw-winner', ['id' => $arisan->id_arisan]) }}">
+                <form method="POST" action="{{ route('draw-winner', ['uuid' => $arisan->uuid]) }}">
                     @csrf
                     <div class="mb-3">
                         <label for="winner" class="form-label">Undian Arisan {{ $arisan->nama_arisan }}</label>
