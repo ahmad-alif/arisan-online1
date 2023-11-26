@@ -23,6 +23,9 @@ class DashboardController extends Controller
             ->where('status', 2)
             ->paginate(10);
 
+        $arisan_runs = Arisan::where('status', 2)
+            ->paginate(5);
+
         $totalArisan = Arisan::where('id_user', $userId)->count();
 
         $totalMember = MemberArisan::join('arisans', 'member_arisans.id_arisan', '=', 'arisans.id_arisan')
@@ -38,6 +41,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'active' => 'dashboard',
             'arisans' => $arisans,
+            'arisan_runs' => $arisan_runs,
             'role' => $request,
             'totalArisan' => $totalArisan,
             'totalMember' => $totalMember,

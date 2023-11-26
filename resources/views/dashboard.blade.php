@@ -4,7 +4,7 @@
 <body>
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-1"> Selamat datang, {{ auth()->user()->name }}👋 </h4>
+        <h4 class="mb-3"> Selamat datang, {{ auth()->user()->name }}👋 </h4>
         @if (session('success'))
             <div class="alert alert-success d-flex align-items-center" role="alert">
                 <span class="alert-icon text-success me-2">
@@ -163,7 +163,7 @@
                             <div class="card h-100">
                               <div class="card-header d-flex align-items-center justify-content-between">
                                 <div class="card-title mb-0">
-                                  <h5 class="m-0 me-2">Arisan Terbaru</h5>
+                                  <h5 class="m-0 me-2">Arisan Berlangsung</h5>
                                 </div>
                                   <button
                                     class="btn p-0"
@@ -177,83 +177,46 @@
                                 <table class="table table-borderless border-top">
                                   <thead class="border-bottom">
                                     <tr>
-                                      <th>Instructors</th>
-                                      <th class="text-end">courses</th>
+                                      <th>Nama</th>
+                                      <th class="text-end">Selesai</th>
                                     </tr>
                                   </thead>
                                   <tbody>
+                                    @foreach ($arisan_runs as $arisan_run)
                                     <tr>
                                       <td class="pt-2">
                                         <div class="d-flex justify-content-start align-items-center mt-lg-4">
                                           <div class="avatar me-3 avatar-sm">
-                                            <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                            @if ($arisan_run->img_arisan)
+                                                <img src="{{ Storage::url($arisan_run->img_arisan) }}" alt="Avatar"
+                                                    class="rounded-circle" />
+                                            @else
+                                                <img src="{{ asset('img/default_arisan.jpg') }}" alt="Avatar"
+                                                    class="rounded-circle" />
+                                            @endif
                                           </div>
                                           <div class="d-flex flex-column">
-                                            <h6 class="mb-0">Maven Analytics</h6>
-                                            <small class="text-truncate text-muted">Business Intelligence</small>
+                                            <h6 class="mb-0">{{ $arisan_run->nama_arisan}}</h6>
+                                            <small class="text-truncate text-muted">
+                                                @if ($arisan_run->user)
+                                                {{ Str::limit($arisan_run->user->name, 18, '...') }}
+                                            @else
+                                                Tidak Diketahui
+                                            @endif</small>
                                           </div>
                                         </div>
                                       </td>
                                       <td class="text-end pt-2">
                                         <div class="user-progress mt-lg-4">
-                                          <p class="mb-0 fw-medium">33</p>
+                                          <p class="mb-0 fw-medium"> @if ($arisan_run->end_date)
+                                            {{ $arisan_run->end_date }}
+                                        @else
+                                            Tidak Diketahui
+                                        @endif</p>
                                         </div>
                                       </td>
                                     </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                          <div class="avatar me-3 avatar-sm">
-                                            <img src="../../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                                          </div>
-                                          <div class="d-flex flex-column">
-                                            <h6 class="mb-0">Zsazsa McCleverty</h6>
-                                            <small class="text-truncate text-muted">Digital Marketing</small>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td class="text-end">
-                                        <div class="user-progress">
-                                          <p class="mb-0 fw-medium">52</p>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                          <div class="avatar me-3 avatar-sm">
-                                            <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                                          </div>
-                                          <div class="d-flex flex-column">
-                                            <h6 class="mb-0">Nathan Wagner</h6>
-                                            <small class="text-truncate text-muted">UI/UX Design</small>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td class="text-end">
-                                        <div class="user-progress">
-                                          <p class="mb-0 fw-medium">12</p>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                          <div class="avatar me-3 avatar-sm">
-                                            <img src="../../assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" />
-                                          </div>
-                                          <div class="d-flex flex-column">
-                                            <h6 class="mb-0">Emma Bowen</h6>
-                                            <small class="text-truncate text-muted">React Native</small>
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td class="text-end">
-                                        <div class="user-progress">
-                                          <p class="mb-0 fw-medium">8</p>
-                                        </div>
-                                      </td>
-                                    </tr>
+                                    @endforeach
                                   </tbody>
                                 </table>
                               </div>
