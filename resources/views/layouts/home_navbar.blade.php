@@ -196,7 +196,7 @@
                 document.write(new Date().getFullYear());
               </script>
             </span>
-            <a href="https://pixinvent.com" target="_blank" class="fw-medium text-white footer-link">Media Sarana Digitalindo,</a>
+            <a href="https://mediasaranadigitalindo.com" target="_blank" class="fw-medium text-white footer-link">Media Sarana Digitalindo</a>
             <span class="footer-text"></span>
           </div>
         </div>
