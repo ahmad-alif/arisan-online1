@@ -19,7 +19,7 @@
                     @if (Auth::user()->role == 2)
                         Admin /
                     @elseif (Auth::user()->role == 1)
-                        Owner /
+                        Pemilik /
                     @elseif (Auth::user()->role == 0)
                         Pengguna /
                     @endif

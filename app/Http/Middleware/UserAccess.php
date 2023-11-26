@@ -19,6 +19,6 @@ class UserAccess
             return $next($request);
         }
 
-        abort(403, 'Hayo Kamu Mau Ngapain?');
+        return response()->view('errors.403', [], 403);
     }
 }
