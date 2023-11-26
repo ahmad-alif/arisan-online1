@@ -30,6 +30,10 @@ class DashboardController extends Controller
             ->distinct('member_arisans.id_user')
             ->count('member_arisans.id_user');
 
+        $totalAllArisan = Arisan::count();
+        $totalCompletedArisan = Arisan::where('status', 2)->count();
+        $totalUsersWithRoleZero = User::where('role', 0)->count();
+        $totalUsersWithRoleOne = User::where('role', 1)->count();
 
         return view('dashboard', [
             'active' => 'dashboard',
@@ -37,6 +41,10 @@ class DashboardController extends Controller
             'role' => $request,
             'totalArisan' => $totalArisan,
             'totalMember' => $totalMember,
+            'totalUsersWithRoleZero' => $totalUsersWithRoleZero,
+            'totalUsersWithRoleOne' => $totalUsersWithRoleOne,
+            'totalAllArisan' => $totalAllArisan,
+            'totalCompletedArisan' => $totalCompletedArisan,
         ]);
     }
 
