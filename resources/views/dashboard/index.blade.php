@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
 
     <link rel="stylesheet" href="/assets/css/demo.css" />
-
+    <link rel="stylesheet" href="../../assets/vendor/libs/animate-css/animate.css" />
     <!-- Vendors CSS -->
 
     <link rel="stylesheet" href="/assets/vendor/libs/node-waves/node-waves.css" />
@@ -82,6 +82,12 @@
                     <!-- / Content -->
                 </div>
 
+                <!-- Other head content -->
+
+                @stack('scripts')
+
+        <!-- Other script tags -->
+
                 <!-- Footer -->
                 @include('layouts.footer')
                 <!-- / Footer -->
@@ -112,6 +118,7 @@
     <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="/assets/vendor/libs/hammer/hammer.js"></script>
     <script src="/assets/vendor/js/menu.js"></script>
+    <script src="/assets/js/ui-modals.js"></script>
 
     <!-- endbuild -->
 
