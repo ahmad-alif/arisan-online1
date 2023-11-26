@@ -138,10 +138,11 @@
                                 <label for="nohp" class="form-label">Nomor Handphone (Whatsapp)</label>
                                 <div class="input-group">
                                     <span class="input-group-text">ID (+62)</span>
-                                    <input type="number" id="nohp" name="nohp"
+                                    <input type="text" id="nohp" name="nohp"
                                         class="form-control multi-steps-mobile" placeholder="8xxxxxxxx" required
                                         autofocus value="{{ old('nohp') }}"
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                        />
                                 </div>
                                 <div id="nohpAvailability"></div>
                             </div>
