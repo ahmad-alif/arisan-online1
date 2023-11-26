@@ -27,7 +27,7 @@ class CategoryController extends Controller
             return $query->where('nama_kategori', 'like', "%$search%");
         })->paginate(10);
 
-        return view('category.index', ['active' => 'search-category'], compact('categories', 'search'));
+        return view('category.index', ['active' => 'data-category'], compact('categories', 'search'));
     }
 
 

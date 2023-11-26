@@ -40,59 +40,6 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-      <!-- Page -->
-        {{-- @if (Auth::user()->role == 2)
-            <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
-                <a class="menu-link" href="/dashboard">
-                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                    <div data-i18n="Page 1">Dashboard</div>
-                </a>
-            </li>
-            <li class="menu-item {{ $active === 'manage-owner' ? 'active' : '' }}">
-                <a class="menu-link" href="/manage-owner">
-                    <i class="menu-icon tf-icons ti ti-app-window"></i>
-                    <div data-i18n="Page 2">Kelola Owner</div>
-                </a>
-            </li>
-            <li class="menu-item {{ $active === 'manage-member' ? 'active' : '' }}">
-                <a class="menu-link" href="/manage-member">
-                    <i class="menu-icon tf-icons ti ti-users"></i>
-                    <div data-i18n="Page 3">Kelola Anggota</div>
-                </a>
-            </li>
-        @elseif (Auth::user()->role == 1)
-            <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
-                <a class="menu-link" href="/dashboard">
-                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                    <div data-i18n="Page 1">Dashboard</div>
-                </a>
-            </li>
-            <li class="menu-item {{ $active === 'manage-owner' ? 'active' : '' }}">
-                <a class="menu-link" href="/manage-arisan">
-                    <i class="menu-icon tf-icons ti ti-app-window"></i>
-                    <div data-i18n="Page 2">Kelola Arisan</div>
-                </a>
-            </li>
-            <li class="menu-item {{ $active === 'manage-member' ? 'active' : '' }}">
-                <a class="menu-link" href="/manage-member">
-                    <i class="menu-icon tf-icons ti ti-app-window"></i>
-                    <div data-i18n="Page 3">Kelola Anggota</div>
-                </a>
-            </li>
-        @elseif (Auth::user()->role == 0)
-            <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
-                <a class="menu-link" href="/dashboard">
-                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                    <div data-i18n="Page 1">Dashboard</div>
-                </a>
-            </li>
-            <li class="menu-item {{ $active === 'manage-owner' ? 'active' : '' }}">
-                <a class="menu-link" href="/list-arisan">
-                    <i class="menu-icon tf-icons ti ti-app-window"></i>
-                    <div data-i18n="Page 2">List Arisan</div>
-                </a>
-            </li>
-        @endif --}}
 
         @if (Auth::user()->active == 0)
             <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
@@ -133,28 +80,6 @@
                         <div data-i18n="Page 5">Data Kategori</div>
                     </a>
                 </li>
-
-
-                    {{-- <!-- Dashboards -->
-                    <li class="menu-item {{ in_array($active, ['manage-arisan', 'data-category']) ? 'open' : '' }}">
-                      <a href="#" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons ti ti-apps"></i>
-                        <div data-i18n="Page 4">Arisan</div>
-                        <div class="badge bg-primary rounded-pill ms-auto">2</div>
-                      </a>
-                      <ul class="menu-sub">
-                        <li class="menu-item {{ $active === 'manage-arisan' ? 'active' : '' }}">
-                          <a href="/data-arisan" class="menu-link">
-                            <div data-i18n="DataArisan">Data Arisan</div>
-                          </a>
-                        </li>
-                        <li class="menu-item {{ $active === 'data-category' ? 'active' : '' }}">
-                          <a href="/data-category" class="menu-link">
-                            <div data-i18n="DataKategori">Data Kategori</div>
-                          </a>
-                        </li>
-                      </ul>
-                    </li> --}}
 
                     @elseif (Auth::user()->role == 1)
                 <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
