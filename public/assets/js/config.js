@@ -96,7 +96,7 @@ if (typeof TemplateCustomizer !== 'undefined') {
     displayCustomizer: false,
     // lang: 'fr',
     // defaultTheme: 2,
-    // defaultStyle: 'system',
+    defaultStyle: 'system',
     // defaultTextDir: 'rtl',
     // defaultContentLayout: 'wide',
     // defaultHeaderType: 'static',
