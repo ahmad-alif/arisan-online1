@@ -6,13 +6,13 @@
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-1 mt-5">
-            <span class="fw-light">
+        <div>
+            <h2 class="fw-light mb-0">
                 {{-- Logika tampilan peran pengguna Anda --}}
                 {{ $arisan->nama_arisan }}
-            </span><br>
-            <small class="text-muted">*klik Putar dan tunggu untuk mulai mengundi</small>
-        </h4>
+            </h2>
+            <small class="text-muted mt-0">*klik Putar dan tunggu untuk mulai mengundi</small>
+        </div>
 
         <div class="card-body">
             <button id="spin" >Putar</button>
@@ -37,7 +37,6 @@
             <form method="POST" action="{{ route('draw-winner', ['uuid' => $arisan->uuid]) }}">
                 @csrf
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel5">Undian {{ $arisan->nama_arisan }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -72,7 +71,7 @@
                 <div class="col-12 text-center">
                     <button type="submit"
                         class="btn btn-success me-sm-2">Undi Sekarang!</button>
-                    <button type="reset" class="btn btn-label-secondary btn-reset"
+                    <button type="reset" class="btn btn-label-danger btn-reset"
                         data-bs-dismiss="modal" aria-label="Close">
                         Batal
                     </button>
@@ -89,23 +88,23 @@
 	box-sizing:border-box;
 }
 
-body{
+/* body{
 	margin:0;
 	padding:0;
-	background-color: #34495e;
+	background-color: #1e1212;
 	display:flex;
 	align-items:center;
 	justify-content: center;
 	height:100vh;
 	overflow:hidden;
-}
+} */
 
 .container{
 	width:500px;
 	height:500px;
-	background-color: #ccc;
+	background-color: #cfd3ec;
 	border-radius:50%;
-	border:15px solid #dde;
+	border:15px solid #cfd3ec;
 	position: relative;
 	overflow: hidden;
 	transition: 5s;
@@ -125,7 +124,7 @@ body{
 	font-size:20px;
 	font-weight:bold;
 	font-family:sans-serif;
-	color:#fff;
+	color:#000000;
 	left:135px;
 }
 
@@ -183,7 +182,7 @@ body{
 	z-index:10;
 	background-color: #7464f4;
 	text-transform: uppercase;
-	border:8px solid #fff;
+	border:8px solid #cfd3ec;
 	font-weight:bold;
 	font-size:16px;
 	color:#ffffff;
@@ -202,16 +201,16 @@ body{
 <script>
     let container = document.querySelector(".container");
     let btn = document.getElementById("spin");
-    let number = Math.ceil(Math.random() * 7200);
+    let number = Math.ceil(Math.random() * 36000);
 
     btn.onclick = function () {
         container.style.transform = "rotate(" + number + "deg)";
-        number += Math.ceil(Math.random() * 7200);
+        number += Math.ceil(Math.random() * 36000);
 
         // Set a timeout to show the modal after 5 seconds
         setTimeout(function () {
             showModal();
-        }, 1000);
+        }, 5000);
     }
 
     function showModal() {
