@@ -7,16 +7,16 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <div>
-            <h2 class="fw-light mb-0">
+            <h2 class="fw-light m-0 p-0">
                 {{-- Logika tampilan peran pengguna Anda --}}
                 {{ $arisan->nama_arisan }}
             </h2>
-            <small class="text-muted mt-0">*klik Putar dan tunggu untuk mulai mengundi</small>
+            <small class="text-muted m-0">*klik Putar dan tunggu untuk mulai mengundi</small>
         </div>
 
         <div class="card-body">
             <button id="spin" >Putar</button>
-            <span class="arrow"></span>
+            {{-- <span class="arrow"></span> --}}
             <div class="container">
                 <div class="one">1</div>
                 <div class="two">2</div>
@@ -37,7 +37,6 @@
             <form method="POST" action="{{ route('draw-winner', ['uuid' => $arisan->uuid]) }}">
                 @csrf
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <h1 class="mb-2">🎉Selamat🎉</h1>
@@ -100,6 +99,7 @@
 } */
 
 .container{
+    top: 10px;
 	width:500px;
 	height:500px;
 	background-color: #cfd3ec;
@@ -163,8 +163,8 @@
 
 .arrow{
 	position: absolute;
-	top:0;
-	left:50%;
+	top:130px;
+	left:70%;
 	transform: translateX(-50%);
 	color:#fff;
 }
@@ -201,11 +201,11 @@
 <script>
     let container = document.querySelector(".container");
     let btn = document.getElementById("spin");
-    let number = Math.ceil(Math.random() * 36000);
+    let number = Math.ceil(Math.random() * 48000);
 
     btn.onclick = function () {
         container.style.transform = "rotate(" + number + "deg)";
-        number += Math.ceil(Math.random() * 36000);
+        number += Math.ceil(Math.random() * 48000);
 
         // Set a timeout to show the modal after 5 seconds
         setTimeout(function () {
