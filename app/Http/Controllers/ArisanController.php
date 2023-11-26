@@ -20,7 +20,7 @@ class ArisanController extends Controller
     public function index(Request $request)
     {
         // $arisans = Arisan::paginate(10);
-        $arisans = Arisan::all();
+        $arisans = Arisan::orderBy('id_arisan', 'DESC')->get();
         return view('arisan.data-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }
 
@@ -28,7 +28,7 @@ class ArisanController extends Controller
     {
         $user = auth()->user();
 
-        $arisans = Arisan::where('id_user', $user->id)->paginate(10);
+        $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->paginate(10);
 
         return view('arisan.manage-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }

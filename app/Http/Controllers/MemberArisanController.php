@@ -31,7 +31,7 @@ class MemberArisanController extends Controller
         $ownerUserId = Auth::id();
         $members = User::whereHas('arisans', function ($query) use ($ownerUserId) {
             $query->where('arisans.id_user', $ownerUserId);
-        })->distinct()->get();
+        })->distinct()->orderBy('id', 'DESC')->get();
 
         return view('member.index', ['active' => 'manage-member'], compact('members'));
     }

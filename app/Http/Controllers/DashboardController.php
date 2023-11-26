@@ -152,7 +152,7 @@ class DashboardController extends Controller
 
         $query = User::where('role', 0);
 
-        $members = User::where('role', 0)->paginate(10);
+        $members = User::where('role', 0)->orderBy('id', 'DESC')->paginate(10);
 
         return view('manage-member', ['active' => 'manage-member', 'members' => $members])->with('role', $request);
     }
