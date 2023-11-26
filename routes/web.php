@@ -66,13 +66,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index']);
 
-        Route::get('/ubah-profile', [ProfileController::class, 'ubahProfile'])->name('ubah-profile');
+        Route::get('/pengaturan-akun', [ProfileController::class, 'ubahProfile'])->name('ubah-profile');
         Route::post('/ubah-profile', [ProfileController::class, 'updateProfile'])->name('update-profile');
 
-        Route::get('/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto');
+        // Route::get('/ubah-foto', [ProfileController::class, 'ubahFoto'])->name('ubah-foto');
         Route::post('/ubah-foto', [ProfileController::class, 'updateFoto'])->name('update-foto');
 
-        Route::get('/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password');
+        // Route::get('/ubah-password', [ProfileController::class, 'ubahPassword'])->name('ubah-password');
         // Route::post('/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password');
         // Route::post('/ubah-password', [ProfileController::class, 'checkOldPassword'])->name('check-old-password');
         Route::post('/ubah-password', [ProfileController::class, 'updatePassword'])->name('update-password');
@@ -156,6 +156,8 @@ Route::group(['middleware' => ['allowAllUsers']], function () {
 Route::get('/reset-password', function () {
     return view('reset-password');
 });
+
+
 
 
 // Route::get('/dashboard', function () {

@@ -56,7 +56,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <small class="card-text text-uppercase">Profil Saya</small>
-                                <a href="/profile/ubah-profile"><i class="ti ti-settings me-2 ti-sm"></i></a>
+                                <a href="/profile/pengaturan-akun"><i class="ti ti-settings me-2 ti-sm"></i></a>
                             </div>
                             <div class="mt-3">
 
