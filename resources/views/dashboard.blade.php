@@ -23,8 +23,7 @@
             </div>
         @endif
         <div class="row">
-            <div>
-                <div class="mb-3 col-12 mb-0 d-flex">
+            <div class="col-md-8">
                     @if (auth()->user()->active == 0)
                         @if (auth()->user()->role == 1)
                             <div class="alert bg-label-success">
@@ -44,67 +43,66 @@
                     @endif
                     @if (auth()->user()->active == 1)
                         @if (auth()->user()->role == 2)
-
-                        <div class="col-xl-8 mb-4 col-lg-7 col-12">
-                            <div class="card h-100">
-                              <div class="card-header">
-                                <div class="d-flex justify-content-between mb-3">
-                                  <h5 class="card-title mb-0">Statistics</h5>
-                                  <small class="text-muted">*Refresh untuk memperbarui</small>
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3 mb-4">
+                              <div class="card card-border-shadow-primary">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-center mb-2 pb-1">
+                                    <div class="avatar me-2">
+                                      <span class="avatar-initial rounded bg-label-primary"><i class="ti ti-browser ti-md"></i></span>
+                                    </div>
+                                    <h4 class="ms-1 mb-0">{{$totalAllArisan}}</h4>
+                                  </div>
+                                  <p class="mb-1">Arisan</p>
                                 </div>
                               </div>
-                              <div class="card-body">
-                                <div class="row gy-3">
-                                  <div class="col-md-3 col-6">
-                                    <div class="d-flex align-items-center">
-                                      <div class="badge rounded-pill bg-label-primary me-3 p-2">
-                                        <i class="ti ti-chart-pie-2 ti-sm"></i>
-                                      </div>
-                                      <div class="card-info">
-                                        <h5 class="mb-0">{{ $totalAllArisan }}</h5>
-                                        <small>Arisan</small>
-                                      </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3 mb-4">
+                              <div class="card card-border-shadow-warning">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-center mb-2 pb-1">
+                                    <div class="avatar me-2">
+                                      <span class="avatar-initial rounded bg-label-success"
+                                        ><i class="ti ti-browser-check ti-md"></i
+                                      ></span>
                                     </div>
+                                    <h4 class="ms-1 mb-0">{{$totalCompletedArisan}}</h4>
                                   </div>
-                                  <div class="col-md-3 col-6">
-                                    <div class="d-flex align-items-center">
-                                      <div class="badge rounded-pill bg-label-success me-3 p-2">
-                                        <i class="ti ti-browser-check ti-sm"></i>
-                                      </div>
-                                      <div class="card-info">
-                                        <h5 class="mb-0">{{ $totalCompletedArisan }}</h5>
-                                        <small>Selesai</small>
-                                      </div>
+                                  <p class="mb-1">Selesai</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3 mb-4">
+                              <div class="card card-border-shadow-danger">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-center mb-2 pb-1">
+                                    <div class="avatar me-2">
+                                      <span class="avatar-initial rounded bg-label-danger"
+                                        ><i class="ti ti-users ti-md"></i
+                                      ></span>
                                     </div>
+                                    <h4 class="ms-1 mb-0">{{$totalUsersWithRoleZero}}</h4>
                                   </div>
-                                  <div class="col-md-3 col-6">
-                                    <div class="d-flex align-items-center">
-                                      <div class="badge rounded-pill bg-label-info me-3 p-2">
-                                        <i class="ti ti-users ti-sm"></i>
-                                      </div>
-                                      <div class="card-info">
-                                        <h5 class="mb-0">{{ $totalUsersWithRoleZero }}</h5>
-                                        <small>Pengguna</small>
-                                      </div>
+                                  <p class="mb-1">Pengguna</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3 mb-4">
+                              <div class="card card-border-shadow-info">
+                                <div class="card-body">
+                                  <div class="d-flex align-items-center mb-2 pb-1">
+                                    <div class="avatar me-2">
+                                      <span class="avatar-initial rounded bg-label-info"><i class="ti ti-brand-redhat ti-md"></i></span>
                                     </div>
+                                    <h4 class="ms-1 mb-0">{{$totalUsersWithRoleOne}}</h4>
                                   </div>
-                                  <div class="col-md-3 col-6">
-                                    <div class="d-flex align-items-center">
-                                      <div class="badge rounded-pill bg-label-danger me-3 p-2">
-                                        <i class="ti ti-brand-redhat ti-sm"></i>
-                                      </div>
-                                      <div class="card-info">
-                                        <h5 class="mb-0">{{ $totalUsersWithRoleOne }}</h5>
-                                        <small>Pemilik</small>
-                                      </div>
-                                    </div>
-                                  </div>
-
+                                  <p class="mb-1">Pemilik</p>
                                 </div>
                               </div>
                             </div>
                           </div>
                         @elseif (auth()->user()->role == 1)
+                        <div class="mb-3 col-12 mb-0 d-flex">
                             <div class="col-xl-3 col-md-4 col-6">
                                 <div class="card">
                                     <div class="card-body">
