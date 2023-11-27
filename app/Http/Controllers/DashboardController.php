@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Arisan;
+use App\Models\Notifikasi;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,46 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
+
+    // public function index(Request $request)
+    // {
+    //     // Mendapatkan id_user yang sedang login
+    //     $userId = Auth::id();
+
+    //     $user = auth()->user();
+
+    //     $arisans = Arisan::where('id_user', $user->id)
+    //         ->where('status', 2)
+    //         ->paginate(10);
+
+    //     $arisan_runs = Arisan::where('status', 2)
+    //         ->paginate(5);
+
+    //     $totalArisan = Arisan::where('id_user', $userId)->count();
+
+    //     $totalMember = MemberArisan::join('arisans', 'member_arisans.id_arisan', '=', 'arisans.id_arisan')
+    //         ->where('arisans.id_user', $userId)
+    //         ->distinct('member_arisans.id_user')
+    //         ->count('member_arisans.id_user');
+
+    //     $totalAllArisan = Arisan::count();
+    //     $totalCompletedArisan = Arisan::where('status', 2)->count();
+    //     $totalUsersWithRoleZero = User::where('role', 0)->count();
+    //     $totalUsersWithRoleOne = User::where('role', 1)->count();
+
+    //     return view('dashboard', [
+    //         'active' => 'dashboard',
+    //         'arisans' => $arisans,
+    //         'arisan_runs' => $arisan_runs,
+    //         'role' => $request,
+    //         'totalArisan' => $totalArisan,
+    //         'totalMember' => $totalMember,
+    //         'totalUsersWithRoleZero' => $totalUsersWithRoleZero,
+    //         'totalUsersWithRoleOne' => $totalUsersWithRoleOne,
+    //         'totalAllArisan' => $totalAllArisan,
+    //         'totalCompletedArisan' => $totalCompletedArisan,
+    //     ]);
+    // }
 
     public function index(Request $request)
     {
@@ -38,6 +79,9 @@ class DashboardController extends Controller
         $totalUsersWithRoleZero = User::where('role', 0)->count();
         $totalUsersWithRoleOne = User::where('role', 1)->count();
 
+        // Mendapatkan notifikasi untuk pengguna yang sedang login
+        $notifications = Notifikasi::where('id_user', $userId)->get();
+
         return view('dashboard', [
             'active' => 'dashboard',
             'arisans' => $arisans,
@@ -49,8 +93,10 @@ class DashboardController extends Controller
             'totalUsersWithRoleOne' => $totalUsersWithRoleOne,
             'totalAllArisan' => $totalAllArisan,
             'totalCompletedArisan' => $totalCompletedArisan,
+            'notifications' => $notifications, // Menyertakan notifikasi
         ]);
     }
+
 
     // public function manageOwner(Request $request)
     // {

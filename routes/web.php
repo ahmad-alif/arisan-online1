@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\ArisanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\MemberArisanController;
 use App\Http\Controllers\WinnerArisanController;
 
@@ -111,6 +113,12 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::put('/edit-category/{id}', [CategoryController::class, 'processEditCategory'])->name('processEditCategory');
     Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete-category');
     Route::get('/page-arisan/{uuid}', [ArisanController::class, 'pageArisan'])->name('page-arisan');
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+    Route::get('/add-notifikasi', [NotifikasiController::class, 'addNotifikasi'])->name('add-notifikasi');
+    Route::post('/add-notifikasi', [NotifikasiController::class, 'sendNotifikasi'])->name('processNotifikasi');
+    Route::get('/edit-notifikasi/{slug}', [NotifikasiController::class, 'editNotifikasi'])->name('edit-notifikasi');
+    Route::post('/edit-notifikasi/{slug}', [NotifikasiController::class, 'processEditNotifikasi'])->name('processEditNotifikasi');
+    Route::delete('/delete-notifikasi/{slug}', [NotifikasiController::class, 'deleteNotifikasi'])->name('delete-notifikasi');
 });
 
 // Route owner
@@ -148,6 +156,7 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
 Route::group(['middleware' => ['allowAllUsers']], function () {
     Route::get('/list-arisan/search', [ArisanController::class, 'search'])->name('list-arisan.search');
     Route::get('/data-category', [CategoryController::class, 'search'])->name('search-category');
+    Route::get('/get-usernames', [NotifikasiController::class, 'getUsernameList']);
 
     Route::post('/arisan/join/{arisan}', [ArisanController::class, 'joinArisan'])->middleware('auth')->name('arisan.join');
 });
