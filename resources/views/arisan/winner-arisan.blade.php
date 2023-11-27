@@ -18,14 +18,14 @@
             <button id="spin" >Putar</button>
             {{-- <span class="arrow"></span> --}}
             <div class="container">
-                <div class="one">1</div>
-                <div class="two">2</div>
-                <div class="three">3</div>
-                <div class="four">4</div>
-                <div class="five">5</div>
-                <div class="six">6</div>
-                <div class="seven">7</div>
-                <div class="eight">8</div>
+                <div class="one">🤣</div>
+                <div class="two">😡</div>
+                <div class="three">😚</div>
+                <div class="four">🥴</div>
+                <div class="five">🫣</div>
+                <div class="six">😇</div>
+                <div class="seven">😭</div>
+                <div class="eight">🥶</div>
             </div>
         </div>
     </div>
