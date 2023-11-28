@@ -34,13 +34,16 @@
                                                         alt="client logo">
                                                 @endif
                                             </div>
-                                            <h5 class="card-title mb-0" style="font-size: 14px;">
+                                            {{-- <h5 class="card-title mb-0" style="font-size: 14px;">
                                                 {{ Str::limit($arisan->nama_arisan, 14, '...') }}
+                                            </h5> --}}
+                                            <h5 class="card-title mb-0 text-truncate" style="font-size: 16px;">
+                                                {{ $arisan->nama_arisan }}
                                             </h5>
 
-                                            <small class="text-muted">
+                                            <small class="text-muted text-truncate">
                                                 @if ($arisan->user)
-                                                    {{ Str::limit($arisan->user->name, 18, '...') }}
+                                                    {{ $arisan->user->name }}
                                                 @else
                                                     Tidak Diketahui
                                                 @endif

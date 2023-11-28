@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_number')->unique();
             $table->integer('id_arisan');
             $table->integer('id_user');
             $table->string('nama_bank');

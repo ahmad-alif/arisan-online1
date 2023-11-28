@@ -18,6 +18,21 @@ class ArisanController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    private function convertDepositFrequencyToMonths($depositFrequency)
+    {
+        switch ($depositFrequency) {
+            case 1:
+                return 1; // 1 minggu dianggap sebagai 1 bulan
+            case 2:
+                return 2; // 2 minggu dianggap sebagai 2 bulan
+            case 4:
+                return 1; // 1 bulan
+            default:
+                return 1; // Default 1 bulan jika nilai tidak sesuai
+        }
+    }
+
     public function index(Request $request)
     {
         // $arisans = Arisan::paginate(10);
@@ -200,7 +215,9 @@ class ArisanController extends Controller
         $arisan->deskripsi = $request->input('deskripsi');
         $arisan->start_date = $request->input('start_date');
         $arisan->max_member = $request->input('max_member');
-        $arisan->deposit_frequency = $request->input('deposit_frequency');
+        // $arisan->deposit_frequency = $request->input('deposit_frequency');
+        $months = $this->convertDepositFrequencyToMonths($request->input('deposit_frequency'));
+        $arisan->deposit_frequency = $months;
         $arisan->payment_amount = $request->input('payment_amount');
         $arisan->nama_bank = $request->input('nama_bank');
         $arisan->no_rekening = $request->input('no_rekening');
@@ -293,7 +310,10 @@ class ArisanController extends Controller
         $arisan->active = 0; // Atur active sesuai kebutuhan
         $arisan->max_member = $request->input('max_member');
         $arisan->deposit_frequency = $request->input('deposit_frequency');
-        // $arisan->payment_amount = $request->input('payment_amount');
+
+        // $months = $this->convertDepositFrequencyToMonths($request->input('deposit_frequency'));
+        // $arisan->deposit_frequency = $months;
+
         $paymentAmount = preg_replace("/[^0-9]/", "", $request->input('payment_amount'));
         $arisan->payment_amount = $paymentAmount;
         $arisan->id_user = $userId;
@@ -311,27 +331,38 @@ class ArisanController extends Controller
         $arisan->save();
         // dd($arisan);
 
-        return redirect('/data-arisan')->with('success', 'Arisan berhasil ditambahkan');
+        return redirect('/manage-arisan')->with('success', 'Arisan berhasil ditambahkan');
     }
 
     public function startArisan($uuid)
     {
-        // Pastikan owner atau pengguna yang berwenang melakukan konfirmasi
-        // $arisan = Arisan::find($id);
         $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
         $userId = Auth::id();
 
         if ($arisan->id_user == $userId) {
-            // Ubah status menjadi 2 (aktif)
             $arisan->status = 2;
 
-            // Hitung jumlah anggota dari tabel member_arisans
             $memberCount = MemberArisan::where('id_arisan', $arisan->id_arisan)->count();
-
-            // Hitung end_date berdasarkan jumlah anggota dan deposit_frequency
             $depositFrequency = $arisan->deposit_frequency;
             $startDate = \Carbon\Carbon::parse($arisan->start_date);
-            $endDate = $startDate->copy()->addWeeks($memberCount * $depositFrequency);
+
+            // Set tanggal awal pada hari pertama setiap bulan
+            $adjustedStartDate = $startDate;
+
+            // Inisialisasi tanggal akhir
+            $endDate = $adjustedStartDate->copy();
+
+            // Periksa nilai $depositFrequency
+            if ($depositFrequency == 1 || $depositFrequency == 2) {
+                // Jika $depositFrequency adalah 1 atau 2, gunakan addWeeks
+                $endDate->addWeeks($depositFrequency * $memberCount);
+            } elseif ($depositFrequency == 4) {
+                // Jika $depositFrequency adalah 4, gunakan 1 bulan * $memberCount
+                $endDate->addMonths($memberCount);
+
+                // Set tanggal akhir sama dengan tanggal mulai
+                $endDate->day($adjustedStartDate->day);
+            }
 
             $arisan->end_date = $endDate;
 
@@ -342,6 +373,8 @@ class ArisanController extends Controller
             return redirect('/manage-arisan')->with('error', 'Anda tidak memiliki izin untuk mengaktifkan arisan ini');
         }
     }
+
+
 
     public function arisanku(Request $request)
     {
