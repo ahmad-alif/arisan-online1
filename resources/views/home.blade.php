@@ -48,8 +48,7 @@
                                                 </div>
                                             @else
                                                 <img src="{{ asset('img/default_arisan.jpg') }}"
-                                                    class="object-fit-sm-contain border rounded img-fluid"
-                                                    alt="client logo">
+                                                    class="object-fit-sm-contain border rounded img-fluid" alt="Arisan">
                                             @endif
                                         </div>
                                         <h5 class="card-title mb-0" style="font-size: 14px;">

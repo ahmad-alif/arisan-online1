@@ -259,16 +259,22 @@ class ArisanController extends Controller
     public function deleteArisan($uuid)
     {
         $arisan = Arisan::where('uuid', $uuid)->first();
-        // dd($arisan);
-        // $arisan = Arisan::where('id_arisan', $id)->first();
+
         if (!$arisan) {
             return redirect('/data-arisan')->with('error', 'Arisan tidak ditemukan.');
         }
 
+        $memberArisans = MemberArisan::where('id_arisan', $arisan->id_arisan)->get();
+
+        if (!$memberArisans->isEmpty()) {
+            $memberArisans->each->delete();
+        }
+
         $arisan->delete();
 
-        return redirect('/data-arisan')->with('success', 'Data Arisan telah dihapus.');
+        return redirect('/data-arisan')->with('success', 'Data Arisan dan semua anggota telah dihapus.');
     }
+
 
     public function addArisanOwner()
     {

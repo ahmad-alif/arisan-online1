@@ -65,11 +65,19 @@
                             class="rounded-circle" width="100"></td> --}}
                                     <td>
                                         @if ($arisan->img_arisan)
-                                            <img src="{{ Storage::url($arisan->img_arisan) }}" alt="Arisan"
-                                                class="rounded-circle" width="35">
+                                            <div
+                                                style="position: relative; display: inline-block; overflow: hidden; border-radius: 50%; width: 40px; height: 40px;">
+                                                >
+                                                <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                    class="rounded-circle img-fluid"
+                                                    src="{{ Storage::url($arisan->img_arisan) }}"
+                                                    alt="{{ $arisan->nama_arisan }}" />
+                                            </div>
                                         @else
-                                            <img src="{{ asset('img/default_arisan.jpg') }}" alt="Default Profile"
-                                                class="rounded-circle" width="35">
+                                            <img src="{{ asset('img/default_arisan.jpg') }}"
+                                                class="object-fit-sm-contain border rounded img-fluid"
+                                                style="position: relative; display: inline-block; overflow: hidden; border-radius: 50%; width: 40px; height: 40px;"
+                                                alt="Arisan">
                                         @endif
                                     </td>
 
