@@ -390,7 +390,8 @@ class ArisanController extends Controller
 
         $query = Arisan::query()
             ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
-            ->where('member_arisans.id_user', $user->id);
+            ->where('member_arisans.id_user', $user->id)
+            ->orderBy('arisans.created_at', 'desc');
 
         if ($search) {
             $query->where('nama_arisan', 'like', "%$search%");

@@ -128,7 +128,9 @@
                             </div>
                         @endforeach
                     </div>
-                    <!-- What people say slider: End -->
+                    <div class="pagination mb-5 d-flex justify-content-center">
+                        {{ $arisans->links() }}
+                    </div>
                 </div>
             </section>
 
