@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Models\Arisan;
-use Illuminate\Support\Str;
 // use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Str;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -384,24 +385,29 @@ class ArisanController extends Controller
 
     public function arisanku(Request $request)
     {
-        $search = $request->input('search', '');
+        try {
+            $search = $request->input('search', '');
 
-        $user = Auth::user();
+            $user = Auth::user();
 
-        $query = Arisan::query()
-            ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
-            ->where('member_arisans.id_user', $user->id)
-            ->orderBy('arisans.created_at', 'desc');
+            $query = Arisan::query()
+                ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
+                ->where('member_arisans.id_user', $user->id)
+                ->orderBy('arisans.created_at', 'desc');
 
-        if ($search) {
-            $query->where('nama_arisan', 'like', "%$search%");
+            if ($search) {
+                $query->where('nama_arisan', 'like', "%$search%");
+            }
+
+            $arisans = $query->paginate(32);
+
+            return view('arisan.arisanku', ['active' => 'arisanku', 'search' => $search, 'arisans' => $arisans]);
+        } catch (Exception $e) {
+            // Tangani kesalahan di sini
+            report($e); // Laporkan kesalahan ke sistem logging Laravel
+            return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
         }
-
-        $arisans = $query->paginate(32);
-
-        return view('arisan.arisanku', ['active' => 'arisanku', 'search' => $search, 'arisans' => $arisans]);
     }
-
 
     public function listArisan(Request $request)
     {
