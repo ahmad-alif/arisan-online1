@@ -46,8 +46,7 @@
 
                                         </div>
                                         <div class="card-body p-3 pt-2">
-                                            <a href="app-academy-course-details.html"
-                                                class="h5">{{ $arisan->nama_arisan }}</a><br>
+                                            <a href="" class="h5">{{ $arisan->nama_arisan }}</a><br>
                                             <small class="mt-2 text-truncate">
                                                 {{ $arisan->user ? $arisan->user->name : 'Kesalahan menampilkan' }}
                                             </small><br>
@@ -75,14 +74,7 @@
                                             {{-- <button type="submit" class="btn btn-primary w-100">Gabung</button> --}}
                                             <div class="d-flex flex-column flex-md-row gap-2 text-nowrap mt-2">
                                                 @if ($arisan->isUserJoined(auth()->user()))
-                                                    @if (auth()->user()->role == 1)
-                                                        <a class="app-academy-md-50 btn btn-label me-md-2 d-flex align-items-center w-60"
-                                                            href="{{ route('arisan.detail', $arisan->uuid) }}">
-                                                            <span class="d-none d-sm-block">Detail</span>
-                                                            <i
-                                                                class="ti ti-info-small align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm"></i>
-                                                        </a>
-                                                    @elseif (auth()->user()->role == 0)
+                                                    @if (auth()->user()->role == 0)
                                                         <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
                                                             href="{{ route('arisan.detail.member', $arisan->uuid) }}">
                                                             <span class="d-none d-sm-block">Detail</span>
@@ -90,43 +82,48 @@
                                                         </a>
                                                     @endif
                                                 @else
-                                                    <form action="{{ route('arisan.join', $arisan) }}" method="POST"
-                                                        id="joinForm{{ $arisan->id_arisan }}">
-                                                        @csrf
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#confirmationModal{{ $arisan->id_arisan }}">
-                                                            <span class="d-none d-sm-block">Gabung</span><i
-                                                                class="ti ti-heart-handshake align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm d-block d-sm-none"></i>
-                                                        </button>
-                                                    </form>
-                                                    <div class="modal fade" id="confirmationModal{{ $arisan->id_arisan }}"
-                                                        tabindex="-1" role="dialog"
-                                                        aria-labelledby="confirmationModalLabel{{ $arisan->id_arisan }}"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="confirmationModalLabel{{ $arisan->id_arisan }}">
-                                                                        Konfirmasi Gabung Arisan</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>Apakah Anda yakin ingin gabung ke Arisan
-                                                                        "<strong>{{ $arisan->nama_arisan }}</strong>" ?</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit"
-                                                                        form="joinForm{{ $arisan->id_arisan }}"
-                                                                        class="btn btn-primary">Gabung</button>
+                                                    @if (auth()->user()->role == 0)
+                                                        <form action="{{ route('arisan.join', $arisan) }}" method="POST"
+                                                            id="joinForm{{ $arisan->id_arisan }}">
+                                                            @csrf
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#confirmationModal{{ $arisan->id_arisan }}">
+                                                                <span class="d-none d-sm-block">Gabung</span><i
+                                                                    class="ti ti-heart-handshake align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm d-block d-sm-none"></i>
+                                                            </button>
+                                                        </form>
+                                                        <div class="modal fade"
+                                                            id="confirmationModal{{ $arisan->id_arisan }}" tabindex="-1"
+                                                            role="dialog"
+                                                            aria-labelledby="confirmationModalLabel{{ $arisan->id_arisan }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="confirmationModalLabel{{ $arisan->id_arisan }}">
+                                                                            Konfirmasi Gabung Arisan</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda yakin ingin gabung ke Arisan
+                                                                            "<strong>{{ $arisan->nama_arisan }}</strong>" ?
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit"
+                                                                            form="joinForm{{ $arisan->id_arisan }}"
+                                                                            class="btn btn-primary">Gabung</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    @endif
                                                 @endif
                                             </div>
 

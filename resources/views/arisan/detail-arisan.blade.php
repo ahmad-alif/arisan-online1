@@ -75,7 +75,9 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span>{{ $arisan->deskripsi }}</span>
+                                            <div style="max-height: 200px; overflow-y: auto;">
+                                                {{ $arisan->deskripsi }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +150,9 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span>{{ $arisan->payment_amount }}</span>
+                                            <span id="payment_amount">
+                                                Rp. {{ number_format($arisan->payment_amount, 0, ',', '.') }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -217,8 +221,10 @@
                                                 <th scope="col">Foto Profil</th>
                                                 <th scope="col">Username</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">No HP</th>
+                                                @if (auth()->user()->role != 0)
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">No HP</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -236,8 +242,10 @@
                                                     </td>
                                                     <td>{{ $member->username }}</td>
                                                     <td>{{ $member->name }}</td>
-                                                    <td>{{ $member->email }}</td>
-                                                    <td>{{ $member->nohp }}</td>
+                                                    @if (auth()->user()->role != 0)
+                                                        <td>{{ $member->email }}</td>
+                                                        <td>{{ $member->nohp }}</td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -249,9 +257,29 @@
                 </div>
             </div>
 
+
             <!--/ About Arisan -->
 
         </div>
     </div>
+
+    <script>
+        // Fungsi untuk mengonversi angka menjadi format mata uang Rupiah
+        function formatRupiah(angka) {
+            return 'Rp. ' + angka.toLocaleString('id-ID');
+        }
+
+        // Fungsi untuk memformat input setiap kali ada perubahan
+        function updateRupiah() {
+            var input = document.getElementById('payment_amount');
+            var value = input.value.replace(/\D/g, ''); // Menghapus karakter non-digit
+            input.value = formatRupiah(value);
+        }
+
+        // Menambahkan event listener untuk memanggil fungsi setiap kali ada perubahan pada input
+        document.getElementById('payment_amount').addEventListener('input', updateRupiah);
+    </script>
+
+
 
 @endsection

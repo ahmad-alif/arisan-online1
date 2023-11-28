@@ -343,6 +343,25 @@ class ArisanController extends Controller
         }
     }
 
+    public function arisanku(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $user = Auth::user();
+
+        $query = Arisan::query()
+            ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
+            ->where('member_arisans.id_user', $user->id);
+
+        if ($search) {
+            $query->where('nama_arisan', 'like', "%$search%");
+        }
+
+        $arisans = $query->paginate(32);
+
+        return view('arisan.arisanku', ['active' => 'arisanku', 'search' => $search, 'arisans' => $arisans]);
+    }
+
 
     public function listArisan(Request $request)
     {

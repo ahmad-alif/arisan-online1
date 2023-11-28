@@ -105,6 +105,12 @@
                         <div data-i18n="Page 2">Daftar Arisan</div>
                     </a>
                 </li>
+                <li class="menu-item {{ $active === 'arisanku' ? 'active' : '' }}">
+                    <a class="menu-link" href="/arisanku">
+                        <i class="menu-icon tf-icons ti ti-mood-dollar"></i>
+                        <div data-i18n="Page 2">Arisanku</div>
+                    </a>
+                </li>
 
     </ul>
     @endif

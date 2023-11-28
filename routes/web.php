@@ -146,6 +146,7 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
 
 //Route User
 Route::group(['middleware' => ['auth', 'user-access:0']], function () {
+    Route::get('/arisanku', [ArisanController::class, 'arisanku'])->name('arisanku');
     Route::get('/list-arisan', [ArisanController::class, 'listArisan'])->name('list-arisan');
     Route::get('/detail-arisan/{uuid}', [ArisanController::class, 'detailArisan'])->name('arisan.detail.member');
     Route::get('/verification-account-member', [AuthController::class, 'verificationAccountMember'])->name('verification-account-member');
