@@ -61,7 +61,7 @@
             </button> --}}
             <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
                 @csrf
-                <button type="button" class="btn btn-primary" onclick="showInvoiceModal()">Buat Invoice</button>
+                <button type="button" class="btn btn-primary" onclick="showModalWithData()">Buat Invoice</button>
             </form>
 
             <!-- Tampilkan data invoice (jika ada) -->
@@ -89,7 +89,7 @@
                 <p>Belum ada data invoice</p>
             @endif --}}
 
-            <div class="card mb-4">
+            <div class="card mb-4 mt-4">
                 <div class="card-header">
                     <h5 class="card-title">Data Invoice</h5>
                 </div>
@@ -100,14 +100,14 @@
                                 <tr>
                                     <th>Nomor Invoice</th>
                                     <th>Nama Bank</th>
-                                    <!-- Add more columns as needed -->
+                                    <th>No Rekening</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{ $invoice->invoice_number }}</td>
                                     <td>{{ $invoice->nama_bank }}</td>
-                                    <!-- Add more data columns as needed -->
+                                    <td>{{ $invoice->no_rekening }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -115,11 +115,7 @@
                         <p>Belum ada data invoice</p>
                     @endif
                 </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                </div>
             </div>
-
 
 
             <!-- Tampilkan data setoran (jika ada) -->
@@ -142,17 +138,19 @@
             @endif
         </div>
     </div>
+
     <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="invoiceModalLabel"
         aria-hidden="true">
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="invoiceModalLabel">Data Invoice</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <i class="ti ti-circle-check"></i>
+                    <div>
+                        <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
+                    </div>
                 </div>
+
                 <div class="modal-body">
                     <!-- Tampilkan data invoice di sini -->
                     @if ($arisan->invoices->count() > 0)
@@ -175,11 +173,11 @@
                             </tbody>
                         </table>
                     @else
-                        <p>Belum ada data invoice</p>
+                        <p>Invoice sedang dibuat...</p>
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -187,6 +185,82 @@
 
 
     <script>
+        // Function to handle the Ajax request for showing the modal after reloading the page
+        function showModalWithData() {
+            // Reload the page
+            location.reload();
+
+            // Note: The code below won't be executed after the reload
+            // Mengambil data dari server
+            $.ajax({
+                url: "{{ route('buat.invoice', $arisan->uuid) }}",
+                type: "post",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    // Menampilkan data di dalam modal
+                    $('#invoiceModal .modal-body').html(response.html);
+                    $('#invoiceModal').modal('show');
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // After the page reloads, check if there is an invoice and show the modal
+        $(document).ready(function() {
+            var hasInvoice = @json($invoice != null);
+
+            if (hasInvoice) {
+                var invoiceData = @json($invoice);
+
+                var modalContent = '<small>Pastikan nilai transfer sesuai dengan yg ada di invoice</small>';
+                modalContent += '<ul>';
+                modalContent += '<li>Nomor Invoice: ' + invoiceData.invoice_number + '</li>';
+                modalContent += '<li>Nama Bank: ' + invoiceData.nama_bank + '</li>';
+                modalContent += '<li>No Rekening: ' + invoiceData.no_rekening + '</li>';
+                modalContent += '<li>Nama Pemilik Rekening: ' + invoiceData.nama_pemilik_rekening + '</li>';
+                modalContent += '<li>Total: ' + invoiceData.total + '</li>';
+                modalContent += '</ul>';
+
+                $('#invoiceModal .modal-body').html(modalContent);
+                $('#invoiceModal').modal('show');
+            }
+        });
+    </script>
+
+
+
+    {{-- <script>
+        function showInvoiceModal() {
+            // Reload the page
+            location.reload();
+        }
+
+        // After the page reloads, check if there is an invoice and show the modal
+        $(document).ready(function() {
+            var hasInvoice = @json($invoice != null);
+
+            if (hasInvoice) {
+                var invoiceData = @json($invoice);
+
+                var modalContent = '<p>Data Invoice sudah dibuat</p>';
+                modalContent += '<ul>';
+                modalContent += '<li>Nomor Invoice: ' + invoiceData.invoice_number + '</li>';
+                modalContent += '<li>Nama Bank: ' + invoiceData.nama_bank + '</li>';
+                modalContent += '<li>No Rekening: ' + invoiceData.no_rekening + '</li>';
+                modalContent += '<li>Nama Pemilik Rekening: ' + invoiceData.nama_pemilik_rekening + '</li>';
+                modalContent += '</ul>';
+
+                $('#invoiceModal .modal-body').html(modalContent);
+                $('#invoiceModal').modal('show');
+            }
+        });
+    </script> --}}
+
+    {{-- <script>
         function showInvoiceModal() {
             // Mengambil data dari server
             $.ajax({
@@ -205,5 +279,5 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 @endsection

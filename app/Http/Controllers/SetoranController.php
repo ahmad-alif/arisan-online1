@@ -41,9 +41,12 @@ class SetoranController extends Controller
     public function setoran($uuid)
     {
         try {
+            $id_user = auth()->user()->id;
             $arisan = Arisan::where('uuid', $uuid)->with('setorans', 'invoices')->firstOrFail();
 
-            $invoice = $this->createInvoice($uuid);
+            // $invoice = Invoice::where('uuid', $uuid)->latest()->firstOrFail();
+            $invoice = Invoice::where('uuid', $uuid)->where('id_user', $id_user)->latest()->first();
+            // $invoice = $this->createInvoice($uuid, $id_user)->latest()->first();
             // $invoices = $arisan->invoices;
             // $arisan->load('invoices');
             // $invoices = $arisan->load('invoices');
@@ -57,14 +60,16 @@ class SetoranController extends Controller
 
     public function createInvoice($uuid)
     {
+        $id_user = auth()->user()->id;
         // Temukan Arisan berdasarkan UUID
-        $arisan = Arisan::where('uuid', $uuid)->first();
+        // $arisan = Arisan::where('uuid', $uuid)->first();
+        $arisan = Arisan::where('uuid', '=', $uuid)->first();
 
         // Buat invoice baru
         $invoice = new Invoice();
         $invoice->invoice_number = $this->generateInvoiceNumber();
         $invoice->uuid = $arisan->uuid;
-        $invoice->id_user = $arisan->id_user;
+        $invoice->id_user = $id_user;
         $invoice->nama_bank = $arisan->nama_bank;
         $invoice->no_rekening = $arisan->no_rekening;
         $invoice->nama_pemilik_rekening = $arisan->nama_pemilik_rekening;
