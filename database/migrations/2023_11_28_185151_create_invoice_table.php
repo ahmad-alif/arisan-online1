@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
-            $table->integer('id_arisan');
-            $table->integer('id_user');
+            $table->string('uuid');
+            $table->unsignedBigInteger('id_user');
             $table->string('nama_bank');
             $table->string('no_rekening');
             $table->string('nama_pemilik_rekening');

@@ -97,19 +97,6 @@ class DashboardController extends Controller
         ]);
     }
 
-
-    // public function manageOwner(Request $request)
-    // {
-    //     // Logika untuk halaman dashboard user
-    //     $search = $request->query('search');
-
-    //     $query = User::where('role', 1);
-
-    //     $owners = User::where('role', 1)->orderby('id', 'DESC')->paginate(10);
-
-    //     return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners])->with('role', $request);
-    // }
-
     public function manageOwner(Request $request)
     {
         $search = $request->query('search');

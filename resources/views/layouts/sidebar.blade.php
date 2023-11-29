@@ -111,6 +111,12 @@
                         <div data-i18n="Page 2">Arisanku</div>
                     </a>
                 </li>
+                <li class="menu-item {{ $active === 'setoran' ? 'active' : '' }}">
+                    <a class="menu-link" href="/setoran">
+                        <i class="menu-icon tf-icons ti ti-calendar-dollar"></i>
+                        <div data-i18n="Page 2">Setoran</div>
+                    </a>
+                </li>
 
     </ul>
     @endif

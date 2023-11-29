@@ -46,4 +46,19 @@ class Arisan extends Model
     {
         return $this->members()->where('id_user', $user->id)->exists();
     }
+
+    // public function invoices()
+    // {
+    //     return $this->hasMany(Invoice::class, 'id_arisan', 'id_arisan');
+    // }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'uuid', 'uuid');
+    }
+
+    public function setorans()
+    {
+        return $this->hasMany(Setoran::class, 'id_invoice');
+    }
 }

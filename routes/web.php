@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArisanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SetoranController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotifikasiController;
@@ -151,6 +152,12 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
     Route::get('/detail-arisan/{uuid}', [ArisanController::class, 'detailArisan'])->name('arisan.detail.member');
     Route::get('/verification-account-member', [AuthController::class, 'verificationAccountMember'])->name('verification-account-member');
     Route::post('/verification-account-member', [AuthController::class, 'processVerificationAccountMember'])->name('processVerificationAccountMember');
+    Route::get('/setoran', [SetoranController::class, 'index'])->name('all-setoran');
+    Route::get('/setoran/{uuid}', [SetoranController::class, 'setoran'])->name('setoran');
+    Route::post('/buat-invoice/{uuid}', [SetoranController::class, 'createInvoice'])->name('buat.invoice');
+    Route::get('/invoice/{invoice_number}', [SetoranController::class, 'tampilInvoice'])->name('invoice');
+    Route::get('/setoran/upload/{invoice_number}', [SetoranController::class, 'uploadSetoran'])->name('upload-setoran');
+    Route::post('/setoran/upload/{invoice_number}', [SetoranController::class, 'processUploadSetoran'])->name('processSetoran');
     // Route::get('/arisanku', [ArisanController::class, 'arisanku'])->name('arisanku');
 });
 

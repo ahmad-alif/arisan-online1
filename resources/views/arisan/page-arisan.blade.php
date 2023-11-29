@@ -89,7 +89,17 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="d-flex align-items-center mb-3">
-                                            <span>{{ $arisan->status == 1 ? 'Aktif' : 'Non-Aktif' }}</span>
+                                            @if ($arisan->status == 0)
+                                                <span class="btn btn-sm btn-light disabled">Belum Terverifikasi</span>
+                                            @elseif ($arisan->status == 1)
+                                                <span class="btn btn-sm btn-primary disabled">Sudah Terverifikasi</span>
+                                            @elseif ($arisan->status == 2)
+                                                <span class="btn btn-sm btn-success disabled">Berjalan</span>
+                                            @elseif ($arisan->status == 3)
+                                                <span class="btn btn-sm btn-danger disabled">Berakhir</span>
+                                            @else
+                                                Status Tidak Diketahui
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

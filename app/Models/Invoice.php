@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Setoran extends Model
+class Invoice extends Model
 {
     use HasFactory;
-    protected $table = 'setoran';
     protected $guarded = [];
-
-    public function getSetoranForMember($memberId)
-    {
-        return $this->where('id_member', $memberId)->value('setoran');
-    }
+    protected $table = 'invoice';
 
     // public function arisan()
     // {
     //     return $this->belongsTo(Arisan::class, 'id_arisan', 'id_arisan');
     // }
-    public function invoice()
+    public function arisan()
     {
-        return $this->belongsTo(Invoice::class, 'id_invoice');
+        return $this->belongsTo(Arisan::class, 'id_arisan', 'id_arisan');
+    }
+    public function setoran()
+    {
+        return $this->hasOne(Setoran::class, 'id_invoice');
     }
 }
