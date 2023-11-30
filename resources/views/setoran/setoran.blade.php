@@ -73,69 +73,56 @@
             {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#invoiceModal">
                 Buat Invoice
             </button> --}}
-            <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
+            {{-- <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
                 @csrf
                 <button type="submit" class="btn btn-primary">Buat Invoice</button>
-            </form>
+            </form> --}}
 
-            <!-- Tampilkan data invoice (jika ada) -->
-            {{-- @if ($arisan->invoices->count() > 0)
-                <h2>Data Invoice</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nomor Invoice</th>
-                            <th>Nama Bank</th>
-                            <!-- Tambahkan kolom lain sesuai kebutuhan -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($arisan->invoices as $invoice)
-                            <tr>
-                                <td>{{ $invoice->invoice_number }}</td>
-                                <td>{{ $invoice->nama_bank }}</td>
-                                <!-- Tambahkan data lain sesuai kebutuhan -->
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p>Belum ada data invoice</p>
-            @endif --}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title">Data Invoice</h5>
+                            <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-success mt-n4">Buat Invoice</button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            @if ($invoice)
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nomor Invoice</strong></div>
+                                    <div class="col-md-8">{{ $invoice->invoice_number }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nama Bank</strong></div>
+                                    <div class="col-md-8">{{ $invoice->nama_bank }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>No Rekening</strong></div>
+                                    <div class="col-md-8">{{ $invoice->no_rekening }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalDetail{{ $invoice->id }}">
+                                            Detail
+                                        </button>
+                                    </div>
+                                </div>
+                            @else
+                                <p>Belum ada data invoice</p>
+                            @endif
+                        </div>
+                    </div>
 
-            <div class="card mb-4 mt-4">
-                <div class="card-header">
-                    <h5 class="card-title">Data Invoice</h5>
                 </div>
-                <div class="table-responsive">
-                    <div class="card-body">
-                        @if ($invoice)
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Nomor Invoice</th>
-                                        <th>Nama Bank</th>
-                                        <th>No Rekening</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $invoice->invoice_number }}</td>
-                                        <td>{{ $invoice->nama_bank }}</td>
-                                        <td>{{ $invoice->no_rekening }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#modalDetail{{ $invoice->id }}">
-                                                Detail
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        @else
-                            <p>Belum ada data invoice</p>
-                        @endif
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title">Unggah Bukti Setoran</h5>
+                        </div>
+
                     </div>
                 </div>
             </div>
