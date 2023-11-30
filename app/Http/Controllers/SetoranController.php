@@ -44,14 +44,12 @@ class SetoranController extends Controller
             $id_user = auth()->user()->id;
             $arisan = Arisan::where('uuid', $uuid)->with('setorans', 'invoices')->firstOrFail();
 
-            // $invoice = Invoice::where('uuid', $uuid)->latest()->firstOrFail();
-            $invoice = Invoice::where('uuid', $uuid)->where('id_user', $id_user)->latest()->first();
-            // $invoice = $this->createInvoice($uuid, $id_user)->latest()->first();
-            // $invoices = $arisan->invoices;
-            // $arisan->load('invoices');
-            // $invoices = $arisan->load('invoices');
+            // Ambil invoice terbaru dengan UUID arisan dan ID user
+            $invoice = Invoice::where('uuid', $arisan->uuid)
+                ->where('id_user', $id_user)
+                ->latest()
+                ->first();
 
-            // dd($arisan);
             return view('setoran.setoran', ['active' => 'setoran', 'arisan' => $arisan, 'invoice' => $invoice]);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Arisan tidak ditemukan');
@@ -75,8 +73,10 @@ class SetoranController extends Controller
         $invoice->nama_pemilik_rekening = $arisan->nama_pemilik_rekening;
 
         // Hitung total berdasarkan payment_amount dan fee_admin
+        // $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
+        // $invoice->total = number_format($total, 2, '.', '');
         $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
-        $invoice->total = number_format($total, 2, '.', '');
+        $invoice->total = intval($total); // Convert total to integer
 
         $invoice->save();
         // dd($invoice);
@@ -85,7 +85,8 @@ class SetoranController extends Controller
         // return redirect()->back()->with('success', 'Invoice berhasil dibuat');
         // $view = view('modals.invoice_modal', ['invoice' => $invoice])->render();
         // return response()->json(['html' => $view]);
-        return $invoice;
+        // return $invoice;
+        return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Invoice berhasil dibuat');
     }
 
     private function generateInvoiceNumber()
@@ -98,15 +99,15 @@ class SetoranController extends Controller
         return $year . $month . $day . $randomDigits;
     }
 
-    public function tampilInvoice($invoice_number)
-    {
-        // Fetch the invoice details based on the invoice number
-        $invoice = Invoice::where('invoice_number', $invoice_number)->first();
+    // public function tampilInvoice($invoice_number)
+    // {
+    //     // Fetch the invoice details based on the invoice number
+    //     $invoice = Invoice::where('invoice_number', $invoice_number)->first();
 
-        // Render the invoice details view and return as JSON
-        $view = view('modals.invoice_modal', ['invoice' => $invoice])->render();
-        return response()->json(['html' => $view, 'invoice_number' => $invoice_number]);
-    }
+    //     // Render the invoice details view and return as JSON
+    //     $view = view('modals.invoice_modal', ['invoice' => $invoice])->render();
+    //     return response()->json(['html' => $view, 'invoice_number' => $invoice_number]);
+    // }
 
     // public function createInvoice($uuid)
     // {

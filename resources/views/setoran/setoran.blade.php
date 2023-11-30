@@ -61,7 +61,7 @@
             </button> --}}
             <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
                 @csrf
-                <button type="button" class="btn btn-primary" onclick="showModalWithData()">Buat Invoice</button>
+                <button type="submit" class="btn btn-primary">Buat Invoice</button>
             </form>
 
             <!-- Tampilkan data invoice (jika ada) -->
@@ -93,27 +93,36 @@
                 <div class="card-header">
                     <h5 class="card-title">Data Invoice</h5>
                 </div>
-                <div class="card-body">
-                    @if ($invoice)
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nomor Invoice</th>
-                                    <th>Nama Bank</th>
-                                    <th>No Rekening</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ $invoice->invoice_number }}</td>
-                                    <td>{{ $invoice->nama_bank }}</td>
-                                    <td>{{ $invoice->no_rekening }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    @else
-                        <p>Belum ada data invoice</p>
-                    @endif
+                <div class="table-responsive">
+                    <div class="card-body">
+                        @if ($invoice)
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nomor Invoice</th>
+                                        <th>Nama Bank</th>
+                                        <th>No Rekening</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $invoice->invoice_number }}</td>
+                                        <td>{{ $invoice->nama_bank }}</td>
+                                        <td>{{ $invoice->no_rekening }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                data-bs-target="#modalDetail{{ $invoice->id }}">
+                                                Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        @else
+                            <p>Belum ada data invoice</p>
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -139,43 +148,53 @@
         </div>
     </div>
 
-    <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="invoiceModalLabel"
-        aria-hidden="true">
-        aria-hidden="true">
+
+    <div class="modal fade" id="modalDetail{{ $invoice->id }}" tabindex="-1" role="dialog"
+        aria-labelledby="modalDetailLabel{{ $invoice->id }}" aria-hidden="true">
+
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <i class="ti ti-circle-check"></i>
-                    <div>
-                        <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
-                    </div>
+                    <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
                 </div>
 
                 <div class="modal-body">
                     <!-- Tampilkan data invoice di sini -->
                     @if ($arisan->invoices->count() > 0)
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nomor Invoice</th>
-                                    <th>Nama Bank</th>
-                                    <!-- Tambahkan kolom lain sesuai kebutuhan -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($arisan->invoices as $invoice)
-                                    <tr>
-                                        <td>{{ $invoice->invoice_number }}</td>
-                                        <td>{{ $invoice->nama_bank }}</td>
-                                        <!-- Tambahkan data lain sesuai kebutuhan -->
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @php
+                            $latestInvoice = $arisan->invoices->sortByDesc('created_at')->first();
+                        @endphp
+
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Nomor Invoice</strong></div>
+                            <div class="col-8">{{ $latestInvoice->invoice_number }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Nama Bank</strong></div>
+                            <div class="col-8">{{ $latestInvoice->nama_bank }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>No Rekening Tujuan</strong></div>
+                            <div class="col-8">{{ $latestInvoice->no_rekening }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Nama Pemilik</strong></div>
+                            <div class="col-8">{{ $latestInvoice->nama_pemilik_rekening }}</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4"><strong>Total:</strong></div>
+                            <div class="col-8">{{ $latestInvoice->total }}</div>
+                        </div>
                     @else
                         <p>Invoice sedang dibuat...</p>
                     @endif
+
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
@@ -184,7 +203,36 @@
     </div>
 
 
-    <script>
+
+
+
+    {{-- <script>
+        function showModalWithData() {
+            // Mengambil data dari server
+            $.ajax({
+                url: "{{ route('buat.invoice', $arisan->uuid) }}",
+                type: "post",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    // Menampilkan data di dalam modal
+                    $('#invoiceModal .modal-body').html(response.html);
+                    $('#invoiceModal').modal('show');
+
+                    // Reload the page after 2 seconds (adjust the delay as needed)
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script> --}}
+
+    {{-- <script>
         // Function to handle the Ajax request for showing the modal after reloading the page
         function showModalWithData() {
             // Reload the page
@@ -229,7 +277,9 @@
                 $('#invoiceModal').modal('show');
             }
         });
-    </script>
+    </script> --}}
+
+
 
 
 
