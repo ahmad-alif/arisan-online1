@@ -157,8 +157,11 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
     Route::post('/buat-invoice/{uuid}', [SetoranController::class, 'createInvoice'])->name('buat.invoice');
     Route::get('/cetak-invoice/{uuid}', [SetoranController::class, 'cetakPdfInvoice'])->name('cetak.invoice');
     Route::get('/invoice/{invoice_number}', [SetoranController::class, 'tampilInvoice'])->name('invoice');
-    Route::get('/setoran/upload/{invoice_number}', [SetoranController::class, 'uploadSetoran'])->name('upload-setoran');
-    Route::post('/setoran/upload/{invoice_number}', [SetoranController::class, 'processUploadSetoran'])->name('processSetoran');
+    // Route::get('/setoran/upload/{invoice_number}', [SetoranController::class, 'uploadSetoran'])->name('upload-setoran');
+    // Route::post('/setoran/upload/{invoice_number}', [SetoranController::class, 'processUploadSetoran'])->name('processSetoran');
+    Route::post('/setoran/upload/{invoice_number}/{uuid}', [SetoranController::class, 'uploadSetoran'])->name('upload-setoran');
+    // Route::post('/setoran/upload/{invoice_number}/{uuid}', [SetoranController::class, 'processUploadSetoran'])
+    // ->name('processSetoran');
     // Route::get('/arisanku', [ArisanController::class, 'arisanku'])->name('arisanku');
 });
 

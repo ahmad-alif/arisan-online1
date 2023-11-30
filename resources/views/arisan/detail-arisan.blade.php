@@ -270,8 +270,49 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <small class="card-text text-uppercase">Setoran</small>
+                            </div>
+                            <div class="mt-3">
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Foto Profil</th>
+                                                <th scope="col">Username</th>
 
-            <!--/ About Arisan -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($arisan->members as $member)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>
+                                                        @if ($member->foto_profil)
+                                                            <img src="{{ Storage::url($member->foto_profil) }}"
+                                                                alt="Profile" class="rounded-circle" width="35"
+                                                                height="35">
+                                                        @else
+                                                            <i class="ti ti-user-circle ti-lg text-info"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $member->username }}</td>
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

@@ -65,19 +65,6 @@
                 </div>
             </div>
 
-            <!-- Tombol untuk membuat invoice -->
-            {{-- <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-primary">Buat Invoice</button>
-            </form> --}}
-            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#invoiceModal">
-                Buat Invoice
-            </button> --}}
-            {{-- <form action="{{ route('buat.invoice', $arisan->uuid) }}" method="post" id="buat-invoice-form">
-                @csrf
-                <button type="submit" class="btn btn-primary">Buat Invoice</button>
-            </form> --}}
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
@@ -126,7 +113,50 @@
                         <div class="card-header">
                             <h5 class="card-title">Unggah Bukti Setoran</h5>
                         </div>
+                        <div class="card-body">
+                            {{-- {{ dd($arisan->setorans) }} --}}
+                            @if ($invoice)
+                                @php
+                                    $latestSetoran = $arisan->setorans->last();
+                                @endphp
 
+                                @if ($latestSetoran)
+                                    {{-- Jika sudah ada setoran, tampilkan gambar --}}
+                                    <div class="mb-3">
+
+                                        <img src="{{ url('/storage/bukti_setoran/' . $latestSetoran->bukti_setoran) }}"
+                                            alt="Bukti Setoran" class="d-block h-auto rounded user-profile-img"
+                                            width="200px" />
+                                        <form
+                                            action="{{ route('upload-setoran', ['invoice_number' => $invoice->invoice_number, 'uuid' => $arisan->uuid]) }}"
+                                            method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="mb-3 mt-3">
+                                                <input type="file" class="form-control" id="bukti_setoran"
+                                                    name="bukti_setoran" accept="image/*" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Ubah</button>
+                                        </form>
+                                    </div>
+                                @else
+                                    {{-- Jika belum ada setoran, tampilkan formulir unggah --}}
+                                    <p class="mt-3">Anda belum upload bukti setoran.</p>
+                                    <form
+                                        action="{{ route('upload-setoran', ['invoice_number' => $invoice->invoice_number, 'uuid' => $arisan->uuid]) }}"
+                                        method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="bukti_setoran" class="form-label">Pilih Gambar Bukti Setoran</label>
+                                            <input type="file" class="form-control" id="bukti_setoran"
+                                                name="bukti_setoran" accept="image/*" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Unggah</button>
+                                    </form>
+                                @endif
+                            @else
+                                <p class="mt-3">Data invoice tidak ditemukan.</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

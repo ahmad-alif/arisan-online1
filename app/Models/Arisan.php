@@ -59,6 +59,6 @@ class Arisan extends Model
 
     public function setorans()
     {
-        return $this->hasMany(Setoran::class, 'id_invoice');
+        return $this->hasMany(Setoran::class, 'uuid', 'uuid');
     }
 }

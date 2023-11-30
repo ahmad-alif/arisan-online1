@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Arisan;
 use App\Models\Invoice;
-use Barryvdh\DomPDF\PDF as DomPDF;
+use App\Models\Setoran;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SetoranController extends Controller
@@ -116,20 +118,14 @@ class SetoranController extends Controller
 
     public function cetakPdfInvoice($uuid)
     {
-        // Temukan invoice berdasarkan UUID
         $invoice = Invoice::where('uuid', $uuid)->first();
 
         if (!$invoice) {
-            abort(404); // Atau manajemen kesalahan lainnya
+            abort(404);
         }
 
-        // Logika untuk mencetak PDF dari invoice
-        // ...
-
-        // Contoh menggunakan library PDF seperti Laravel PDF atau Dompdf
         $pdf = app(DomPDF::class)->loadView('pdf.invoice', compact('invoice'));
 
-        // Mengembalikan respons dengan file PDF
         return $pdf->stream('invoice.pdf');
     }
 
@@ -178,36 +174,200 @@ class SetoranController extends Controller
     //     return date('Ymd') . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
     // }
 
-    public function uploadSetoran($invoice_number)
-    {
-        $invoice = Invoice::where('invoice_number', $invoice_number)->first();
-        return view('setoran.upload', ['invoice' => $invoice]);
-    }
+    // public function uploadSetoran($invoice_number, $uuid)
+    // {
+    //     $invoice = Invoice::where('invoice_number', $invoice_number)->first();
+    //     $arisan = Arisan::where('uuid', $uuid)->with('setorans', 'invoices')->firstOrFail();
 
-    public function processUploadSetoran(Request $request, $invoice_number)
+    //     return view('setoran.setoran', ['active' => 'setoran', 'arisan' => $arisan, 'invoice' => $invoice]);
+    // }
+    // public function uploadSetoran($invoice_number)
+    // {
+    //     $invoice = Invoice::where('invoice_number', $invoice_number)->with('setoran.arisan')->firstOrFail();
+
+    //     // Jika Anda hanya perlu informasi arisan dari setoran terkait, Anda bisa menggunakan:
+    //     $arisan = $invoice->setoran->arisan;
+
+    //     return view('setoran.setoran', ['active' => 'setoran', 'arisan' => $arisan, 'invoice' => $invoice]);
+    // }
+
+    // public function uploadSetoran(Request $request, $invoice_number, $uuid)
+    // {
+    //     // try {
+    //     // Validasi request
+    //     $request->validate([
+    //         'bukti_setoran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    //     ]);
+
+    //     $id_user = auth()->user()->id;
+
+    //     // Temukan invoice berdasarkan nomor invoice dan uuid
+    //     $invoice = Invoice::where('invoice_number', $invoice_number)
+    //         ->where('uuid', $uuid)
+    //         ->where('id_user', $id_user)
+    //         ->first();
+
+    //     $latestSetoran = Setoran::where('invoice_number', $invoice_number)
+    //         ->where('uuid', $uuid)
+    //         ->latest()
+    //         ->first();
+
+    //     // Periksa apakah invoice ditemukan
+    //     if (!$invoice) {
+    //         return redirect()->back()->with('error', 'Invoice tidak ditemukan.');
+    //     }
+
+    //     if ($latestSetoran) {
+    //         Storage::delete('public/bukti_setoran/' . $latestSetoran->bukti_setoran);
+    //     }
+
+    //     // Proses upload dan simpan bukti setoran
+    //     $image = $request->file('bukti_setoran');
+    //     $imageName = time() . '.' . $image->extension();
+
+    //     // Simpan informasi bukti setoran ke direktori penyimpanan yang telah di-link ke publik
+    //     Storage::putFileAs('public/bukti_setoran', $image, $imageName);
+
+    //     // Proses upload dan simpan bukti setoran
+    //     // $image = $request->file('bukti_setoran');
+    //     // $imageName = time() . '.' . $image->extension();
+    //     // // $image->storeAs('public/bukti_setoran', $imageName);
+    //     // Storage::putFileAs('public/bukti_setoran', $image, $imageName);
+
+    //     // Simpan informasi bukti setoran ke database
+    //     $setoran = new Setoran();
+    //     $setoran->invoice_number = $invoice_number; // Gunakan invoice_number
+    //     $setoran->uuid = $uuid; // Gunakan invoice_number
+    //     $setoran->bukti_setoran = $imageName;
+    //     $setoran->status = 1; // Sesuaikan dengan status yang sesuai
+    //     $setoran->save();
+
+    //     return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Bukti setoran berhasil diunggah.');
+    //     // } catch (Exception $e) {
+    //     //     // Tangani kesalahan di sini
+    //     //     report($e);
+    //     //     return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
+    //     // }
+    // }
+
+    public function uploadSetoran(Request $request, $invoice_number, $uuid)
     {
         try {
             // Validasi request
             $request->validate([
-                'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'bukti_setoran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             ]);
 
-            $invoice = Invoice::where('invoice_number', $invoice_number)->first();
+            $id_user = auth()->user()->id;
 
-            // Proses upload dan simpan bukti transfer
-            $image = $request->file('bukti_transfer');
+            // Temukan invoice berdasarkan nomor invoice dan uuid
+            $invoice = Invoice::where('invoice_number', $invoice_number)
+                ->where('uuid', $uuid)
+                ->where('id_user', $id_user)
+                ->first();
+
+            // Periksa apakah invoice ditemukan
+            if (!$invoice) {
+                return redirect()->back()->with('error', 'Invoice tidak ditemukan.');
+            }
+
+            // Periksa dan hapus setoran sebelumnya dengan invoice_number dan uuid yang sama
+            Setoran::where('invoice_number', $invoice_number)
+                ->where('uuid', $uuid)
+                ->delete();
+
+            // Proses upload dan simpan bukti setoran
+            $image = $request->file('bukti_setoran');
             $imageName = time() . '.' . $image->extension();
-            $image->storeAs('public/bukti_transfer', $imageName);
 
-            // Simpan informasi bukti transfer ke database
-            $invoice->bukti_transfer = $imageName;
-            $invoice->save();
+            // Simpan informasi bukti setoran ke direktori penyimpanan yang telah di-link ke publik
+            Storage::putFileAs('public/bukti_setoran', $image, $imageName);
 
-            return redirect('/setoran')->with('success', 'Bukti setoran berhasil diunggah.');
+            // Simpan informasi bukti setoran ke database
+            $setoran = new Setoran();
+            $setoran->invoice_number = $invoice_number;
+            $setoran->uuid = $uuid;
+            $setoran->bukti_setoran = $imageName;
+            $setoran->status = 1; // Sesuaikan dengan status yang sesuai
+            $setoran->save();
+
+            return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Bukti setoran berhasil diunggah.');
         } catch (Exception $e) {
             // Tangani kesalahan di sini
             report($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
         }
     }
+
+
+    public function processUploadSetoran(Request $request, $invoice_number, $uuid)
+    {
+        try {
+            // Validasi request
+            $request->validate([
+                'bukti_setoran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            // Temukan invoice berdasarkan nomor invoice dan uuid
+            $invoice = Invoice::where('invoice_number', $invoice_number)
+                ->where('uuid', $uuid)
+                ->first();
+
+            // Periksa apakah invoice ditemukan
+            if (!$invoice) {
+                return redirect()->back()->with('error', 'Invoice tidak ditemukan.');
+            }
+
+            // Proses upload dan simpan bukti transfer
+            $image = $request->file('bukti_setoran');
+            $imageName = time() . '.' . $image->extension();
+            $image->storeAs('public/bukti_setoran', $imageName);
+
+            // Simpan informasi bukti transfer ke database
+            $setoran = new Setoran();
+            $setoran->id_invoice = $invoice->id;
+            $setoran->bukti_setoran = $imageName;
+            $setoran->status = 1; // Sesuaikan dengan status yang sesuai
+            $setoran->save();
+
+            return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Bukti setoran berhasil diunggah.');
+        } catch (Exception $e) {
+            // Tangani kesalahan di sini
+            report($e);
+            return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
+        }
+    }
+
+
+    // public function processUploadSetoran(Request $request, $invoice_number)
+    // {
+    //     // try {
+    //     // Validasi request
+    //     $request->validate([
+    //         'bukti_setoran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    //     ]);
+
+    //     // $invoice = Invoice::where('invoice_number', $invoice_number)->first();
+    //     $invoiceNumber = $request->input('invoice_number');
+    //     $invoice = Invoice::where('invoice_number', $invoiceNumber)->first();
+
+    //     // Proses upload dan simpan bukti transfer
+    //     $image = $request->file('bukti_setoran');
+    //     $imageName = time() . '.' . $image->extension();
+    //     $image->storeAs('public/bukti_setoran', $imageName);
+
+    //     // Simpan informasi bukti transfer ke database
+    //     $setoran = new Setoran();
+    //     $setoran->id_invoice = $invoice->id;
+    //     $setoran->bukti_setoran = $imageName;
+    //     $setoran->status = 1; // Sesuaikan dengan status yang sesuai
+    //     $setoran->save();
+    //     // dd($invoice);
+    //     return redirect()->route('setoran', ['uuid' =>  $invoice->setoran->arisan->uuid])->with('success', 'Bukti setoran berhasil diunggah.');
+    //     // } catch (Exception $e) {
+    //     //     // Tangani kesalahan di sini
+    //     //     report($e);
+    //     //     return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
+    //     // }
+    // }
 }

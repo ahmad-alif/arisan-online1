@@ -22,6 +22,11 @@ class Setoran extends Model
     // }
     public function invoice()
     {
-        return $this->belongsTo(Invoice::class, 'id_invoice');
+        return $this->belongsTo(Invoice::class, 'invoice_number', 'invoice_number');
+    }
+
+    public function arisan()
+    {
+        return $this->belongsTo(Arisan::class, 'id_arisan');
     }
 }

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('setoran', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_invoice');
+            $table->string('invoice_number');
+            $table->string('uuid');
             $table->string('bukti_setoran');
             $table->integer('status');
             $table->timestamps();

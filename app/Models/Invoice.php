@@ -17,10 +17,10 @@ class Invoice extends Model
     // }
     public function arisan()
     {
-        return $this->belongsTo(Arisan::class, 'id_arisan', 'id_arisan');
+        return $this->belongsTo(Arisan::class, 'uuid', 'uuid');
     }
     public function setoran()
     {
-        return $this->hasOne(Setoran::class, 'id_invoice');
+        return $this->belongsTo(Setoran::class, 'invoice_number', 'invoice_number');
     }
 }
