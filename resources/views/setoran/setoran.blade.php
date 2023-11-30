@@ -10,6 +10,20 @@
                 </span> Setoran Arisan
             </h4>
 
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
@@ -111,7 +125,7 @@
                                         <td>{{ $invoice->nama_bank }}</td>
                                         <td>{{ $invoice->no_rekening }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#modalDetail{{ $invoice->id }}">
                                                 Detail
                                             </button>

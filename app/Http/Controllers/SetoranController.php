@@ -64,39 +64,42 @@ class SetoranController extends Controller
     public function createInvoice($uuid)
     {
         $id_user = auth()->user()->id;
+
         // Temukan Arisan berdasarkan UUID
-        // $arisan = Arisan::where('uuid', $uuid)->first();
-        $arisan = Arisan::where('uuid', '=', $uuid)->first();
+        $arisan = Arisan::where('uuid', $uuid)->first();
 
-        // Buat invoice baru
-        $invoice = new Invoice();
-        $invoice->invoice_number = $this->generateInvoiceNumber();
-        $invoice->uuid = $arisan->uuid;
-        $invoice->id_user = $id_user;
-        $invoice->nama_bank = $arisan->nama_bank;
-        $invoice->no_rekening = $arisan->no_rekening;
-        $invoice->nama_pemilik_rekening = $arisan->nama_pemilik_rekening;
+        // Cek status Arisan
+        if ($arisan) {
+            if ($arisan->status == 2) {
+                // Buat invoice baru
+                $invoice = new Invoice();
+                $invoice->invoice_number = $this->generateInvoiceNumber();
+                $invoice->uuid = $arisan->uuid;
+                $invoice->id_user = $id_user;
+                $invoice->nama_bank = $arisan->nama_bank;
+                $invoice->no_rekening = $arisan->no_rekening;
+                $invoice->nama_pemilik_rekening = $arisan->nama_pemilik_rekening;
 
-        // Hitung total berdasarkan payment_amount dan fee_admin
-        // $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
-        // $invoice->total = number_format($total, 2, '.', '');
-        $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
-        $invoice->total = intval($total);
-        $invoice->status = 0;
-        $invoice->expired_at = now()->addMinutes(1);
+                $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
+                $invoice->total = intval($total);
+                $invoice->status = 0;
+                $invoice->expired_at = now()->addMinutes(1);
 
-        $invoice->save();
+                $invoice->save();
 
-        $this->clearExpiredInvoices($uuid);
-        // dd($invoice);
+                $this->clearExpiredInvoices($uuid);
 
-        // Tampilkan pesan sukses atau arahkan kembali ke halaman sebelumnya
-        // return redirect()->back()->with('success', 'Invoice berhasil dibuat');
-        // $view = view('modals.invoice_modal', ['invoice' => $invoice])->render();
-        // return response()->json(['html' => $view]);
-        // return $invoice;
-        return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Invoice berhasil dibuat');
+                return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Invoice berhasil dibuat');
+            } elseif ($arisan->status == 3) {
+                return redirect()->route('setoran', ['uuid' => $uuid])->with('error', 'Arisan telah selesai.');
+            } else {
+                return redirect()->route('setoran', ['uuid' => $uuid])->with('error', 'Arisan belum dimulai.');
+            }
+        }
+
+        return redirect()->route('setoran', ['uuid' => $uuid])->with('error', 'Arisan tidak ditemukan.');
     }
+
 
     private function generateInvoiceNumber()
     {
