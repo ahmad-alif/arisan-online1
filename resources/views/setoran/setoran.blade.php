@@ -155,8 +155,8 @@
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title mx-auto" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
                     </div>
 
                     <div class="modal-body">
@@ -178,17 +178,27 @@
 
                             <div class="row mb-2">
                                 <div class="col-4"><strong>No Rekening Tujuan</strong></div>
-                                <div class="col-8">{{ $latestInvoice->no_rekening }}</div>
+                                <div class="col-8">
+                                    <span id="noRekening">{{ $latestInvoice->no_rekening }}</span>
+                                    <button class="btn btn-sm btn-primary float-end" style="padding: 0.2rem 0.4rem;"
+                                        onclick="copyNoRekening()"><i class="ti ti-copy"></i></button>
+                                </div>
                             </div>
 
                             <div class="row mb-2">
                                 <div class="col-4"><strong>Nama Pemilik</strong></div>
-                                <div class="col-8">{{ $latestInvoice->nama_pemilik_rekening }}</div>
+                                <div class="col-8">{{ strtoupper($latestInvoice->nama_pemilik_rekening) }}</div>
                             </div>
 
                             <div class="row mb-2">
                                 <div class="col-4"><strong>Total:</strong></div>
-                                <div class="col-8">{{ $latestInvoice->total }}</div>
+                                <div class="col-8"><strong>Rp.
+                                        {{ number_format($latestInvoice->total, 0, ',', '.') }}</strong></div>
+                            </div>
+
+                            <div id="copySuccessMessage" class="badge bg-label-success" style="display:none;">
+                                <i data-feather="check" class="me-2"></i>
+                                Nomor Rekening berhasil disalin
                             </div>
                         @else
                             <p>Invoice sedang dibuat...</p>
@@ -204,9 +214,41 @@
         </div>
     @endif
 
+    {{-- <script>
+        function copyNoRekening() {
+            // Memilih teks yang akan disalin
+            var CopyNoRekening = document.getElementById("noRekening").innerText;
 
+            // Menyalin teks ke clipboard menggunakan API Clipboard
+            navigator.clipboard.writeText(CopyNoRekening).then(function() {
+                console.log('Nomor Rekening berhasil disalin ke clipboard');
+            }).catch(function(err) {
+                console.error('Gagal menyalin teks ke clipboard', err);
+            });
+        }
+    </script> --}}
+    <script>
+        function copyNoRekening() {
+            // Memilih teks yang akan disalin
+            var CopyNoRekening = document.getElementById("noRekening").innerText;
 
+            // Menyalin teks ke clipboard menggunakan API Clipboard
+            navigator.clipboard.writeText(CopyNoRekening).then(function() {
+                console.log('Nomor Rekening berhasil disalin ke clipboard');
 
+                // Menampilkan pesan sukses
+                var copySuccessMessage = document.getElementById("copySuccessMessage");
+                copySuccessMessage.style.display = "block";
+
+                // Menghilangkan pesan setelah 3 detik
+                setTimeout(function() {
+                    copySuccessMessage.style.display = "none";
+                }, 3000);
+            }).catch(function(err) {
+                console.error('Gagal menyalin teks ke clipboard', err);
+            });
+        }
+    </script>
 
     {{-- <script>
         function showModalWithData() {

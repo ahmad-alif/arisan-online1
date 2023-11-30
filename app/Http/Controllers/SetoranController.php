@@ -81,6 +81,8 @@ class SetoranController extends Controller
                 $invoice->nama_pemilik_rekening = $arisan->nama_pemilik_rekening;
 
                 $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
+                $randomDiscount = rand(1, 999);
+                $total -= $randomDiscount;
                 $invoice->total = intval($total);
                 $invoice->status = 0;
                 $invoice->expired_at = now()->addMinutes(1);
