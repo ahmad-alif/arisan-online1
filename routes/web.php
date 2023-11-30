@@ -155,6 +155,7 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
     Route::get('/setoran', [SetoranController::class, 'index'])->name('all-setoran');
     Route::get('/setoran/{uuid}', [SetoranController::class, 'setoran'])->name('setoran');
     Route::post('/buat-invoice/{uuid}', [SetoranController::class, 'createInvoice'])->name('buat.invoice');
+    Route::get('/cetak-invoice/{uuid}', [SetoranController::class, 'cetakPdfInvoice'])->name('cetak.invoice');
     Route::get('/invoice/{invoice_number}', [SetoranController::class, 'tampilInvoice'])->name('invoice');
     Route::get('/setoran/upload/{invoice_number}', [SetoranController::class, 'uploadSetoran'])->name('upload-setoran');
     Route::post('/setoran/upload/{invoice_number}', [SetoranController::class, 'processUploadSetoran'])->name('processSetoran');

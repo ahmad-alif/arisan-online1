@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Arisan;
 use App\Models\Invoice;
+use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -111,6 +112,25 @@ class SetoranController extends Controller
         $randomDigits = mt_rand(100000, 999999); // Angka acak 6 digit
 
         return $year . $month . $day . $randomDigits;
+    }
+
+    public function cetakPdfInvoice($uuid)
+    {
+        // Temukan invoice berdasarkan UUID
+        $invoice = Invoice::where('uuid', $uuid)->first();
+
+        if (!$invoice) {
+            abort(404); // Atau manajemen kesalahan lainnya
+        }
+
+        // Logika untuk mencetak PDF dari invoice
+        // ...
+
+        // Contoh menggunakan library PDF seperti Laravel PDF atau Dompdf
+        $pdf = app(DomPDF::class)->loadView('pdf.invoice', compact('invoice'));
+
+        // Mengembalikan respons dengan file PDF
+        return $pdf->stream('invoice.pdf');
     }
 
     // public function tampilInvoice($invoice_number)

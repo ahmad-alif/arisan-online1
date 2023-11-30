@@ -108,6 +108,10 @@
                                             data-bs-target="#modalDetail{{ $invoice->id }}">
                                             Detail
                                         </button>
+                                        <a href="{{ route('cetak.invoice', $invoice->uuid) }}" target="_blank"
+                                            class="btn btn-sm btn-primary">
+                                            Cetak PDF
+                                        </a>
                                     </div>
                                 </div>
                             @else
@@ -156,8 +160,12 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
-                        <h5 class="modal-title mx-auto" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
+                        <div class="d-flex justify-content-center align-items-center flex-column w-100">
+                            <i class="ti ti-circle-check mb-2" style="font-size: 5rem;"></i>
+                            <h5 class="modal-title mx-auto" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
+                        </div>
                     </div>
+
 
                     <div class="modal-body">
                         <!-- Tampilkan data invoice di sini -->
@@ -193,7 +201,10 @@
                             <div class="row mb-2">
                                 <div class="col-4"><strong>Total:</strong></div>
                                 <div class="col-8"><strong>Rp.
-                                        {{ number_format($latestInvoice->total, 0, ',', '.') }}</strong></div>
+                                        {{ number_format($latestInvoice->total, 0, ',', '.') }}</strong>
+                                </div>
+                                <small class="text-danger text-center mt-3">Nominal yg ditransfer harus sesuai
+                                    invoice!</small>
                             </div>
 
                             <div id="copySuccessMessage" class="badge bg-label-success" style="display:none;">
@@ -205,10 +216,24 @@
                         @endif
 
                     </div>
-
-                    <div class="modal-footer">
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    </div>
+                    </div> --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
+                    {{-- OJO DIHAPUS MENOWO BUTUH TOMBOL CLOSE --}}
                 </div>
             </div>
         </div>
