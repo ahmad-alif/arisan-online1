@@ -148,59 +148,60 @@
         </div>
     </div>
 
+    @if ($arisan->invoices->count() > 0)
+        <div class="modal fade" id="modalDetail{{ $invoice->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="modalDetailLabel{{ $invoice->id }}" aria-hidden="true">
 
-    <div class="modal fade" id="modalDetail{{ $invoice->id }}" tabindex="-1" role="dialog"
-        aria-labelledby="modalDetailLabel{{ $invoice->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
+                    </div>
 
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="invoiceModalLabel">Invoice Berhasil Dibuat</h5>
-                </div>
+                    <div class="modal-body">
+                        <!-- Tampilkan data invoice di sini -->
+                        @if ($arisan->invoices->count() > 0)
+                            @php
+                                $latestInvoice = $arisan->invoices->sortByDesc('created_at')->first();
+                            @endphp
 
-                <div class="modal-body">
-                    <!-- Tampilkan data invoice di sini -->
-                    @if ($arisan->invoices->count() > 0)
-                        @php
-                            $latestInvoice = $arisan->invoices->sortByDesc('created_at')->first();
-                        @endphp
+                            <div class="row mb-2">
+                                <div class="col-4"><strong>Nomor Invoice</strong></div>
+                                <div class="col-8">{{ $latestInvoice->invoice_number }}</div>
+                            </div>
 
-                        <div class="row mb-2">
-                            <div class="col-4"><strong>Nomor Invoice</strong></div>
-                            <div class="col-8">{{ $latestInvoice->invoice_number }}</div>
-                        </div>
+                            <div class="row mb-2">
+                                <div class="col-4"><strong>Nama Bank</strong></div>
+                                <div class="col-8">{{ $latestInvoice->nama_bank }}</div>
+                            </div>
 
-                        <div class="row mb-2">
-                            <div class="col-4"><strong>Nama Bank</strong></div>
-                            <div class="col-8">{{ $latestInvoice->nama_bank }}</div>
-                        </div>
+                            <div class="row mb-2">
+                                <div class="col-4"><strong>No Rekening Tujuan</strong></div>
+                                <div class="col-8">{{ $latestInvoice->no_rekening }}</div>
+                            </div>
 
-                        <div class="row mb-2">
-                            <div class="col-4"><strong>No Rekening Tujuan</strong></div>
-                            <div class="col-8">{{ $latestInvoice->no_rekening }}</div>
-                        </div>
+                            <div class="row mb-2">
+                                <div class="col-4"><strong>Nama Pemilik</strong></div>
+                                <div class="col-8">{{ $latestInvoice->nama_pemilik_rekening }}</div>
+                            </div>
 
-                        <div class="row mb-2">
-                            <div class="col-4"><strong>Nama Pemilik</strong></div>
-                            <div class="col-8">{{ $latestInvoice->nama_pemilik_rekening }}</div>
-                        </div>
+                            <div class="row mb-2">
+                                <div class="col-4"><strong>Total:</strong></div>
+                                <div class="col-8">{{ $latestInvoice->total }}</div>
+                            </div>
+                        @else
+                            <p>Invoice sedang dibuat...</p>
+                        @endif
 
-                        <div class="row mb-2">
-                            <div class="col-4"><strong>Total:</strong></div>
-                            <div class="col-8">{{ $latestInvoice->total }}</div>
-                        </div>
-                    @else
-                        <p>Invoice sedang dibuat...</p>
-                    @endif
+                    </div>
 
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
 
 

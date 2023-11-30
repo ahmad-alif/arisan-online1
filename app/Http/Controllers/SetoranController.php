@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SetoranController extends Controller
 {
+    private function clearExpiredInvoices($uuid)
+    {
+        Invoice::where('status', 0)->where('uuid', $uuid)->where('expired_at', '<', now())->delete();
+    }
+
     public function index(Request $request)
     {
         try {
@@ -76,9 +81,13 @@ class SetoranController extends Controller
         // $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
         // $invoice->total = number_format($total, 2, '.', '');
         $total = floatval($arisan->payment_amount) + floatval($arisan->fee_admin);
-        $invoice->total = intval($total); // Convert total to integer
+        $invoice->total = intval($total);
+        $invoice->status = 0;
+        $invoice->expired_at = now()->addMinutes(1);
 
         $invoice->save();
+
+        $this->clearExpiredInvoices($uuid);
         // dd($invoice);
 
         // Tampilkan pesan sukses atau arahkan kembali ke halaman sebelumnya

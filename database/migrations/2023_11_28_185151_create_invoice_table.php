@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('no_rekening');
             $table->string('nama_pemilik_rekening');
             $table->string('total');
+            $table->integer('status');
             $table->timestamps();
+            $table->timestamp('expired_at')->nullable();
         });
     }
 
