@@ -36,7 +36,7 @@
                                     </button>
                                 </a>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm m-2">
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">

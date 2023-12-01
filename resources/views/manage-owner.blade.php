@@ -18,7 +18,7 @@
                                         <span class="ti-xs ti ti-user-plus me-1"></span>Tambah
                                     </button></a>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm m-2">
 
                             </div>
                             <div class="col-sm">
@@ -105,7 +105,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="dropdown">
+                                        <div class="dropdown mr-4">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                                 <i class="ti ti-dots-vertical"></i>

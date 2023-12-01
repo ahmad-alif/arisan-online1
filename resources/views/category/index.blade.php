@@ -46,7 +46,7 @@
                                 </button>
                                 </a>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm m-2">
 
                             </div>
                             <div class="col-sm">

@@ -34,12 +34,12 @@
                                     </button>
                                 </a>
                             </div>
-                            <div class="col-sm">
+                            <div class="col-sm m-2">
 
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
-                                    <input type="search" class="form-control me-1" name="search"
+                                    <input type="search" class="form-control me-2" name="search"
                                         value="{{ request('search') }}" placeholder="Cari member...">
                                     <button type="submit" class="btn btn-primary btn-icon"><i
                                             class="ti ti-search"></i></button>
@@ -57,20 +57,22 @@
                                 @if (Auth::user()->role == 2)
                                     <th scope="col">Status</th>
                                 @endif
-                                <th scope="col">Action</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($members as $member)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>
+                                    <td style="display: flex; justify-content: center;">
+                                        <div class="ti ti-lg text-danger me-5 ">
                                         @if ($member->foto_profil)
                                             <img src="{{ Storage::url($member->foto_profil) }}" alt="Profile"
                                                 class="rounded-circle" width="35" height="35">
                                         @else
                                             <i class="ti ti-user-circle ti-lg text-info"></i>
                                         @endif
+                                        </div>
                                     </td>
                                     <td>{{ $member->username }}</td>
                                     <td>{{ $member->name }}</td>
@@ -120,7 +122,7 @@
                                             @endif
                                         </td>
                                     @endif
-                                    <td>
+                                    <td class="me-3">
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
