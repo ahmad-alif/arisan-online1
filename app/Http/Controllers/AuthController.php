@@ -54,10 +54,10 @@ class AuthController extends Controller
 
         if ($user) {
             // Username sudah terpakai
-            return response()->json(['available' => false]);
+            return response()->json(['available' => false, 'message' => '<p class="text-danger">Username sudah terpakai.</p>']);
         } else {
             // Username tersedia
-            return response()->json(['available' => true]);
+            return response()->json(['available' => true, 'message' => '<p class="text-success">Username tersedia.</p>']);
         }
     }
 
@@ -69,11 +69,11 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            // Username sudah terpakai
-            return response()->json(['available' => false]);
+            // Email sudah terpakai
+            return response()->json(['available' => false, 'message' => '<p class="text-danger">Email sudah terpakai.</p>']);
         } else {
-            // Username tersedia
-            return response()->json(['available' => true]);
+            // Email tersedia
+            return response()->json(['available' => true, 'message' => '<p class="text-success">Email tersedia.</p>']);
         }
     }
 

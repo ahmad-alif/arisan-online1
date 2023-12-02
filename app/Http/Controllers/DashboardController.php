@@ -126,10 +126,12 @@ class DashboardController extends Controller
         $owner->username = $request->input('username');
         $owner->name = $request->input('name');
         $owner->email = $request->input('email');
-        $owner->password = bcrypt($request->input('password'));
+        // $owner->password = bcrypt($request->input('password'));
+        $owner->password = bcrypt('password');
         $owner->nohp = $request->input('nohp');
         $owner->role = 1;
         $owner->save();
+        // dd($owner);
 
         return redirect('/manage-owner')->with('success', 'Data Owner telah ditambahkan.');
     }
