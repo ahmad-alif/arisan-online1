@@ -80,7 +80,7 @@ class ArisanController extends Controller
 
     public function exportExcelmanageArisan()
     {
-        return Excel::download(new ManageArisanExport, 'manage_arisan.xlsx');
+        return Excel::download(new ManageArisanExport, 'data-arisanku.xlsx');
     }
 
     public function detailArisan($uuid)
