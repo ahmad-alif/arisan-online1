@@ -62,6 +62,7 @@ class DashboardController extends Controller
 
         $arisans = Arisan::where('id_user', $user->id)
             ->where('status', 2)
+            ->where('active', 1)
             ->paginate(10);
 
         $arisan_suspends = Arisan::where('id_user', $user->id)

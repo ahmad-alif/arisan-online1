@@ -59,13 +59,19 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($arisans as $arisan)
-                                <tr class="align-middles"
+                                {{-- <tr class="align-middles"
                                     style="
                                 @if ($arisan->status == 3) background-color: rgba(255, 102, 102, 0.35); @endif
                                 @if ($arisan->status == 2) background-color: rgba(102, 255, 102, 0.35); @endif
                                 @if ($arisan->status == 1) background-color: rgba(255, 214, 153, 0.35); @endif
                                 @if ($arisan->status == 0) background-color: rgba(255, 255, 102, 0.35); @endif
-                            ">
+                            "> --}}
+                                <tr
+                                    class="align-middles
+                                    @if ($arisan->status == 3) table-info
+                                    @elseif ($arisan->status == 2) table-success
+                                    @elseif ($arisan->status == 1) table-warning
+                                    @elseif ($arisan->status == 0) table-light @endif">
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>
                                         @if ($arisan->img_arisan)
@@ -87,7 +93,16 @@
 
                                     <td>{{ $arisan->nama_arisan }}</td>
                                     <td>{{ $arisan->start_date }}</td>
-                                    <td>{{ $arisan->end_date }}</td>
+                                    {{-- <td>{{ $arisan->end_date }}</td> --}}
+                                    <td>
+                                        {{-- @if ($arisan->status != 2 && $arisan->active == 1)
+                                            {{ $arisan->end_date }} --}}
+                                        @if ($arisan->status == 2 && $arisan->active == 0)
+                                            <button class="btn btn-sm btn-danger">Suspend</button>
+                                        @else
+                                            {{ $arisan->end_date }}
+                                        @endif
+                                    </td>
                                     <td class="">
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

@@ -28,8 +28,8 @@
     <script src="/assets/js/config.js"></script>
     <style>
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {

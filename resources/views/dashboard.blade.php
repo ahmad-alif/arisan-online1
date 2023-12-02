@@ -23,6 +23,15 @@
                 </div>
             @endif
 
+            @if (count($arisan_suspends) > 0)
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <span class="alert-icon text-danger me-2">
+                        <i class="ti ti-alert-circle-filled ti-xs"></i>
+                    </span>
+                    Ada arisan yg ditangguhkan
+                </div>
+            @endif
+
             @if (auth()->user()->active == 0)
                 @if (auth()->user()->role == 1)
                     <div class="alert bg-label-success">
@@ -239,8 +248,8 @@
                                 <div class="col-xl-3 col-md-4 col-6 mx-2">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="badge p-2 bg-label-danger mb-2 rounded">
-                                                <i class="ti ti-currency-dollar ti-md"></i>
+                                            <div class="badge p-2 bg-label-success mb-2 rounded">
+                                                <i class="ti ti-users ti-md"></i>
                                             </div>
                                             <h5 class="card-title mb-1 pt-2">Total Member</h5>
                                             <p class="mb-2 mt-1">{{ $totalMember }}</p>
@@ -290,6 +299,56 @@
         </div>
         @if (auth()->user()->active == 1 && auth()->user()->role == 1)
             <div class="row p-2">
+                @if (count($arisan_suspends) > 0)
+                    <div class="card bg-alert">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table text-nowrap">
+                                <div class="row p-3">
+                                    <h5 class="text-danger">Arisan Ditangguhkan <i
+                                            class="ti ti-alert-circle-filled text-white">
+                                        </i></h5>
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th class="text-danger" scope="col">#</th>
+                                        <th class="text-danger" scope="col">Gambar Arisan</th>
+                                        <th class="text-danger" scope="col">Nama Arisan</th>
+                                        <th class="text-danger" scope="col">Mulai</th>
+                                        <th class="text-danger" scope="col">Berakhir</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    @forelse ($arisan_suspends as $arisan_suspend)
+                                        <tr class="align-middles">
+                                            <th class="text-danger" scope="row">{{ $loop->iteration }}</th>
+                                            <td>
+                                                @if ($arisan_suspend->img_arisan)
+                                                    <img src="{{ Storage::url($arisan_suspend->img_arisan) }}"
+                                                        alt="Arisan" class="rounded-circle" width="35"
+                                                        height="35">
+                                                @else
+                                                    <img src="{{ asset('img/default_arisan.jpg') }}"
+                                                        alt="Default Profile" class="rounded-circle" width="35"
+                                                        height="35">
+                                                @endif
+                                            </td>
+                                            <td class="text-danger">{{ $arisan_suspend->nama_arisan }}</td>
+                                            <td class="text-danger">{{ $arisan_suspend->start_date }}</td>
+                                            <td class="text-danger">{{ $arisan_suspend->end_date }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">Tidak ada arisan yang ditangguhkan.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="row p-2">
                 <div class="card">
                     <div class="table-responsive text-nowrap" style="overflow-x: auto;">
                         <table class="table">
@@ -307,7 +366,7 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($arisans as $arisan)
+                                @forelse ($arisans as $arisan)
                                     <tr class="align-middles">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>
@@ -324,60 +383,19 @@
                                         <td>{{ $arisan->start_date }}</td>
                                         <td>{{ $arisan->end_date }}</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (auth()->user()->active == 1 && auth()->user()->role == 1)
-            <div class="row p-2">
-                <div class="card">
-                    <div class="table-responsive text-nowrap">
-                        <table class="table text-nowrap">
-                            <div class="row p-3">
-                                <h5>Arisan Diberhentikan</h5>
-                            </div>
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Gambar Arisan</th>
-                                    <th scope="col">Nama Arisan</th>
-                                    <th scope="col">Mulai</th>
-                                    <th scope="col">Berakhir</th>
-
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                @forelse ($arisan_suspends as $arisan_suspend)
-                                    <tr class="align-middles">
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>
-                                            @if ($arisan_suspend->img_arisan)
-                                                <img src="{{ Storage::url($arisan_suspend->img_arisan) }}" alt="Arisan"
-                                                    class="rounded-circle" width="35" height="35">
-                                            @else
-                                                <img src="{{ asset('img/default_arisan.jpg') }}" alt="Default Profile"
-                                                    class="rounded-circle" width="35" height="35">
-                                            @endif
-                                        </td>
-                                        <td>{{ $arisan_suspend->nama_arisan }}</td>
-                                        <td>{{ $arisan_suspend->start_date }}</td>
-                                        <td>{{ $arisan_suspend->end_date }}</td>
-                                    </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Tidak ada arisan yang dihentikan.</td>
+                                        <td colspan="5" class="text-center">Tidak ada arisan yang berjalan (Cek arisan
+                                            yang ditangguhkan).</td>
                                     </tr>
                                 @endforelse
                             </tbody>
-
                         </table>
                     </div>
                 </div>
             </div>
         @endif
+
 
         {{-- <div class="col-xl-2 col-md-4 col-6 mb-4">
             <div class="card">

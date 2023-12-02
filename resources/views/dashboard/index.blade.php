@@ -27,6 +27,21 @@
     <script src="/assets/vendor/js/helpers.js"></script>
     <script src="/assets/vendor/js/template-customizer.js"></script>
     <script src="/assets/js/config.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f8f7fa;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #7367f0;
+            border-radius: 5px;
+        }
+    </style>
     {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
