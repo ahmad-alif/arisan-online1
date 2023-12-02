@@ -9,6 +9,7 @@ use App\Models\Arisan;
 use Illuminate\Support\Str;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArisanRequest;
@@ -48,6 +49,37 @@ class ArisanController extends Controller
         $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->paginate(10);
 
         return view('arisan.manage-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
+    }
+
+    // public function exportExcelManageArisan()
+    // {
+    //     return Excel::download(new ArisanExport, 'arisans.xlsx');
+    // }
+
+    public function exportPDFmanageArisan()
+    {
+        // $user = auth()->user();
+        // $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->get();
+
+        // $pdf = app(DomPDF::class)->loadView('arisan.export-pdf-manage-arisan', compact('arisans'));
+
+        // return $pdf->stream('arisans.pdf');
+        $user = auth()->user();
+        $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->get();
+
+        $pdf = app(DomPDF::class)->loadView('arisan.export-pdf-manage-arisan', compact('arisans'));
+
+        // Nama file PDF
+        $filename = 'arisans.pdf';
+
+        // Render PDF dan buka di tab baru
+        return $pdf->stream($filename, array('Attachment' => 0))->withHeaders([
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0',
+        ]);
     }
 
     public function detailArisan($uuid)

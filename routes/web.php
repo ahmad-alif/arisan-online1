@@ -126,6 +126,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
 // Route owner
 Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::get('/manage-arisan', [ArisanController::class, 'manageArisan'])->name('manage-arisan');
+    Route::get('/export-pdf-manage-arisan', [ArisanController::class, 'exportPDFmanageArisan'])->name('export-pdf-manage-arisan');
     Route::get('/arisan/add', [ArisanController::class, 'addArisanOwner'])->name('add-arisan-owner');
     Route::post('/arisan/add', [ArisanController::class, 'processAddArisanOwner'])->name('processAddArisanOwner');
     Route::get('/arisan/edit/{uuid}', [ArisanController::class, 'editArisanOwner'])->name('edit-arisan-owner');

@@ -1,12 +1,3 @@
-{{-- @extends('dashboard.index')
-
-@section('container')
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
-
-    @include('layouts.footer')
-@endsection --}}
-
 @extends('dashboard.index')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Kelola Arisan | Arisanku')
 @section('content')
@@ -291,6 +282,14 @@
                         <!--/ Add New Credit Card Modal -->
                     @endforeach
 
+                </div>
+                <div class="col-sm mx-3 my-3">
+                    <a href="{{ route('export-pdf-manage-arisan') }}" target="_blank" class="btn btn-sm btn-primary">
+                        <span class="ti ti-export me-1"></span>Export PDF
+                    </a>
+                    <a href="{{ route('export-excel-manage-arisan') }}" class="btn btn-sm btn-success">
+                        <span class="ti ti-file-excel me-1"></span> Export Excel
+                    </a>
                 </div>
             </div>
         </div>
