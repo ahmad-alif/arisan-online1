@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::put('/activate-arisan/{uuid}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan');
+    Route::put('/deactivate-arisan/{uuid}', [DashboardController::class, 'processDeactivateArisan'])->name('deactivate-arisan');
     Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account');
     Route::put('/activate-account-owner/{id}', [DashboardController::class, 'processActivateAccountOwner'])->name('activate-account-owner');
     Route::get('/manage-owner', [DashboardController::class, 'manageOwner'])->name('manage-owner');

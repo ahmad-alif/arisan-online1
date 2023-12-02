@@ -91,7 +91,10 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#confirmActivateModal-{{ $arisan->uuid }}">Mati</button>
                                         @elseif ($arisan->active == 1)
-                                            <span class="badge bg-label-success me-1">Aktif</span>
+                                            {{-- <span class="badge bg-label-success me-1">Aktif</span> --}}
+                                            <button type="button" class="btn btn-label-success btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirmDeactivateModal-{{ $arisan->uuid }}">Aktif</button>
                                         @endif
                                     </td>
 
@@ -136,17 +139,19 @@
                                         <h5 class="modal-title" id="myModalLabel1">Konfirmasi</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Apakah Anda yakin ingin mulai arisan "{{ $arisan->nama_arisan }}" ?</p>
+                                        <p class="text-wrap text-break">Apakah Anda yakin ingin mulai arisan
+                                            <strong>"{{ $arisan->nama_arisan }}"</strong> ?
+                                        </p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                             <i class="bx bx-x d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">Tidak</span>
+                                            <span>Tidak</span>
                                         </button>
                                         <a href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
                                             class="btn btn-success ml-1">
                                             <i class="bx bx-check d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">Ya, mulai</span>
+                                            <span>Ya, mulai</span>
                                         </a>
                                     </div>
                                 </div>
@@ -165,13 +170,14 @@
                                                 Konfirmasi Aktivasi</h5>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Apakah Anda yakin ingin mengaktifkan arisan "{{ $arisan->nama_arisan }}"?
+                                            <p class="text-wrap text-break">Apakah Anda yakin ingin mengaktifkan arisan
+                                                <strong>"{{ $arisan->nama_arisan }}"</strong>?
                                             </p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Tidak</span>
+                                                <span>Tidak</span>
                                             </button>
                                             <form action="{{ route('activate-arisan', ['uuid' => $arisan->uuid]) }}"
                                                 method="POST">
@@ -179,7 +185,43 @@
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-primary ml-1">
                                                     <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Ya, Aktifkan</span>
+                                                    <span>Ya, Aktifkan</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                    @foreach ($arisans as $arisan)
+                        @if ($arisan->active == 1)
+                            <div class="modal fade" id="confirmDeactivateModal-{{ $arisan->uuid }}" tabindex="-1"
+                                role="dialog" aria-labelledby="confirmDeactivateModalLabel-{{ $arisan->uuid }}"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirmDeactivateModalLabel-{{ $arisan->uuid }}">
+                                                Konfirmasi Deaktivasi</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-wrap text-break">Apakah Anda yakin ingin menonaktifkan arisan
+                                                <strong>"{{ $arisan->nama_arisan }}"</strong>?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span>Tidak</span>
+                                            </button>
+                                            <form action="{{ route('deactivate-arisan', ['uuid' => $arisan->uuid]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-danger ml-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span>Ya, Nonaktifkan</span>
                                                 </button>
                                             </form>
                                         </div>

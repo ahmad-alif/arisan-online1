@@ -291,8 +291,8 @@
         @if (auth()->user()->active == 1 && auth()->user()->role == 1)
             <div class="row p-2">
                 <div class="card">
-                    <div class="table-responsive text-nowrap">
-                        <table class="table text-nowrap">
+                    <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+                        <table class="table">
                             <div class="row p-3">
                                 <h5>Arisan Berjalan</h5>
                             </div>
@@ -326,6 +326,53 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (auth()->user()->active == 1 && auth()->user()->role == 1)
+            <div class="row p-2">
+                <div class="card">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table text-nowrap">
+                            <div class="row p-3">
+                                <h5>Arisan Diberhentikan</h5>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Gambar Arisan</th>
+                                    <th scope="col">Nama Arisan</th>
+                                    <th scope="col">Mulai</th>
+                                    <th scope="col">Berakhir</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                @forelse ($arisan_suspends as $arisan_suspend)
+                                    <tr class="align-middles">
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>
+                                            @if ($arisan_suspend->img_arisan)
+                                                <img src="{{ Storage::url($arisan_suspend->img_arisan) }}" alt="Arisan"
+                                                    class="rounded-circle" width="35" height="35">
+                                            @else
+                                                <img src="{{ asset('img/default_arisan.jpg') }}" alt="Default Profile"
+                                                    class="rounded-circle" width="35" height="35">
+                                            @endif
+                                        </td>
+                                        <td>{{ $arisan_suspend->nama_arisan }}</td>
+                                        <td>{{ $arisan_suspend->start_date }}</td>
+                                        <td>{{ $arisan_suspend->end_date }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">Tidak ada arisan yang dihentikan.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+
                         </table>
                     </div>
                 </div>

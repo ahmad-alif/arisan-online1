@@ -64,6 +64,11 @@ class DashboardController extends Controller
             ->where('status', 2)
             ->paginate(10);
 
+        $arisan_suspends = Arisan::where('id_user', $user->id)
+            ->where('status', 2)
+            ->where('active', 0)
+            ->paginate(10);
+
         $arisan_runs = Arisan::where('status', 2)
             ->paginate(5);
 
@@ -85,6 +90,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'active' => 'dashboard',
             'arisans' => $arisans,
+            'arisan_suspends' => $arisan_suspends,
             'arisan_runs' => $arisan_runs,
             'role' => $request,
             'totalArisan' => $totalArisan,
@@ -317,6 +323,21 @@ class DashboardController extends Controller
         }
 
         $arisan->active = 1;
+        $arisan->status = 1;
+        $arisan->save();
+
+        return redirect('/data-arisan')->with('success', 'Arisan berhasil diaktifkan.');
+    }
+    public function processDeactivateArisan($uuid)
+    {
+        // $arisan = Arisan::findOrFail($id);
+        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
+
+        if (!$arisan) {
+            return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
+        }
+
+        $arisan->active = 0;
         $arisan->status = 1;
         $arisan->save();
 
