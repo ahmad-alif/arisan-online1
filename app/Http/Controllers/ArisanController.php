@@ -10,7 +10,9 @@ use Illuminate\Support\Str;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\PDF as DomPDF;
+use App\Exports\ManageArisanExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArisanRequest;
 use App\Http\Requests\UpdateArisanRequest;
@@ -58,12 +60,6 @@ class ArisanController extends Controller
 
     public function exportPDFmanageArisan()
     {
-        // $user = auth()->user();
-        // $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->get();
-
-        // $pdf = app(DomPDF::class)->loadView('arisan.export-pdf-manage-arisan', compact('arisans'));
-
-        // return $pdf->stream('arisans.pdf');
         $user = auth()->user();
         $arisans = Arisan::where('id_user', $user->id)->orderBy('id_arisan', 'DESC')->get();
 
@@ -80,6 +76,11 @@ class ArisanController extends Controller
             'Pragma' => 'no-cache',
             'Expires' => '0',
         ]);
+    }
+
+    public function exportExcelmanageArisan()
+    {
+        return Excel::download(new ManageArisanExport, 'manage_arisan.xlsx');
     }
 
     public function detailArisan($uuid)
