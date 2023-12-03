@@ -95,7 +95,7 @@ class ArisanController extends Controller
         // $arisan = Arisan::findOrFail($id);
         // dd($arisans);
 
-        return view('arisan.detail-arisan', ['active' => 'list-arisan'], compact('arisan'));
+        return view('arisan.detail-arisan', ['active' => 'manage-arisan'], compact('arisan'));
     }
 
     public function addArisan()

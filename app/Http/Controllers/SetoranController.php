@@ -129,6 +129,13 @@ class SetoranController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
+    public function manageSetoran()
+    {
+        $setoranData = Setoran::paginate(25);
+
+        return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+    }
+
     // public function tampilInvoice($invoice_number)
     // {
     //     // Fetch the invoice details based on the invoice number

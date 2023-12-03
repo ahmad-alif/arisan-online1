@@ -92,6 +92,12 @@
                         <div data-i18n="Page 3">Kelola Anggota</div>
                     </a>
                 </li>
+                <li class="menu-item {{ $active === 'manage-setoran' ? 'active' : '' }}">
+                    <a class="menu-link" href="/manage-setoran">
+                        <i class="menu-icon tf-icons ti ti-calendar-dollar"></i>
+                        <div data-i18n="Page 3">Kelola Setoran</div>
+                    </a>
+                </li>
             @elseif (Auth::user()->role == 0)
                 <li class="menu-item {{ $active === 'dashboard' ? 'active' : '' }}">
                     <a class="menu-link" href="/dashboard">

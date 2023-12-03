@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\MemberArisanController;
 use App\Http\Controllers\WinnerArisanController;
+use App\Models\Setoran;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::get('/verification-account', [AuthController::class, 'verificationAccount'])->name('verification-account');
     Route::post('/verification-account', [AuthController::class, 'processVerificationAccount'])->name('processVerificationAccount');
     Route::get('/arisan/start/{uuid}', [ArisanController::class, 'startArisan'])->name('start-arisan-owner');
+    Route::get('/manage-setoran', [SetoranController::class, 'manageSetoran'])->name('manage-setoran');
 
     Route::get('/winner/show/{uuid}', [WinnerArisanController::class, 'showWinner'])->name('show-winner');
     Route::post('/winner/draw/{uuid}', [WinnerArisanController::class, 'drawWinner'])->name('draw-winner');
