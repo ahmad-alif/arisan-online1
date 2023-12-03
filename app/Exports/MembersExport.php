@@ -6,12 +6,15 @@ use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class MembersExport implements FromCollection
+class MembersExport implements FromCollection, ShouldAutoSize, WithEvents
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
+    // /**
+    //  * @return \Illuminate\Support\Collection
+    //  */
     public function headings(): array
     {
         // Define column headings
@@ -51,15 +54,16 @@ class MembersExport implements FromCollection
         return collect([$this->headings(), $formattedData]);
     }
 
-    public function styles(Worksheet $sheet)
-    {
-        // Set the heading to bold
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . '1')->applyFromArray([
-            'font' => [
-                'bold' => true,
-            ],
-        ]);
-    }
+    public function registerEvents(): array
+{
+    return [
+        AfterSheet::class => function (AfterSheet $event) {
+            // Set font size to 13 and make it bold for all headers
+            $cellRange = 'A1:W1'; // Adjust the range as needed
+            $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12)->setBold(true);
+        },
+    ];
+}
 
     public function columnFormats(): array
     {
