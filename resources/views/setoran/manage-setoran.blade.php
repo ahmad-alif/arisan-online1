@@ -18,11 +18,11 @@
                             <th>Invoice Number</th>
                             <th>Bukti Setoran</th>
                             <th>Status</th>
-                            <th>Created At</th>
+                            <th>Diupload pada</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($setoranData as $setoran)
+                        @forelse ($setoranData as $setoran)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $setoran->invoice_number }}</td>
@@ -56,9 +56,13 @@
                                     @endif
                                 </td>
                                 <td>{{ $setoran->status }}</td>
-                                <td>{{ $setoran->created_at }}</td>
+                                <td>{{ \Carbon\Carbon::parse($setoran->created_at)->format('d F Y') }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">Belum ada setoran.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
