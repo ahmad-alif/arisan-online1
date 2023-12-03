@@ -76,7 +76,8 @@
                             </form>
                         </div>
                         <div class="card-body">
-                            @if ($invoice)
+                            @if ($invoice && $invoice->setoran && $invoice->setoran->status != 1)
+                                {{-- @if ($invoice) --}}
                                 <div class="row">
                                     <div class="col-md-4"><strong>Nomor Invoice</strong></div>
                                     <div class="col-md-8">{{ $invoice->invoice_number }}</div>
@@ -120,7 +121,8 @@
                                     $latestSetoran = $arisan->setorans->last();
                                 @endphp
 
-                                @if ($latestSetoran)
+                                {{-- @if ($latestSetoran) --}}
+                                @if ($latestSetoran && $latestSetoran->status != 1)
                                     {{-- Jika sudah ada setoran, tampilkan gambar --}}
                                     <div class="mb-3">
 
@@ -140,7 +142,8 @@
                                     </div>
                                 @else
                                     {{-- Jika belum ada setoran, tampilkan formulir unggah --}}
-                                    <p class="mt-3">Anda belum upload bukti setoran.</p>
+                                    <p>Anda belum upload bukti setoran.</p>
+                                    <small class="text-danger">*Silahkan buat invoice lalu unggah bukti setoran</small>
                                     <form
                                         action="{{ route('upload-setoran', ['invoice_number' => $invoice->invoice_number, 'uuid' => $arisan->uuid]) }}"
                                         method="post" enctype="multipart/form-data">
@@ -163,7 +166,7 @@
 
 
             <!-- Tampilkan data setoran (jika ada) -->
-            @if ($arisan->setorans->count() > 0)
+            {{-- @if ($arisan->setorans->count() > 0)
                 <h2>Data Setoran</h2>
                 <table class="table">
                     <!-- ... -->
@@ -179,7 +182,7 @@
                 </table>
             @else
                 <p>Belum ada data setoran</p>
-            @endif
+            @endif --}}
         </div>
     </div>
 
