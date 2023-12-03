@@ -8,6 +8,12 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            font-size: 11px;
+        }
+
+        h3 {
+            font-size: 15px; /* Adjust the font size for the heading */
+            text-align: center; /* Center the text */
         }
 
         table {
@@ -24,7 +30,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f7f7f7;
         }
 
         td:nth-child(3) {
@@ -34,21 +40,28 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        footer {
+            text-align: center;
+            padding: 3px;
+            background-color: rgb(29, 26, 25);
+            color: white;
+        }
     </style>
 </head>
 
 <body>
 
-    <h2>
+    <h3>
         Daftar Arisan
-    </h2>
+    </h3>
 
     <table>
         <thead>
             <tr>
                 <th>#</th>
                 <th>Nama Arisan</th>
-                <th>Deskripsi</th>
+                {{-- <th>Deskripsi</th> --}}
                 <th>Maks Member</th>
                 <th>Mulai</th>
                 <th>Berakhir</th>
@@ -59,7 +72,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $arisan->nama_arisan }}</td>
-                    <td>{{ $arisan->deskripsi }}</td>
+                    {{-- <td>{{ $arisan->deskripsi }}</td> --}}
                     <td>{{ $arisan->max_member }}</td>
                     <td>{{ $arisan->start_date }}</td>
                     <td>
@@ -73,6 +86,11 @@
             @endforeach
         </tbody>
     </table>
+
+    <footer>
+        <p>© 2023 Media Sarana Digitalindo
+        </p>
+    </footer>
 
 </body>
 
