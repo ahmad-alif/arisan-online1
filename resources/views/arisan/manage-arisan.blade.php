@@ -101,32 +101,35 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @if ($arisan->status == 0)
-                                                    {{-- <a class="dropdown-item"
+                                                @if ($arisan->active == 1)
+                                                    @if ($arisan->status == 0)
+                                                        {{-- <a class="dropdown-item"
                                                         href="{{ route('edit-arisan-owner', ['uuid' => $arisan->uuid]) }}">
                                                         <i class="ti ti-pencil me-1"></i> Edit
                                                     </a> --}}
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('edit-arisan-owner', ['uuid' => $arisan->uuid]) }}">
-                                                        <i class="ti ti-pencil me-1"></i> Edit
-                                                    </a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('edit-arisan-owner', ['uuid' => $arisan->uuid]) }}">
+                                                            <i class="ti ti-pencil me-1"></i> Edit
+                                                        </a>
 
-                                                    <button class="button dropdown-item" href=""
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#confirmDeleteModal-{{ $arisan->uuid }}">
-                                                        <i class="ti ti-trash me-1"></i> Hapus
-                                                    </button>
-                                                @elseif ($arisan->status == 1)
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
-                                                        class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
-                                                        data-bs-target="#confirmStartModal-{{ $arisan->uuid }}">
-                                                        <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
-                                                @elseif ($arisan->status == 2)
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('show-winner', ['uuid' => $arisan->uuid]) }}">
-                                                        <i class="ti ti-trophy me-1"></i> Undi Pemenang
-                                                    </a>
+                                                        <button class="button dropdown-item" href=""
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#confirmDeleteModal-{{ $arisan->uuid }}">
+                                                            <i class="ti ti-trash me-1"></i> Hapus
+                                                        </button>
+                                                    @elseif ($arisan->status == 1)
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
+                                                            class="btn btn-sm btn-success col-10 mb-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#confirmStartModal-{{ $arisan->uuid }}">
+                                                            <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
+                                                    @elseif ($arisan->status == 2)
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('show-winner', ['uuid' => $arisan->uuid]) }}">
+                                                            <i class="ti ti-trophy me-1"></i> Undi Pemenang
+                                                        </a>
+                                                    @endif
                                                 @endif
                                                 <a href="{{ route('detail-arisan', ['uuid' => $arisan->uuid]) }}"
                                                     class="dropdown-item">
