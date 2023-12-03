@@ -81,13 +81,13 @@ class ProfileController extends Controller
                     'foto_profil' => $foto_profilPath,
                 ]);
 
-                return redirect()->route('ubah-foto')->with('success', 'Foto profil berhasil diubah.');
+                return redirect()->route('ubah-profile')->with('success', 'Foto profil berhasil diubah.');
             }
         } catch (\Exception $e) {
-            return redirect()->route('ubah-foto')->with('error', 'Gagal mengunggah foto profil.');
+            return redirect()->route('ubah-profile')->with('error', 'Gagal mengunggah foto profil.');
         }
 
-        return redirect()->route('ubah-foto')->with('error', 'Gagal mengunggah foto profil.');
+        return redirect()->route('ubah-profile')->with('error', 'Gagal mengunggah foto profil.');
     }
 
     public function ubahPassword()
