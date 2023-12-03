@@ -337,12 +337,14 @@ class SetoranController extends Controller
             $setoran->invoice_number = $invoice_number;
             $setoran->uuid = $uuid;
             $setoran->bukti_setoran = $imageName;
-            $setoran->status = 1; // Sesuaikan dengan status yang sesuai
+            $setoran->status = 0;
             $setoran->save();
+
+            $invoice->status = 1;
+            $invoice->save();
 
             return redirect()->route('setoran', ['uuid' => $uuid])->with('success', 'Bukti setoran berhasil diunggah.');
         } catch (Exception $e) {
-            // Tangani kesalahan di sini
             report($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
         }
