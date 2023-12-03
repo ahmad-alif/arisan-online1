@@ -48,6 +48,18 @@
                                                 </li>
 
                                             </ul>
+                                            <div class="row">
+                                                <div class="col-md-9 mb-n4">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <input type="text" class="form-control"
+                                                            value="{{ route('detail-arisan', $arisan->uuid) }}"
+                                                            id="joinLink" readonly>
+                                                        <button class="btn btn-primary btn-sm ms-2" onclick="copyLink()"><i
+                                                                class="ti ti-link text-white"></i></button>
+                                                    </div>
+                                                    <div id="copyMessage" class="badge bg-label-success mt-n4 mb-2"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -334,6 +346,20 @@
         document.getElementById('payment_amount').addEventListener('input', updateRupiah);
     </script>
 
+    <script>
+        // Fungsi untuk menyalin teks ke clipboard
+        function copyLink() {
+            var linkInput = document.getElementById('joinLink');
+            linkInput.select();
+            document.execCommand('copy');
 
+            var copyMessage = document.getElementById('copyMessage');
+            copyMessage.innerHTML = 'Link bergabung berhasil disalin!';
+
+            setTimeout(function() {
+                copyMessage.innerHTML = '';
+            }, 3000);
+        }
+    </script>
 
 @endsection

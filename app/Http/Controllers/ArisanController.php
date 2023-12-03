@@ -467,13 +467,19 @@ class ArisanController extends Controller
     {
         $user = auth()->user();
 
-        // Check if the user is already a member of the Arisan.
+        if ($user->role !== 0) {
+            return redirect()->route('dashboard')->with('error', 'Hanya member yg bisa bergabung arisan!');
+        }
+
         if (!$arisan->members()->where('id_user', $user->id)->exists()) {
-            // If not a member, add the user to the Arisan.
+            if ($arisan->members()->count() >= $arisan->max_member) {
+                return redirect()->route('list-arisan')->with('error', 'Maaf, Arisan telah penuh. Silahkan bergabung kembali di periode selanjutnya.');
+            }
+
             $arisan->members()->attach($user);
-            return redirect()->route('list-arisan')->with('success', 'You have successfully joined the Arisan!');
+            return redirect()->route('list-arisan')->with('success', 'Berhasil bergabung!');
         } else {
-            return redirect()->route('list-arisan')->with('error', 'You are already a member of this Arisan.');
+            return redirect()->route('list-arisan')->with('error', 'Anda sudah bergabung!.');
         }
     }
 
