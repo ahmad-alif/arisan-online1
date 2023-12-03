@@ -246,7 +246,15 @@
                             @endforeach
 
                         </tbody>
+
                     </table>
+                </div>
+                <div class="col-sm m-2">
+                    <form action="{{ route('export-owners-excel') }}" method="GET">
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
+                        </button>
+                    </form>
                 </div>
             </div>
             <!--/ Striped Rows -->

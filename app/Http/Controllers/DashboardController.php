@@ -7,7 +7,10 @@ use App\Models\Arisan;
 use App\Models\Notifikasi;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
+use App\Exports\OwnersExport;
+use App\Exports\MembersExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -199,6 +202,11 @@ class DashboardController extends Controller
         return redirect('/manage-owner')->with('success', 'Data Owner telah dihapus.');
     }
 
+    public function exportOwnersExcel()
+    {
+        return Excel::download(new OwnersExport, 'data-owner.xlsx');
+    }
+
     public function manageMember(Request $request)
     {
         // Logika untuk halaman dashboard user
@@ -298,6 +306,11 @@ class DashboardController extends Controller
         $member->delete();
 
         return redirect('/data-member')->with('success', 'Data Member telah dihapus.');
+    }
+
+    public function exportMembersExcel()
+    {
+        return Excel::download(new MembersExport, 'data-member.xlsx');
     }
 
     public function processActivateAccountOwner($id)

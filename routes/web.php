@@ -96,12 +96,14 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::get('/edit-owner/{id}', [DashboardController::class, 'editOwner'])->name('edit-owner');
     Route::post('/edit-owner/{id}', [DashboardController::class, 'processEditOwner'])->name('processEditOwner');
     Route::delete('/delete-owner/{id}', [DashboardController::class, 'deleteOwner'])->name('delete-owner');
+    Route::get('/export-owners-excel', [DashboardController::class, 'exportOwnersExcel'])->name('export-owners-excel');
     Route::get('/data-member', [DashboardController::class, 'manageMember'])->name('data-member');
     Route::get('/add-member', [DashboardController::class, 'addMember'])->name('add-member');
     Route::post('/add-member', [DashboardController::class, 'processAddMember'])->name('processAddMember');
     Route::get('/edit-member/{id}', [DashboardController::class, 'editMember'])->name('edit-member');
     Route::post('/edit-member/{id}', [DashboardController::class, 'processEditMember'])->name('processEditMember');
     Route::delete('/delete-member/{id}', [DashboardController::class, 'deleteMember'])->name('delete-member');
+    Route::get('/export-members-excel', [DashboardController::class, 'exportMembersExcel'])->name('export-members-excel');
     Route::get('/data-arisan', [ArisanController::class, 'index'])->name('data-arisan');
     Route::get('/add-arisan', [ArisanController::class, 'addArisan'])->name('add-arisan');
     Route::post('/add-arisan', [ArisanController::class, 'processAddArisan'])->name('processAddArisan');

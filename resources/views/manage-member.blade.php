@@ -66,12 +66,12 @@
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td style="display: flex; justify-content: center;">
                                         <div class="ti ti-lg text-danger me-5 ">
-                                        @if ($member->foto_profil)
-                                            <img src="{{ Storage::url($member->foto_profil) }}" alt="Profile"
-                                                class="rounded-circle" width="35" height="35">
-                                        @else
-                                            <i class="ti ti-user-circle ti-lg text-info"></i>
-                                        @endif
+                                            @if ($member->foto_profil)
+                                                <img src="{{ Storage::url($member->foto_profil) }}" alt="Profile"
+                                                    class="rounded-circle" width="35" height="35">
+                                            @else
+                                                <i class="ti ti-user-circle ti-lg text-info"></i>
+                                            @endif
                                         </div>
                                     </td>
                                     <td>{{ $member->username }}</td>
@@ -278,6 +278,13 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="col-sm m-2">
+                    <form action="{{ route('export-members-excel') }}" method="GET">
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
+                        </button>
+                    </form>
                 </div>
             </div>
             <!--/ Striped Rows -->
