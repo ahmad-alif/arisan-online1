@@ -56,6 +56,12 @@
                         <div data-i18n="Page 4">Notifikasi</div>
                     </a>
                 </li>
+                <li class="menu-item {{ $active === 'manage-setoran' ? 'active' : '' }}">
+                    <a class="menu-link" href="/data-setoran">
+                        <i class="menu-icon tf-icons ti ti-calendar-dollar"></i>
+                        <div data-i18n="Page 3">Kelola Setoran</div>
+                    </a>
+                </li>
                 <li class="menu-item {{ $active === 'data-category' ? 'active' : '' }}">
                     <a class="menu-link" href="/data-category">
                         <i class="menu-icon tf-icons ti ti-layout-grid"></i>
@@ -79,6 +85,12 @@
                     <a class="menu-link" href="/manage-member">
                         <i class="menu-icon tf-icons ti ti-users"></i>
                         <div data-i18n="Page 3">Kelola Anggota</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ $active === 'manage-setoran' ? 'active' : '' }}">
+                    <a class="menu-link" href="/manage-setoran">
+                        <i class="menu-icon tf-icons ti ti-calendar-dollar"></i>
+                        <div data-i18n="Page 3">Kelola Setoran</div>
                     </a>
                 </li>
             @elseif (Auth::user()->role == 0)
