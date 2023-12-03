@@ -78,7 +78,7 @@
             <!-- Mobile menu toggle: End-->
             <a href="{{ route('home') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {{-- <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -101,7 +101,8 @@
                     clip-rule="evenodd"
                     d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
                     fill="#7367F0" />
-                </svg>
+                </svg> --}}
+                <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name') }}" class="brand-image img-circle elevation-3" width="32" height="26" viewBox="0 0 32 26">
               </span>
               <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Arisanku</span>
             </a>
