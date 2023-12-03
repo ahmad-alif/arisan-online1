@@ -99,7 +99,7 @@
             @csrf
             <!-- Basic Plan: Start -->
             <div class="col-3">
-              <div class="card m-1 h-100 bg-label-primary">
+              <div class="card m-1 h-100 ">
                 <div class="card-header p-3">
                   <div class="text-center">
 
@@ -123,7 +123,7 @@
 
             <!-- Favourite Plan: Start -->
             <div class="col-3">
-              <div class="card m-1 h-100 bg-label-danger">
+              <div class="card m-1 h-100 ">
                 <div class="card-header p-3">
                   <div class="text-center">
 
