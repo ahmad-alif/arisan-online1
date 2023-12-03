@@ -9,8 +9,11 @@ use App\Models\Setoran;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class SetoranExport implements FromCollection
+class SetoranExport implements FromCollection, ShouldAutoSize, WithEvents
 {
     public function headings(): array
     {
@@ -64,12 +67,23 @@ class SetoranExport implements FromCollection
         ];
     }
 
-    public function styles(Worksheet $sheet)
-    {
-        $sheet->getStyle('A1:' . $sheet->getHighestColumn() . '1')->applyFromArray([
-            'font' => [
-                'bold' => true,
-            ],
-        ]);
-    }
+    public function registerEvents(): array
+{
+    return [
+        AfterSheet::class => function (AfterSheet $event) {
+            // Set font size to 12 and make it bold for all headers
+            $cellRange = 'A1:W1'; // Adjust the range as needed
+            $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12)->setBold(true);
+
+            // Set the width for the 'No Rekening' column
+            $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(30);
+
+            // Set custom number format for the 'No Rekening' column
+            $event->sheet->getDelegate()
+                ->getStyle('B2:B' . ($event->sheet->getDelegate()->getHighestRow()))
+                ->getNumberFormat()
+                ->setFormatCode('#,##');
+        },
+    ];
+}
 }
