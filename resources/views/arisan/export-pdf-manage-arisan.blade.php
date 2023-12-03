@@ -12,8 +12,11 @@
         }
 
         h3 {
-            font-size: 15px; /* Adjust the font size for the heading */
-            text-align: center; /* Center the text */
+            font-size: 14px; /* Adjust the font size for the heading */
+            text-align: center;
+            padding: 3px;
+            background-color: rgb(29, 26, 25);
+            color: white;
         }
 
         table {
