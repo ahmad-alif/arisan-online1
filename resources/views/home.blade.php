@@ -9,13 +9,17 @@
                 <div class="container">
                     <div class="row align-items-center gy-5 gy-lg-0">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h6 class="h2 text-primary fw-bold mb-1">Ready to Get Started?</h6>
-                            <p class="fw-medium mb-4">Start your project with a 14-day free trial</p>
-                            <a href="payment-page.html" class="btn btn-lg btn-primary">Get Started</a>
+                            <h6 class="h2 text-primary fw-bold mb-1">Siap untuk Arisan Online?</h6>
+                            <p class="fw-medium mb-4">anda bisa membuat dan gabung arisan kapan saja</p>
+                            @auth
+                            <a href="/dashboard" class="btn btn-lg btn-primary">Mulai</a>
+@else
+    <a href="/register/choose-role" class="btn btn-lg btn-primary">Mulai</a>
+@endauth
                         </div>
                         <div class="col-lg-6 pt-lg-5 text-center text-lg-end">
                             <img src="/assets/img/front-pages/landing-page/cta-dashboard.png" alt="cta dashboard"
-                                class="img-fluid" />
+                                class="img-fluid" width="600"/>
                         </div>
                     </div>
                 </div>

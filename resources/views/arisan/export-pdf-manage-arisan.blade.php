@@ -40,8 +40,6 @@
 <body>
 
     <h2>
-        <!-- Include the logo -->
-        <img src="{{ asset('img/logo.svg') }}" alt="Logo" class="logo">
         Daftar Arisan
     </h2>
 

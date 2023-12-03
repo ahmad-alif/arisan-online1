@@ -98,7 +98,7 @@
             </button>
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link fw-medium" aria-current="page" href="landing-page.html#landingHero">Home</a>
+                <a class="nav-link fw-medium" aria-current="page" href="/">Home</a>
               </li>
             </ul>
           </div>
