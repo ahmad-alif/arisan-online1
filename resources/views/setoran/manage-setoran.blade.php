@@ -65,6 +65,16 @@
                         @endforelse
                     </tbody>
                 </table>
+                @if (auth()->user()->role == 2)
+                @elseif (auth()->user()->role == 1)
+                    <div class="m-2">
+                        <form action="{{ route('export-setoran') }}" method="GET">
+                            <button type="submit" class="btn btn-sm btn-success">
+                                <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
+                            </button>
+                        </form>
+                    </div>
+                @endif
                 <div class="d-flex justify-content-center">
                     {{ $setoranData->links() }}
                 </div>

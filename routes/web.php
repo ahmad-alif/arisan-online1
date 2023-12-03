@@ -146,6 +146,7 @@ Route::group(['middleware' => ['auth', 'user-access:1']], function () {
     Route::post('/verification-account', [AuthController::class, 'processVerificationAccount'])->name('processVerificationAccount');
     Route::get('/arisan/start/{uuid}', [ArisanController::class, 'startArisan'])->name('start-arisan-owner');
     Route::get('/manage-setoran', [SetoranController::class, 'manageSetoran'])->name('manage-setoran');
+    Route::get('/export-setoran', [SetoranController::class, 'exportSetoran'])->name('export-setoran');
 
     Route::get('/winner/show/{uuid}', [WinnerArisanController::class, 'showWinner'])->name('show-winner');
     Route::post('/winner/draw/{uuid}', [WinnerArisanController::class, 'drawWinner'])->name('draw-winner');

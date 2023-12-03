@@ -7,9 +7,11 @@ use App\Models\Arisan;
 use App\Models\Invoice;
 use App\Models\Setoran;
 use Illuminate\Http\Request;
+use App\Exports\SetoranExport;
 use Barryvdh\DomPDF\PDF as DomPDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -159,6 +161,21 @@ class SetoranController extends Controller
         $setoranData = Setoran::whereIn('uuid', $arisanUuids)->paginate(10);
 
         return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+    }
+
+    public function exportSetoran()
+    {
+        // Get the currently logged-in user's ID
+        $userId = Auth::id();
+
+        // Retrieve arisan UUIDs created by the owner
+        $arisanUuids = Arisan::where('id_user', $userId)->pluck('uuid');
+
+        // Retrieve setoran data related to those arisan UUIDs
+        $setoranData = Setoran::whereIn('uuid', $arisanUuids)->get();
+
+        // Export data to Excel using SetoranExport class
+        return Excel::download(new SetoranExport($setoranData), 'data-setoran.xlsx');
     }
 
     // public function tampilInvoice($invoice_number)
