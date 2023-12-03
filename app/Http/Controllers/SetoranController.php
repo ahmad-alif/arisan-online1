@@ -163,6 +163,19 @@ class SetoranController extends Controller
         return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
     }
 
+    public function updateSetoranStatus(Setoran $setoran)
+    {
+        try {
+            $setoran->update(['status' => 1]);
+
+            return redirect()->back()->with('success', 'Setoran berhasil diverifikasi.');
+        } catch (\Exception $e) {
+            // Log the exception or handle it in an appropriate way
+            return redirect()->back()->with('error', 'Gagal verifikasi setoran');
+        }
+    }
+
+
     public function exportSetoran()
     {
         // Get the currently logged-in user's ID
