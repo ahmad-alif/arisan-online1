@@ -9,6 +9,7 @@ use App\Models\Arisan;
 use Illuminate\Support\Str;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
+use App\Exports\ArisansExport;
 use Barryvdh\DomPDF\PDF as DomPDF;
 use App\Exports\ManageArisanExport;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ class ArisanController extends Controller
         // $arisans = Arisan::paginate(10);
         $arisans = Arisan::orderBy('id_arisan', 'DESC')->get();
         return view('arisan.data-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
+    }
+
+    public function exportArisansExcel()
+    {
+        return Excel::download(new ArisansExport, 'data-arisan.xlsx');
     }
 
     public function manageArisan()

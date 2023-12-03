@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::get('/edit-arisan/{uuid}', [ArisanController::class, 'editArisan'])->name('edit-arisan');
     Route::post('/edit-arisan/{uuid}', [ArisanController::class, 'processEditArisan'])->name('processEditArisan');
     Route::delete('/delete-arisan/{uuid}', [ArisanController::class, 'deleteArisan'])->name('delete-arisan');
+    Route::get('/export-arisans-excel', [ArisanController::class, 'exportArisansExcel'])->name('export-arisans-excel');
     Route::get('/data-category', [CategoryController::class, 'index']);
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add-category');
     Route::post('/process-add-category', [CategoryController::class, 'store'])->name('processAddCategory');

@@ -337,6 +337,13 @@
                     @endforeach --}}
 
                 </div>
+                <div class="m-2">
+                    <form action="{{ route('export-arisans-excel') }}" method="GET">
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         <!--/ Striped Rows -->
