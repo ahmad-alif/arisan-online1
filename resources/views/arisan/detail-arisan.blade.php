@@ -52,8 +52,8 @@
                                                 <div class="col-md-9 mb-n4">
                                                     <div class="d-flex align-items-center mb-3">
                                                         <input type="text" class="form-control"
-                                                            value="{{ route('detail-arisan', $arisan->uuid) }}"
-                                                            id="joinLink" readonly>
+                                                            value="{{ route('arisan.join', $arisan->uuid) }}" id="joinLink"
+                                                            readonly>
                                                         <button class="btn btn-primary btn-sm ms-2" onclick="copyLink()"><i
                                                                 class="ti ti-link text-white"></i></button>
                                                     </div>
