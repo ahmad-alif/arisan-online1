@@ -125,6 +125,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::get('/edit-notifikasi/{slug}', [NotifikasiController::class, 'editNotifikasi'])->name('edit-notifikasi');
     Route::post('/edit-notifikasi/{slug}', [NotifikasiController::class, 'processEditNotifikasi'])->name('processEditNotifikasi');
     Route::delete('/delete-notifikasi/{slug}', [NotifikasiController::class, 'deleteNotifikasi'])->name('delete-notifikasi');
+    Route::get('/data-setoran', [SetoranController::class, 'dataSetoran'])->name('data-setoran');
 });
 
 // Route owner

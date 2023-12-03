@@ -129,6 +129,22 @@ class SetoranController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
+    public function dataSetoran()
+    {
+        $setoranData = Setoran::paginate(25);
+
+        return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+        // $userId = Auth::id();
+
+        // // Retrieve arisan UUIDs created by the owner
+        // $arisanUuids = Arisan::where('id_user', $userId)->pluck('uuid');
+
+        // // Assuming you want to retrieve paginated setoran data related to those arisan UUIDs
+        // $setoranData = Setoran::whereIn('uuid', $arisanUuids)->paginate(10);
+
+        // return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+    }
+
     public function manageSetoran()
     {
         // $setoranData = Setoran::paginate(25);
