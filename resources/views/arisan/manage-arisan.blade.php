@@ -288,10 +288,10 @@
                 </div>
                 <div class="col-sm mx-3 my-3">
                     <a href="{{ route('export-pdf-manage-arisan') }}" target="_blank" class="btn btn-sm btn-primary">
-                        <span class="ti ti-export me-1"></span>Export PDF
+                        <span class="ti-xs ti ti-license me-1"></span>Ekspor PDF
                     </a>
                     <a href="{{ route('export-excel-manage-arisan') }}" class="btn btn-sm btn-success">
-                        <span class="ti ti-file-excel me-1"></span> Export Excel
+                        <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Ekspor Excel
                     </a>
                 </div>
             </div>

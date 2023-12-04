@@ -278,14 +278,24 @@
                         <div class="list-group list-group-flush">
                             <!-- Loop untuk menampilkan notifikasi -->
                             @forelse ($notifications as $notification)
-                                <div class="list-group-item">
+                                {{-- <div class="list-group-item">
+                                    <h6 class="mb-1"><i class="ti ti-circle-filled fs-6 m-2 mt-0 mb-0 ml-0 text-primary"></i>{{ $notification->judul }}</h6>
+                                    <small class="text-truncate mb-1"><i class="ti ti-circle-filled fs-6 m-2 mt-0 mb-0 ml-0 text-secondary"></i>{{ $notification->isi }}</small>
+                                </div> --}}
+                                <div class="list-group-item d-flex align-items-baseline">
+                                    <span class="text-success me-2"><i class="ti ti-circle-filled fs-6"></i></span>
+                                    <div>
                                     <h6 class="mb-1">{{ $notification->judul }}</h6>
-                                    <p class="mb-1">{{ $notification->isi }}</p>
-                                </div>
+                                      <small class="mb-1">{{ $notification->isi }}n</small>
+                                    </div>
+                                  </div>
                             @empty
-                                <div class="list-group-item">
-                                    <p class="mb-1 text-muted">Tidak ada notifikasi.</p>
+                            <div class="list-group-item d-flex align-items-baseline">
+                                <span class="text-danger me-2"><i class="ti ti-circle-filled fs-6"></i></span>
+                                <div>
+                                <h6 class="mb-1">Tidak ada notifikasi.</h6>
                                 </div>
+                              </div>
                             @endforelse
                         </div>
                     </div>
