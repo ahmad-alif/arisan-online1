@@ -31,10 +31,13 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
-                                    <input type="search" class="form-control me-1" name="search"
-                                        value="{{ request('search') }}" placeholder="Cari arisan...">
-                                    <button type="submit" class="btn btn-primary btn-icon"><i
-                                            class="ti ti-search"></i></button>
+                                    <form action="{{ route('manage-arisan.search') }}" method="GET"
+                                        class="d-flex align-items-center justify-content-between">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ $search }}" placeholder="Cari arisan...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
