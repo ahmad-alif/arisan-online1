@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account');
     Route::put('/activate-account-owner/{id}', [DashboardController::class, 'processActivateAccountOwner'])->name('activate-account-owner');
     Route::get('/manage-owner', [DashboardController::class, 'manageOwner'])->name('manage-owner');
+    Route::get('/manage-owner', [DashboardController::class, 'searchManageOwner'])->name('manage-owner.search');
     Route::get('/add-owner', [DashboardController::class, 'addOwner'])->name('add-owner');
     Route::post('/add-owner', [DashboardController::class, 'processAddOwner'])->name('processAddOwner');
     Route::get('/edit-owner/{id}', [DashboardController::class, 'editOwner'])->name('edit-owner');
@@ -99,6 +100,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::delete('/delete-owner/{id}', [DashboardController::class, 'deleteOwner'])->name('delete-owner');
     Route::get('/export-owners-excel', [DashboardController::class, 'exportOwnersExcel'])->name('export-owners-excel');
     Route::get('/data-member', [DashboardController::class, 'manageMember'])->name('data-member');
+    Route::get('/data-member', [DashboardController::class, 'searchManageMember'])->name('data-member.search');
     Route::get('/add-member', [DashboardController::class, 'addMember'])->name('add-member');
     Route::post('/add-member', [DashboardController::class, 'processAddMember'])->name('processAddMember');
     Route::get('/edit-member/{id}', [DashboardController::class, 'editMember'])->name('edit-member');

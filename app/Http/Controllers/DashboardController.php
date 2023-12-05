@@ -119,6 +119,26 @@ class DashboardController extends Controller
         return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners]);
     }
 
+    public function searchManageOwner(Request $request)
+    {
+        $search = $request->query('search');
+
+        $query = User::with('arisans_owner')->where('role', 1)->orderBy('id', 'DESC');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('username', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nohp', 'like', '%' . $search . '%');
+            });
+        }
+
+        $owners = $query->paginate(10);
+
+        return view('manage-owner', ['active' => 'manage-owner', 'owners' => $owners, 'search' => $search]);
+    }
+
     public function addOwner(Request $request)
     {
         return view('add-owner', ['active' => 'manage-owner'])->with('role', $request);
@@ -223,6 +243,28 @@ class DashboardController extends Controller
             ->paginate(10);
 
         return view('manage-member', ['active' => 'manage-member', 'members' => $members])->with('role', $request);
+    }
+    public function searchManageMember(Request $request)
+    {
+        $search = $request->query('search');
+
+        $query = User::where('role', 0);
+
+        // Check if there is a search query
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('username', 'LIKE', '%' . $search . '%')
+                    ->orWhere('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('nohp', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        $members = $query->with(['arisans', 'joinedArisans'])
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+
+        return view('manage-member', ['active' => 'manage-member', 'members' => $members, 'search' => $search]);
     }
     public function addMember(Request $request)
     {

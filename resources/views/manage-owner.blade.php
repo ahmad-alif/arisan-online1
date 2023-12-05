@@ -21,14 +21,20 @@
                             <div class="col-sm m-2">
 
                             </div>
+                            <!-- ... (other form fields) ... -->
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
-                                    <input type="search" class="form-control me-1" name="search"
-                                        value="{{ request('search') }}" placeholder="Cari owner...">
-                                    <button type="submit" class="btn btn-primary btn-icon"><i
-                                            class="ti ti-search"></i></button>
+                                    <form action="{{ route('manage-owner.search') }}" method="GET"
+                                        class="d-flex align-items-center">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ $search }}" placeholder="Cari owner...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
                                 </div>
                             </div>
+
+
                         </div>
                         <thead>
                             <tr>
@@ -43,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($owners as $owner)
+                            @forelse ($owners as $owner)
                                 <tr class="align-middle">
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td style="display: flex; justify-content: center;">
@@ -128,7 +134,12 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada data yg sama dari
+                                        "{{ $search }}".</td>
+                                </tr>
+                            @endforelse
                             @foreach ($owners as $owner)
                                 <div class="modal fade" id="ownerInfoModal-{{ $owner->id }}" tabindex="-1"
                                     role="dialog" aria-labelledby="ownerInfoModalLabel-{{ $owner->id }}"

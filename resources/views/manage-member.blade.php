@@ -39,10 +39,13 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
-                                    <input type="search" class="form-control me-2" name="search"
-                                        value="{{ request('search') }}" placeholder="Cari member...">
-                                    <button type="submit" class="btn btn-primary btn-icon"><i
-                                            class="ti ti-search"></i></button>
+                                    <form action="{{ route('data-member.search') }}" method="GET"
+                                        class="d-flex align-items-center">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ $search }}" placeholder="Cari...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +64,7 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($members as $member)
+                            @forelse ($members as $member)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td style="display: flex; justify-content: center;">
@@ -77,7 +80,7 @@
                                     <td>{{ $member->username }}</td>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->email }}</td>
-                                    <td>{{ $member->nohp }}</td>
+                                    <td>+62 {{ $member->nohp }}</td>
                                     @if (Auth::user()->role == 2)
                                         <td>
                                             @if ($member->active == 0)
@@ -144,7 +147,8 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('edit-member', ['id' => $member->id]) }}"><i
                                                         class="ti ti-pencil me-1"></i> Ubah</a>
-                                                <button class="button dropdown-item" href="" data-bs-toggle="modal"
+                                                <button class="button dropdown-item" href=""
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#confirmDeleteModal-{{ $member->id }}">
                                                     <i class="ti ti-trash me-1"></i> Hapus
                                                 </button>
@@ -157,7 +161,12 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada data yg sama dari
+                                        "{{ $search }}".</td>
+                                </tr>
+                            @endforelse
                             @foreach ($members as $member)
                                 <div class="modal fade" id="memberInfoModal-{{ $member->id }}" tabindex="-1"
                                     role="dialog" aria-labelledby="memberInfoModalLabel-{{ $member->id }}"
