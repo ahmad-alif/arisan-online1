@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth', 'user-access:2']], function () {
     Route::delete('/delete-member/{id}', [DashboardController::class, 'deleteMember'])->name('delete-member');
     Route::get('/export-members-excel', [DashboardController::class, 'exportMembersExcel'])->name('export-members-excel');
     Route::get('/data-arisan', [ArisanController::class, 'index'])->name('data-arisan');
+    Route::get('/data-arisan', [ArisanController::class, 'searchDataArisan'])->name('data-arisan.search');
     Route::get('/add-arisan', [ArisanController::class, 'addArisan'])->name('add-arisan');
     Route::post('/add-arisan', [ArisanController::class, 'processAddArisan'])->name('processAddArisan');
     Route::get('/edit-arisan/{uuid}', [ArisanController::class, 'editArisan'])->name('edit-arisan');

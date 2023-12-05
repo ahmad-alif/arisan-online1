@@ -39,10 +39,13 @@
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex align-items-center justify-content-between app-academy-md-80">
-                                    <input type="search" class="form-control me-1" name="search"
-                                        value="{{ request('search') }}" placeholder="Cari member...">
-                                    <button type="submit" class="btn btn-primary btn-icon"><i
-                                            class="ti ti-search"></i></button>
+                                    <form action="{{ route('data-arisan.search') }}" method="GET"
+                                        class="d-flex align-items-center">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ $search }}" placeholder="Cari...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($arisans as $arisan)
+                            @forelse ($arisans as $arisan)
                                 <tr class="align-middle">
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     {{-- <td><img src="{{ Storage::url($arisan->foto_profil) }}" alt="Profile"
@@ -126,7 +129,12 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Tidak ada data yg sama dari
+                                        "{{ $search }}".</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     <!-- Modal -->

@@ -45,6 +45,23 @@ class ArisanController extends Controller
         return view('arisan.data-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans]);
     }
 
+    public function searchDataArisan(Request $request)
+    {
+        $search = $request->query('search');
+        $query = Arisan::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_arisan', 'like', '%' . $search . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $search . '%');
+            });
+        }
+
+        $arisans = $query->orderBy('id_arisan', 'DESC')->get();
+
+        return view('arisan.data-arisan', ['active' => 'manage-arisan', 'arisans' => $arisans, 'search' => $search]);
+    }
+
     public function exportArisansExcel()
     {
         return Excel::download(new ArisansExport, 'data-arisan.xlsx');
