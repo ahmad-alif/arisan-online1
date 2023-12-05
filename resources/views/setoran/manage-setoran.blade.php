@@ -31,6 +31,33 @@
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-striped">
+                        <div class="row p-3">
+                            <div class="col-sm">
+                            </div>
+                            <div class="col-sm m-2">
+                            </div>
+                            @if (auth()->user()->role == 2)
+                                <div class="col-sm">
+                                    <form action="{{ route('setoran.search') }}" method="GET"
+                                        class="d-flex align-items-center justify-content-between app-academy-md-80">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ request('search') }}" placeholder="Cari...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
+                                </div>
+                            @elseif(auth()->user()->role == 1)
+                                <div class="col-sm">
+                                    <form action="{{ route('setoran.search.owner') }}" method="GET"
+                                        class="d-flex align-items-center justify-content-between app-academy-md-80">
+                                        <input type="search" class="form-control me-1" name="search"
+                                            value="{{ request('search') }}" placeholder="Cari...">
+                                        <button type="submit" class="btn btn-primary btn-icon"><i
+                                                class="ti ti-search"></i></button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
                         <thead>
                             <tr class="text-center">
                                 <th>No</th>

@@ -136,6 +136,7 @@ class SetoranController extends Controller
         $setoranData = Setoran::paginate(25);
 
         return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+
         // $userId = Auth::id();
 
         // // Retrieve arisan UUIDs created by the owner
@@ -145,6 +146,50 @@ class SetoranController extends Controller
         // $setoranData = Setoran::whereIn('uuid', $arisanUuids)->paginate(10);
 
         // return view('setoran.manage-setoran', ['active' => 'manage-setoran', 'setoranData' => $setoranData]);
+    }
+
+    public function search(Request $request)
+    {
+        $searchQuery = $request->input('search', '');
+
+        $query = Setoran::query();
+
+        if ($searchQuery) {
+            $query->where('invoice_number', 'like', "%$searchQuery%");
+        }
+
+        $setoranData = $query->paginate(25);
+
+        $isEmpty = $setoranData->isEmpty();
+
+        return view('setoran.manage-setoran', [
+            'active' => 'manage-setoran',
+            'setoranData' => $setoranData,
+            'isEmpty' => $isEmpty,
+            'searchQuery' => $searchQuery
+        ]);
+    }
+
+    public function searchOwner(Request $request)
+    {
+        $userId = Auth::id();
+
+        $arisanUuids = Arisan::where('id_user', $userId)->pluck('uuid');
+
+        $query = Setoran::whereIn('uuid', $arisanUuids);
+
+        $searchQuery = $request->input('search', '');
+        if ($searchQuery) {
+            $query->where('invoice_number', 'like', "%$searchQuery%");
+        }
+
+        $setoranData = $query->paginate(10);
+
+        return view('setoran.manage-setoran', [
+            'active' => 'manage-setoran',
+            'setoranData' => $setoranData,
+            'searchQuery' => $searchQuery,
+        ]);
     }
 
     public function manageSetoran()

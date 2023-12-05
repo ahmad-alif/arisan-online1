@@ -179,6 +179,8 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
 // Rute-rute terkait Arisan
 Route::group(['middleware' => ['allowAllUsers']], function () {
     Route::get('/list-arisan/search', [ArisanController::class, 'search'])->name('list-arisan.search');
+    Route::get('/data-setoran', [SetoranController::class, 'search'])->name('setoran.search');
+    Route::get('/manage-setoran', [SetoranController::class, 'searchOwner'])->name('setoran.search.owner');
     Route::get('/data-category', [CategoryController::class, 'search'])->name('search-category');
     Route::get('/get-usernames', [NotifikasiController::class, 'getUsernameList']);
 
