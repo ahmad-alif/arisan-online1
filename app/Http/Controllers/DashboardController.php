@@ -91,6 +91,8 @@ class DashboardController extends Controller
         // Mendapatkan notifikasi untuk pengguna yang sedang login
         $notifications = Notifikasi::where('id_user', $userId)->get();
 
+        $totalArisanMember = MemberArisan::where('id_user', $user->id)->count();
+
         return view('dashboard', [
             'active' => 'dashboard',
             'arisans' => $arisans,
@@ -103,7 +105,8 @@ class DashboardController extends Controller
             'totalUsersWithRoleOne' => $totalUsersWithRoleOne,
             'totalAllArisan' => $totalAllArisan,
             'totalCompletedArisan' => $totalCompletedArisan,
-            'notifications' => $notifications, // Menyertakan notifikasi
+            'notifications' => $notifications,
+            'totalArisanMember' => $totalArisanMember
         ]);
     }
 

@@ -256,6 +256,21 @@
                                         </div>
                                     </div>
                                 </div>
+                            @elseif (auth()->user()->role == 0)
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="mb-3 col-12 mb-0 d-flex">
+                                            <div class="col-xl-4 col-md-4 col-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="badge p-2 bg-label-primary mb-2 rounded">
+                                                            <i class="ti ti-currency-dollar ti-md"></i>
+                                                        </div>
+                                                        <h5 class="card-title mb-1 pt-2">Total Arisan Diikuti</h5>
+                                                        <p class="mb-2 mt-1">{{ $totalArisanMember }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                 @endif
             @endif
         </div>
@@ -285,17 +300,17 @@
                                 <div class="list-group-item d-flex align-items-baseline">
                                     <span class="text-success me-2"><i class="ti ti-circle-filled fs-6"></i></span>
                                     <div>
-                                    <h6 class="mb-1">{{ $notification->judul }}</h6>
-                                      <small class="mb-1">{{ $notification->isi }}n</small>
+                                        <h6 class="mb-1">{{ $notification->judul }}</h6>
+                                        <small class="mb-1">{{ $notification->isi }}n</small>
                                     </div>
-                                  </div>
-                            @empty
-                            <div class="list-group-item d-flex align-items-baseline">
-                                <span class="text-danger me-2"><i class="ti ti-circle-filled fs-6"></i></span>
-                                <div>
-                                <h6 class="mb-1">Tidak ada notifikasi.</h6>
                                 </div>
-                              </div>
+                            @empty
+                                <div class="list-group-item d-flex align-items-baseline">
+                                    <span class="text-danger me-2"><i class="ti ti-circle-filled fs-6"></i></span>
+                                    <div>
+                                        <h6 class="mb-1">Tidak ada notifikasi.</h6>
+                                    </div>
+                                </div>
                             @endforelse
                         </div>
                     </div>

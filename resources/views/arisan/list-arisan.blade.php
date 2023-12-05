@@ -133,7 +133,7 @@
                             @endforeach
                         @else
                             <div class="col-md-12">
-                                {{-- <p>Tidak ada hasil ditemukan. </p> --}}
+                                <p>Tidak ada hasil ditemukan dari "{{ request('search') }}" </p>
                             </div>
                         @endif
 

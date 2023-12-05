@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($arisans as $arisan)
+                            @forelse ($arisans as $arisan)
                                 {{-- <tr class="align-middles"
                                     style="
                                 @if ($arisan->status == 3) background-color: rgba(255, 102, 102, 0.35); @endif
@@ -142,7 +142,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">Tidak ada data dari "{{ $search }}"</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     <!-- Modal -->
