@@ -257,20 +257,18 @@
                                     </div>
                                 </div>
                             @elseif (auth()->user()->role == 0)
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="mb-3 col-12 mb-0 d-flex">
-                                            <div class="col-xl-4 col-md-4 col-6">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="badge p-2 bg-label-primary mb-2 rounded">
-                                                            <i class="ti ti-currency-dollar ti-md"></i>
-                                                        </div>
-                                                        <h5 class="card-title mb-1 pt-2">Total Arisan Diikuti</h5>
-                                                        <p class="mb-2 mt-1">{{ $totalArisanMember }}</p>
-                                                    </div>
+                                <div class="mb-3 col-12 mb-0 d-flex">
+                                    <div class="col-xl-4 col-md-4 col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="badge p-2 bg-label-primary mb-2 rounded">
+                                                    <i class="ti ti-currency-dollar ti-md"></i>
                                                 </div>
+                                                <h5 class="card-title mb-1 pt-2">Total Arisan Diikuti</h5>
+                                                <p class="mb-2 mt-1">{{ $totalArisanMember }}</p>
                                             </div>
+                                        </div>
+                                    </div>
                 @endif
             @endif
         </div>
