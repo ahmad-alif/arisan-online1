@@ -28,116 +28,139 @@
                 </div>
             @endif
 
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Invoice Number</th>
-                            <th>Bukti Setoran</th>
-                            <th>Status</th>
-                            <th>Diupload pada</th>
-                            <th>verifikasi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($setoranData as $setoran)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $setoran->invoice_number }}</td>
-                                <td>
-                                    @if ($setoran->bukti_setoran)
-                                        <a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#imageModal{{ $setoran->id }}">
-                                            <img src="{{ asset('storage/bukti_setoran/' . $setoran->bukti_setoran) }}"
-                                                alt="Bukti Setoran" class="thumbnail-img" width="80px">
-                                        </a>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Invoice Number</th>
+                                <th>Bukti Setoran</th>
+                                <th>Verifikasi</th>
+                                <th>Diupload pada</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($setoranData as $setoran)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $setoran->invoice_number }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center align-self-center">
+                                            @if ($setoran->bukti_setoran)
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#imageModal{{ $setoran->id }}">
+                                                    <img src="{{ asset('storage/bukti_setoran/' . $setoran->bukti_setoran) }}"
+                                                        alt="Bukti Setoran" class="thumbnail-img" width="80px">
+                                                </a>
 
-                                        <!-- Image Modal -->
-                                        <div class="modal fade" id="imageModal{{ $setoran->id }}" tabindex="-1"
-                                            aria-labelledby="imageModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="imageModalLabel">Bukti Setoran</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body text-center">
-                                                        <img src="{{ asset('storage/bukti_setoran/' . $setoran->bukti_setoran) }}"
-                                                            class="img-fluid" alt="Bukti Setoran" width="400px">
+                                                <!-- Image Modal -->
+                                                <div class="modal fade" id="imageModal{{ $setoran->id }}" tabindex="-1"
+                                                    aria-labelledby="imageModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="imageModalLabel">Bukti Setoran
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                <img src="{{ asset('storage/bukti_setoran/' . $setoran->bukti_setoran) }}"
+                                                                    class="img-fluid" alt="Bukti Setoran" width="400px">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                No Image
+                                            @endif
                                         </div>
-                                    @else
-                                        No Image
-                                    @endif
-                                </td>
-                                <td>{{ $setoran->status }}</td>
-                                <td>{{ \Carbon\Carbon::parse($setoran->created_at)->format('d F Y') }}</td>
-                                <td>
-                                    @if ($setoran->status != 1)
-                                        <!-- Add a form for updating the status -->
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center align-self-center">
+                                            @if ($setoran->status == 0)
+                                                <span class="badge bg-label-danger"><i class="ti ti-xbox-x"></i></span>
+                                            @elseif($setoran->status == 1)
+                                                <span class="badge bg-label-success"><i
+                                                        class="ti ti-circle-check"></i></span>
+                                            @else
+                                                <span class="badge bg-label-secondary"><i
+                                                        class="ti ti-question-mark"></i></span>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                    <td>{{ \Carbon\Carbon::parse($setoran->created_at)->format('d F Y') }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center align-self-center">
+                                            @if ($setoran->status != 1)
+                                                <form action="{{ route('update-setoran-status', $setoran->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#confirmVerifikasiModal{{ $setoran->id }}">
+                                                        <i class="ti ti-edit-circle"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <p class="text-success"><i class="ti ti-circle-check"></i></p>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">Belum ada setoran.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    @if (auth()->user()->role == 2)
+                    @elseif (auth()->user()->role == 1)
+                        <div class="m-2">
+                            <form action="{{ route('export-setoran') }}" method="GET">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                    <div class="d-flex justify-content-center">
+                        {{ $setoranData->links() }}
+                    </div>
+
+                    @foreach ($setoranData as $setoran)
+                        <div class="modal fade" id="confirmVerifikasiModal{{ $setoran->id }}" tabindex="-1"
+                            role="dialog" aria-labelledby="confirmVerifikasiModalLabel{{ $setoran->id }}"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmVerifikasiModalLabel{{ $setoran->id }}">
+                                            Konfirmasi Verifikasi Setoran</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah Anda yakin ingin memverifikasi setoran ini?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
                                         <form action="{{ route('update-setoran-status', $setoran->id) }}" method="post">
                                             @csrf
                                             @method('patch')
-                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#confirmVerifikasiModal{{ $setoran->id }}">
-                                                <i class="ti ti-question-mark"></i>
-                                            </button>
+                                            <button type="submit" class="btn btn-success">Ya, Verifikasi</button>
                                         </form>
-                                    @else
-                                        <p class="text-success"><i class="ti ti-circle-check"></i></p>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center">Belum ada setoran.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                @if (auth()->user()->role == 2)
-                @elseif (auth()->user()->role == 1)
-                    <div class="m-2">
-                        <form action="{{ route('export-setoran') }}" method="GET">
-                            <button type="submit" class="btn btn-sm btn-success">
-                                <span class="ti-xs ti ti-file-spreadsheet me-1"></span>Export Excel
-                            </button>
-                        </form>
-                    </div>
-                @endif
-                <div class="d-flex justify-content-center">
-                    {{ $setoranData->links() }}
-                </div>
-
-                @foreach ($setoranData as $setoran)
-                    <div class="modal fade" id="confirmVerifikasiModal{{ $setoran->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="confirmVerifikasiModalLabel{{ $setoran->id }}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmVerifikasiModalLabel{{ $setoran->id }}">
-                                        Konfirmasi Verifikasi Setoran</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Apakah Anda yakin ingin memverifikasi setoran ini?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ route('update-setoran-status', $setoran->id) }}" method="post">
-                                        @csrf
-                                        @method('patch')
-                                        <button type="submit" class="btn btn-success">Ya, Verifikasi</button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
 
+                </div>
             </div>
         </div>
     </div>
