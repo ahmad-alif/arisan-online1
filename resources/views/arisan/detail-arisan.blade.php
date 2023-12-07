@@ -348,6 +348,7 @@
                                                     <th scope="col">Email</th>
                                                     <th scope="col">No HP</th>
                                                     <th scope="col">Diundi pada</th>
+                                                    <th scope="col">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -368,6 +369,12 @@
                                                         <td>{{ $winner->user->email }}</td>
                                                         <td>{{ $winner->user->nohp }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($winner->created_at)->locale('id_ID')->format('d M Y') }}
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#winnerInfoModal-{{ $winner->id }}">
+                                                                View
+                                                            </button>
                                                         </td>
 
 
@@ -429,6 +436,63 @@
                     </div>
                 </div>
             </div>
+            @foreach ($arisan->winners as $winner)
+                <div class="modal fade" id="winnerInfoModal-{{ $winner->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="winnerInfoModalLabel-{{ $winner->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
+                        <div class="modal-content p-3 p-md-5">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                <div class="text-center mb-4">
+                                    <h2 class="mb-2">{{ $winner->user->username }}</h2>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12 text-center">
+                                        @if ($winner->user->foto_profil)
+                                            {{-- <div style="position: relative; width: 30%; padding-bottom: 30%;">
+                                                <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                    class="border rounded img-fluid mx-auto"
+                                                    src="{{ Storage::url($winner->user->foto_profil) }}"
+                                                    alt="{{ $winner->user->name }}" />
+                                            </div> --}}
+                                            <div class="position-relative d-inline-block"
+                                                style="width: 150px; height: 150px;">
+                                                <img style="width: 100%; height: 100%; object-fit: cover;"
+                                                    class="position-absolute top-50 start-50 translate-middle border rounded img-fluid"
+                                                    src="{{ Storage::url($winner->user->foto_profil) }}"
+                                                    alt="{{ $winner->user->name }}" />
+                                            </div>
+                                        @else
+                                            <img src="{{ asset('img/default.png') }}" alt="Default Profile"
+                                                class="rounded-circle" width="100">
+                                        @endif
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Nama: </label>
+                                        <p>{{ $winner->user->name }}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Username: </label>
+                                        <p>{{ $winner->user->username }}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Email: </label>
+                                        <p>{{ $winner->user->email }}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">No HP: </label>
+                                        <p>{{ $winner->user->nohp }}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+
 
         </div>
     </div>
