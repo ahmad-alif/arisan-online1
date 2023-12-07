@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth', 'user-access:0']], function () {
     // Route::post('/setoran/upload/{invoice_number}/{uuid}', [SetoranController::class, 'processUploadSetoran'])
     // ->name('processSetoran');
     // Route::get('/arisanku', [ArisanController::class, 'arisanku'])->name('arisanku');
+    Route::get('/riwayat', [SetoranController::class, 'riwayat'])->name('riwayat');
 });
 
 // Rute-rute terkait Arisan

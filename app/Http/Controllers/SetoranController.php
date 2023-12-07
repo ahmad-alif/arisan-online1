@@ -236,6 +236,19 @@ class SetoranController extends Controller
         return Excel::download(new SetoranExport($setoranData), 'data-setoran.xlsx');
     }
 
+    public function riwayat()
+    {
+        $userId = Auth::id();
+
+        $riwayatSetoran = Setoran::whereHas('invoice', function ($query) use ($userId) {
+            $query->where('id_user', $userId);
+        })->get();
+
+        $arisanData = Arisan::all();
+
+        return view('setoran.riwayat', ['active' => 'riwayat-setoran', 'riwayatSetoran' => $riwayatSetoran, 'arisanData' => $arisanData]);
+    }
+
     // public function tampilInvoice($invoice_number)
     // {
     //     // Fetch the invoice details based on the invoice number

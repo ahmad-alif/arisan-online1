@@ -2,7 +2,8 @@
     <div class="app-brand demo">
         <a href="/" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name') }}" class="brand-image img-circle elevation-3" width="32" height="26" viewBox="0 0 32 26">
+                <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name') }}"
+                    class="brand-image img-circle elevation-3" width="32" height="26" viewBox="0 0 32 26">
             </span>
             <span class="app-brand-text demo menu-text fw-bold ">Arisanku</span>
         </a>
@@ -116,6 +117,12 @@
                     <a class="menu-link" href="/setoran">
                         <i class="menu-icon tf-icons ti ti-calendar-dollar"></i>
                         <div data-i18n="Page 2">Setoran</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ $active === 'riwayat-setoran' ? 'active' : '' }}">
+                    <a class="menu-link" href="/riwayat">
+                        <i class="menu-icon tf-icons ti ti-history"></i>
+                        <div data-i18n="Page 2">Riwayat</div>
                     </a>
                 </li>
 

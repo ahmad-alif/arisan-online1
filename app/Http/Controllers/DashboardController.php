@@ -192,53 +192,85 @@ class DashboardController extends Controller
 
     public function processEditOwner(Request $request, $id)
     {
-        $owner = User::findOrFail($id);
+        try {
+            $owner = User::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:users,username,' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8',
-            'nohp' => 'required',
-        ]);
+            $request->validate([
+                'name' => 'required',
+                'username' => 'required|unique:users,username,' . $id,
+                'email' => 'required|email|unique:users,email,' . $id,
+                'password' => 'nullable|min:8',
+                'nohp' => 'required',
+            ]);
 
-        $owner->name = $request->input('name');
-        $owner->username = $request->input('username');
-        $owner->email = $request->input('email');
+            $oldData = $owner->toArray(); // Store the old data before updating
 
-        if ($request->filled('password')) {
-            $owner->password = bcrypt($request->input('password'));
-        }
+            $owner->name = $request->input('name');
+            $owner->username = $request->input('username');
+            $owner->email = $request->input('email');
 
-        $owner->nohp = $request->input('nohp');
-        if ($request->hasFile('foto_profil')) {
-            // Delete the old profile picture
-            if ($owner->foto_profil && Storage::exists($owner->foto_profil)) {
-                Storage::delete($owner->foto_profil);
+            if ($request->filled('password')) {
+                $owner->password = bcrypt($request->input('password'));
             }
 
-            // Upload and save the new profile picture
-            $filename = uniqid() . '.' . $request->file('foto_profil')->extension();
-            $foto_profilPath = $request->file('foto_profil')->storeAs('public/foto_profil', $filename);
-            $owner->foto_profil = $foto_profilPath;
-        }
-        $owner->save();
+            $owner->nohp = $request->input('nohp');
+            if ($request->hasFile('foto_profil')) {
+                // Delete the old profile picture
+                if ($owner->foto_profil && Storage::exists($owner->foto_profil)) {
+                    Storage::delete($owner->foto_profil);
+                }
 
-        return redirect('/manage-owner')->with('success', 'Perubahan Owner telah disimpan.');
+                // Upload and save the new profile picture
+                $filename = uniqid() . '.' . $request->file('foto_profil')->extension();
+                $foto_profilPath = $request->file('foto_profil')->storeAs('public/foto_profil', $filename);
+                $owner->foto_profil = $foto_profilPath;
+            }
+            $owner->save();
+
+            // Log the activity
+            $logMessage = 'Admin berhasil mengubah data owner (Username: ' . $owner->username . ')';
+            Log::create(['message' => $logMessage]);
+
+            return redirect('/manage-owner')->with('success', 'Perubahan Owner telah disimpan.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Handle validation exception
+            return redirect('/manage-owner')->with('error', $e->getMessage())->withInput();
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during owner edit: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/manage-owner')->with('error', 'Error editing owner. Please try again.');
+        }
     }
+
 
     public function deleteOwner($id)
     {
-        $owner = User::find($id);
-        //dd($owner);
-        if (!$owner) {
-            return redirect('/manage-owner')->with('error', 'Pemilik tidak ditemukan.');
+        try {
+            $owner = User::find($id);
+
+            if (!$owner) {
+                return redirect('/manage-owner')->with('error', 'Pemilik tidak ditemukan.');
+            }
+
+            // Log the activity before deleting the owner
+            $logMessage = 'Admin berhasil menghapus data owner (Username: ' . $owner->username . ')';
+            $logMessage .= ' dengan data ' . json_encode($owner->toArray());
+            Log::create(['message' => $logMessage]);
+
+            $owner->delete();
+
+            return redirect('/manage-owner')->with('success', 'Data Owner telah dihapus.');
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during owner deletion: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/manage-owner')->with('error', 'Error deleting owner. Please try again.');
         }
-
-        $owner->delete();
-
-        return redirect('/manage-owner')->with('success', 'Data Owner telah dihapus.');
     }
+
 
     public function exportOwnersExcel()
     {
@@ -289,25 +321,41 @@ class DashboardController extends Controller
 
     public function processAddMember(Request $request)
     {
-        $request->validate([
-            'username' => 'required|unique:users',
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'nohp' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'username' => 'required|unique:users',
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'nohp' => 'required',
+            ]);
 
-        // Simpan data pemilik baru ke database
-        $member = new User();
-        $member->username = $request->input('username');
-        $member->name = $request->input('name');
-        $member->email = $request->input('email');
-        $member->password = bcrypt('12345678');
-        $member->nohp = $request->input('nohp');
-        $member->role = 0;
-        $member->save();
+            // Simpan data member baru ke database
+            $member = new User();
+            $member->username = $request->input('username');
+            $member->name = $request->input('name');
+            $member->email = $request->input('email');
+            $member->password = bcrypt('12345678');
+            $member->nohp = $request->input('nohp');
+            $member->role = 0;
+            $member->save();
 
-        return redirect('/data-member')->with('success', 'Data Member telah ditambahkan.');
+            // Log the activity
+            $logMessage = 'Admin berhasil menambahkan data member ' . $request->input('username');
+            Log::create(['message' => $logMessage]);
+
+            return redirect('/data-member')->with('success', 'Data Member telah ditambahkan.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Handle validation exception
+            return redirect('/data-member')->with('error', $e->getMessage())->withInput();
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during member creation: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/data-member')->with('error', 'Error adding member. Please try again.');
+        }
     }
+
 
     public function editMember($id)
     {
@@ -317,56 +365,81 @@ class DashboardController extends Controller
 
     public function processEditMember(Request $request, $id)
     {
-        // $user = Auth::user()->id;
-        $member = User::findOrFail($id);
+        try {
+            $member = User::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:users,username,' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8',
-            'nohp' => 'required',
-        ]);
+            $request->validate([
+                'name' => 'required',
+                'username' => 'required|unique:users,username,' . $id,
+                'email' => 'required|email|unique:users,email,' . $id,
+                'password' => 'nullable|min:8',
+                'nohp' => 'required',
+            ]);
 
-        $member->name = $request->input('name');
-        $member->username = $request->input('username');
-        $member->email = $request->input('email');
+            $member->name = $request->input('name');
+            $member->username = $request->input('username');
+            $member->email = $request->input('email');
 
-        if ($request->filled('password')) {
-            $member->password = bcrypt($request->input('password'));
-        }
-
-        $member->nohp = $request->input('nohp');
-
-        if ($request->hasFile('foto_profil')) {
-            // Delete the old profile picture
-            if ($member->foto_profil && Storage::exists($member->foto_profil)) {
-                Storage::delete($member->foto_profil);
+            if ($request->filled('password')) {
+                $member->password = bcrypt($request->input('password'));
             }
 
-            // Upload and save the new profile picture
-            $filename = uniqid() . '.' . $request->file('foto_profil')->extension();
-            $foto_profilPath = $request->file('foto_profil')->storeAs('public/foto_profil', $filename);
-            $member->foto_profil = $foto_profilPath;
-        }
-        // dd(auth()->user()->role);
-        $member->save();
+            $member->nohp = $request->input('nohp');
 
-        return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
+            if ($request->hasFile('foto_profil')) {
+                // Delete the old profile picture
+                if ($member->foto_profil && Storage::exists($member->foto_profil)) {
+                    Storage::delete($member->foto_profil);
+                }
+
+                // Upload and save the new profile picture
+                $filename = uniqid() . '.' . $request->file('foto_profil')->extension();
+                $foto_profilPath = $request->file('foto_profil')->storeAs('public/foto_profil', $filename);
+                $member->foto_profil = $foto_profilPath;
+            }
+
+            // Log the activity
+            $logMessage = 'Admin berhasil merubah data member (Username: ' . $member->username . ')';
+            // $logMessage .= ' dengan data ' . json_encode($member->toArray());
+            Log::create(['message' => $logMessage]);
+
+            $member->save();
+
+            return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during member edition: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/data-member')->with('error', 'Error editing member. Please try again.');
+        }
     }
 
     public function deleteMember($id)
     {
-        $member = User::find($id);
-        // dd($member);
-        if (!$member) {
-            return redirect('/data-member')->with('error', 'User tidak ditemukan.');
+        try {
+            $member = User::find($id);
+            if (!$member) {
+                return redirect('/data-member')->with('error', 'User tidak ditemukan.');
+            }
+
+            // Log the activity
+            $logMessage = 'Admin berhasil menghapus data member (Username: ' . $member->username . ')';
+            // $logMessage .= ' dengan data ' . json_encode($member->toArray());
+            Log::create(['message' => $logMessage]);
+
+            $member->delete();
+
+            return redirect('/data-member')->with('success', 'Data Member telah dihapus.');
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during member deletion: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/data-member')->with('error', 'Error deleting member. Please try again.');
         }
-
-        $member->delete();
-
-        return redirect('/data-member')->with('success', 'Data Member telah dihapus.');
     }
+
 
     public function exportMembersExcel()
     {
@@ -389,47 +462,79 @@ class DashboardController extends Controller
 
     public function processActivateArisan($uuid)
     {
-        // $arisan = Arisan::findOrFail($id);
-        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
+        try {
+            $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
 
-        if (!$arisan) {
-            return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
+            if (!$arisan) {
+                return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
+            }
+
+            // Log the activity
+            $logMessage = 'Admin berhasil mengaktifkan arisan (UUID: ' . $uuid . ')';
+            Log::create(['message' => $logMessage]);
+
+            $arisan->active = 1;
+            $arisan->status = 1;
+            $arisan->save();
+
+            return redirect('/data-arisan')->with('success', 'Arisan berhasil diaktifkan.');
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during arisan activation: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/data-arisan')->with('error', 'Error activating arisan. Please try again.');
         }
-
-        $arisan->active = 1;
-        $arisan->status = 1;
-        $arisan->save();
-
-        return redirect('/data-arisan')->with('success', 'Arisan berhasil diaktifkan.');
     }
+
     public function processDeactivateArisan($uuid)
     {
-        // $arisan = Arisan::findOrFail($id);
-        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
+        try {
+            $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
 
-        if (!$arisan) {
-            return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
+            if (!$arisan) {
+                return redirect()->route('data-arisan')->with('error', 'Arisan Tidak Ditemukan.');
+            }
+
+            // Log the activity
+            $logMessage = 'Admin berhasil menonaktifkan arisan (UUID: ' . $uuid . ')';
+            Log::create(['message' => $logMessage]);
+
+            $arisan->active = 0;
+            $arisan->status = 1;
+            $arisan->save();
+
+            return redirect('/data-arisan')->with('success', 'Arisan berhasil dinonaktifkan.');
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during arisan deactivation: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/data-arisan')->with('error', 'Error deactivating arisan. Please try again.');
         }
-
-        $arisan->active = 0;
-        $arisan->status = 1;
-        $arisan->save();
-
-        return redirect('/data-arisan')->with('success', 'Arisan berhasil diaktifkan.');
     }
 
     public function processActivateAccount($id)
     {
-        $member = User::findOrFail($id);
+        try {
+            $member = User::findOrFail($id);
 
-        if (!$member) {
-            // Handle the case where the member is not found
-            return redirect()->route('data-member')->with('error', 'Member Tidak Ditemukan.');
+            if (!$member) {
+                return redirect()->route('data-member')->with('error', 'Member Tidak Ditemukan.');
+            }
+
+            // Log the activity
+            $logMessage = 'Admin berhasil mengaktifkan akun member (Username: ' . $member->username . ')';
+            Log::create(['message' => $logMessage]);
+
+            $member->active = 1;
+            $member->save();
+
+            return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
+        } catch (\Exception $e) {
+            LaravelLog::error('Error during member activation: ' . $e->getMessage());
+
+            return redirect('/data-member')->with('error', 'Error activating member. Please try again.');
         }
-
-        $member->active = 1;
-        $member->save();
-
-        return redirect('/data-member')->with('success', 'Perubahan Member telah disimpan.');
     }
 }
