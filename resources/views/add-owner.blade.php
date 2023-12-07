@@ -8,7 +8,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="py-1">
-                <span class="text-muted fw-light">Admin / Kelola Member / </span>Tambah Member
+                <span class="text-muted fw-light">Admin / Kelola Pemilik / </span>Tambah Pemilik
             </h4>
             <div class="card">
                 <!-- Account -->

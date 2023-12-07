@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\User;
 use App\Models\Arisan;
 use App\Models\Notifikasi;
@@ -12,6 +13,7 @@ use App\Exports\MembersExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log as LaravelLog;
 
 class DashboardController extends Controller
 {
@@ -146,28 +148,41 @@ class DashboardController extends Controller
 
     public function processAddOwner(Request $request)
     {
-        $request->validate([
-            'username' => 'required|unique:users',
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'nohp' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'username' => 'required|unique:users',
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'nohp' => 'required',
+            ]);
 
-        // Simpan data pemilik baru ke database
-        $owner = new User();
-        $owner->username = $request->input('username');
-        $owner->name = $request->input('name');
-        $owner->email = $request->input('email');
-        // $owner->password = bcrypt($request->input('password'));
-        $owner->password = bcrypt('password');
-        $owner->nohp = $request->input('nohp');
-        $owner->role = 1;
-        $owner->save();
-        // dd($owner);
+            // Simpan data pemilik baru ke database
+            $owner = new User();
+            $owner->username = $request->input('username');
+            $owner->name = $request->input('name');
+            $owner->email = $request->input('email');
+            $owner->password = bcrypt('12345678');
+            $owner->nohp = $request->input('nohp');
+            $owner->role = 1;
+            $owner->save();
 
-        return redirect('/manage-owner')->with('success', 'Data Owner telah ditambahkan.');
+            // Log the activity
+            $logMessage = 'Admin berhasil membuat akun owner ' . $request->input('username');
+            Log::create(['message' => $logMessage]);
+
+            return redirect('/manage-owner')->with('success', 'Data Owner telah ditambahkan.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Handle validation exception
+            return redirect('/manage-owner')->with('error', $e->getMessage())->withInput();
+        } catch (\Exception $e) {
+            // Log the exception
+            LaravelLog::error('Error during owner creation: ' . $e->getMessage());
+
+            // Handle other exceptions
+            return redirect('/manage-owner')->with('error', 'Error adding owner. Please try again.');
+        }
     }
+
 
     public function editOwner($id)
     {
@@ -269,7 +284,7 @@ class DashboardController extends Controller
     public function addMember(Request $request)
     {
         // dd(auth()->user()->role);
-        return view('add-member', ['active' => 'dashboard'])->with('role', $request);
+        return view('add-member', ['active' => 'manage-member'])->with('role', $request);
     }
 
     public function processAddMember(Request $request)

@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Route admin
 Route::group(['middleware' => ['auth', 'user-access:2']], function () {
+    // Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
     Route::put('/activate-arisan/{uuid}', [DashboardController::class, 'processActivateArisan'])->name('activate-arisan');
     Route::put('/deactivate-arisan/{uuid}', [DashboardController::class, 'processDeactivateArisan'])->name('deactivate-arisan');
     Route::put('/activate-account/{id}', [DashboardController::class, 'processActivateAccount'])->name('activate-account');
