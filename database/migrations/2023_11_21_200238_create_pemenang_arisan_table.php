@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('pemenang_arisan', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_arisan')->unsigned();
+            $table->string('uuid');
             $table->bigInteger('id_user')->unsigned();
+            $table->string('username');
+            $table->string('name');
+            $table->string('email');
+            $table->string('nohp');
             $table->timestamps();
         });
     }

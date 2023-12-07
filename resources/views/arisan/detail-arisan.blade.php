@@ -282,6 +282,110 @@
                 </div>
             </div>
 
+            <!-- Setoran Table -->
+            <div class="row">
+                {{-- <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <small class="card-text text-uppercase">Pemenang Arisan</small>
+                            </div>
+                            <div class="mt-3">
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Foto Profil</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">No HP</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($arisan->winners as $winner)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>
+                                                        @if ($winner->user->foto_profil)
+                                                            <img src="{{ Storage::url($winner->user->foto_profil) }}"
+                                                                alt="Profile" class="rounded-circle" width="35"
+                                                                height="35">
+                                                        @else
+                                                            <i class="ti ti-user-circle ti-lg text-info"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $winner->user->username }}</td>
+                                                    <td>{{ $winner->user->name }}</td>
+                                                    <td>{{ $winner->user->email }}</td>
+                                                    <td>{{ $winner->user->nohp }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <small class="card-text text-uppercase">Pemenang Arisan</small>
+                            </div>
+                            <div class="mt-3">
+                                @if ($arisan->winners->count() > 0)
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Foto Profil</th>
+                                                    <th scope="col">Username</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">No HP</th>
+                                                    <th scope="col">Diundi pada</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($arisan->winners as $winner)
+                                                    <tr>
+                                                        <th scope="row">{{ $loop->iteration }}</th>
+                                                        <td>
+                                                            @if ($winner->user->foto_profil)
+                                                                <img src="{{ Storage::url($winner->user->foto_profil) }}"
+                                                                    alt="Profile" class="rounded-circle" width="35"
+                                                                    height="35">
+                                                            @else
+                                                                <i class="ti ti-user-circle ti-lg text-info"></i>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $winner->user->username }}</td>
+                                                        <td>{{ $winner->user->name }}</td>
+                                                        <td>{{ $winner->user->email }}</td>
+                                                        <td>{{ $winner->user->nohp }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($winner->created_at)->locale('id_ID')->format('d M Y') }}
+                                                        </td>
+
+
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <p>Belum ada pemenang undian</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">

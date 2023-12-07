@@ -10,7 +10,8 @@ class WinnerArisan extends Model
     use HasFactory;
 
     protected $table = 'pemenang_arisan';
-    protected $fillable = ['id_arisan', 'id_user'];
+    // protected $fillable = ['id_arisan', 'id_user'];
+    protected $guarded = [];
 
     public function arisan()
     {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Arisan;
 use App\Models\WinnerArisan;
 use Illuminate\Http\Request;
@@ -150,11 +152,18 @@ class WinnerArisanController extends Controller
 
         $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
         $winnerId = $request->input('winner_id');
+        $winnerUser = User::findOrFail($winnerId);
 
         // Tambahkan pemenang ke tabel pemenang_arisan
         WinnerArisan::create([
             'id_arisan' => $arisan->id_arisan,
+            'uuid' => $arisan->uuid,
             'id_user' => $winnerId,
+            'username' => $winnerUser->username,
+            'name' => $winnerUser->name,
+            'email' => $winnerUser->email,
+            'nohp' => $winnerUser->nohp,
+            'created_at' => Carbon::now(),
         ]);
 
         // Tandai arisan sebagai sudah diundi
@@ -165,7 +174,7 @@ class WinnerArisanController extends Controller
             $arisan->update(['status' => 3]);
         }
 
-        return redirect()->route('manage-arisan')->with('success', 'Pemenang Arisan berhasil dipilih.');
+        return redirect()->route('detail-arisan', ['uuid' => $uuid])->with('success', 'Pemenang Arisan berhasil dipilih.');
     }
 
 
