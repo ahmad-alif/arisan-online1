@@ -110,11 +110,13 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
-                                                    class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
-                                                    data-bs-target="#confirmStartModal-{{ $arisan->uuid }}">
-                                                    <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
+                                                @if ($arisan->status == 1)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('start-arisan-owner', ['uuid' => $arisan->uuid]) }}"
+                                                        class="btn btn-sm btn-success col-10 mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#confirmStartModal-{{ $arisan->uuid }}">
+                                                        <i class="ti ti-player-play me-1"></i> Mulai Arisan</a>
+                                                @endif
                                                 <a class="dropdown-item"
                                                     href="{{ route('edit-arisan', ['uuid' => $arisan->uuid]) }}"><i
                                                         class="ti ti-pencil me-1"></i> Edit</a>
