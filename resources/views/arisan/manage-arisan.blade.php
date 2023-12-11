@@ -94,7 +94,7 @@
                                         @if ($arisan->status == 2 && $arisan->active == 0)
                                             <button class="btn btn-sm btn-label-danger">Suspend</button>
                                         @elseif ($arisan->status == 2 && $arisan->active == 1)
-                                            {{ $arisan->end_date }}
+                                            {{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}
                                         @elseif ($arisan->status == 1 && $arisan->active == 0)
                                             Arisan belum dimulai
                                         @elseif ($arisan->status == 0 && $arisan->active == 0)
