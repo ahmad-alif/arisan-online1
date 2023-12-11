@@ -86,15 +86,23 @@
                                     </td>
 
                                     <td>{{ $arisan->nama_arisan }}</td>
-                                    <td>{{ $arisan->start_date }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</td>
                                     {{-- <td>{{ $arisan->end_date }}</td> --}}
                                     <td>
                                         {{-- @if ($arisan->status != 2 && $arisan->active == 1)
                                             {{ $arisan->end_date }} --}}
                                         @if ($arisan->status == 2 && $arisan->active == 0)
                                             <button class="btn btn-sm btn-label-danger">Suspend</button>
-                                        @else
+                                        @elseif ($arisan->status == 2 && $arisan->active == 1)
                                             {{ $arisan->end_date }}
+                                        @elseif ($arisan->status == 1 && $arisan->active == 0)
+                                            Arisan belum dimulai
+                                        @elseif ($arisan->status == 0 && $arisan->active == 0)
+                                            Arisan belum dimulai
+                                        @elseif ($arisan->status == 3)
+                                            Selesai
+                                        @else
+                                            Tidak diketahui
                                         @endif
                                     </td>
                                     <td class="">
@@ -133,6 +141,17 @@
                                                             <i class="ti ti-trophy me-1"></i> Undi Pemenang
                                                         </a>
                                                     @endif
+                                                @elseif ($arisan->status == 0)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('edit-arisan-owner', ['uuid' => $arisan->uuid]) }}">
+                                                        <i class="ti ti-pencil me-1"></i> Edit
+                                                    </a>
+
+                                                    <button class="button dropdown-item" href=""
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#confirmDeleteModal-{{ $arisan->uuid }}">
+                                                        <i class="ti ti-trash me-1"></i> Hapus
+                                                    </button>
                                                 @endif
                                                 <a href="{{ route('detail-arisan', ['uuid' => $arisan->uuid]) }}"
                                                     class="dropdown-item">
