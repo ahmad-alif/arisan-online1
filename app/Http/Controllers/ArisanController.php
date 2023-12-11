@@ -416,43 +416,53 @@ class ArisanController extends Controller
 
     public function startArisan($uuid)
     {
-        $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
-        $userId = Auth::id();
+        try {
+            $arisan = Arisan::where('uuid', $uuid)->firstOrFail();
+            $userId = Auth::id();
 
-        if ($arisan->id_user == $userId) {
-            $arisan->status = 2;
+            if ($arisan->id_user == $userId) {
+                $memberCount = MemberArisan::where('id_arisan', $arisan->id_arisan)->count();
 
-            $memberCount = MemberArisan::where('id_arisan', $arisan->id_arisan)->count();
-            $depositFrequency = $arisan->deposit_frequency;
-            $startDate = \Carbon\Carbon::parse($arisan->start_date);
+                if ($memberCount < 2) {
+                    return redirect('/manage-arisan')->with('error', 'Arisan tidak dapat diaktifkan karena membutuhkan minimal 2 member.');
+                } else {
+                    $arisan->status = 2;
 
-            // Set tanggal awal pada hari pertama setiap bulan
-            $adjustedStartDate = $startDate;
+                    $depositFrequency = $arisan->deposit_frequency;
+                    $startDate = \Carbon\Carbon::parse($arisan->start_date);
 
-            // Inisialisasi tanggal akhir
-            $endDate = $adjustedStartDate->copy();
+                    // Set tanggal awal pada hari pertama setiap bulan
+                    $adjustedStartDate = $startDate;
 
-            // Periksa nilai $depositFrequency
-            if ($depositFrequency == 1 || $depositFrequency == 2) {
-                // Jika $depositFrequency adalah 1 atau 2, gunakan addWeeks
-                $endDate->addWeeks($depositFrequency * $memberCount);
-            } elseif ($depositFrequency == 4) {
-                // Jika $depositFrequency adalah 4, gunakan 1 bulan * $memberCount
-                $endDate->addMonths($memberCount);
+                    // Inisialisasi tanggal akhir
+                    $endDate = $adjustedStartDate->copy();
 
-                // Set tanggal akhir sama dengan tanggal mulai
-                $endDate->day($adjustedStartDate->day);
+                    // Periksa nilai $depositFrequency
+                    if ($depositFrequency == 1 || $depositFrequency == 2) {
+                        // Jika $depositFrequency adalah 1 atau 2, gunakan addWeeks
+                        $endDate->addWeeks($depositFrequency * $memberCount);
+                    } elseif ($depositFrequency == 4) {
+                        // Jika $depositFrequency adalah 4, gunakan 1 bulan * $memberCount
+                        $endDate->addMonths($memberCount);
+
+                        // Set tanggal akhir sama dengan tanggal mulai
+                        $endDate->day($adjustedStartDate->day);
+                    }
+
+                    $arisan->end_date = $endDate;
+
+                    $arisan->save();
+                }
+
+                return redirect('/manage-arisan')->with('success', 'Arisan berhasil diaktifkan');
+            } else {
+                return redirect('/manage-arisan')->with('error', 'Anda tidak memiliki izin untuk mengaktifkan arisan ini');
             }
-
-            $arisan->end_date = $endDate;
-
-            $arisan->save();
-
-            return redirect('/manage-arisan')->with('success', 'Arisan berhasil diaktifkan');
-        } else {
-            return redirect('/manage-arisan')->with('error', 'Anda tidak memiliki izin untuk mengaktifkan arisan ini');
+        } catch (\Exception $e) {
+            return redirect('/manage-arisan')->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
         }
     }
+
 
 
 
@@ -507,6 +517,10 @@ class ArisanController extends Controller
                 return redirect()->route('dashboard')->with('error', 'Hanya member yang bisa bergabung arisan!');
             }
 
+            if ($arisan->status == 3) {
+                return redirect()->route('list-arisan')->with('error', 'Maaf, Arisan ini sudah selesai. Tidak dapat bergabung lagi.');
+            }
+
             if (!$arisan->members()->where('id_user', $user->id)->exists()) {
                 if ($arisan->members()->count() >= $arisan->max_member) {
                     return redirect()->route('list-arisan')->with('error', 'Maaf, Arisan telah penuh. Silahkan bergabung kembali di periode selanjutnya.');
@@ -530,7 +544,7 @@ class ArisanController extends Controller
                 //     'deposit_status' => 'Belum setoran', // Sesuaikan dengan nilai yang diinginkan
                 // ]);
 
-                return redirect()->route('list-arisan')->with('success', 'Berhasil bergabung!');
+                return redirect()->route('arisanku')->with('success', 'Berhasil bergabung!');
             } else {
                 return redirect()->route('list-arisan')->with('error', 'Anda sudah bergabung!');
             }

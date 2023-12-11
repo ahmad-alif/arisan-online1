@@ -81,17 +81,29 @@
                                                     </div>
                                                     <div class="col-sm">
                                                         <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small><br>
-                                                        <small
-                                                            class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
+                                                        @if ($arisan->end_date == null)
+                                                            <small>?</small>
+                                                        @else
+                                                            <small
+                                                                class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-column flex-md-row gap-2 text-nowrap mt-2">
-                                                <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
-                                                    href="{{ route('setoran', $arisan->uuid) }}">
-                                                    <span class="d-none d-sm-block">Setoran</span>
-                                                    <i class="ti ti-info-square d-block d-sm-none"></i>
-                                                </a>
+                                                @if ($arisan->status == 2)
+                                                    <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
+                                                        href="{{ route('setoran', $arisan->uuid) }}">
+                                                        <span class="d-none d-sm-block">Setoran</span>
+                                                        <i class="ti ti-info-square d-block d-sm-none"></i>
+                                                    </a>
+                                                @else
+                                                    <a href=""
+                                                        class="app-academy-md-50 btn btn-secondary me-md-2 d-flex align-items-center">
+                                                        <span class="d-none d-sm-block">Belum Bisa Setor</span>
+                                                        <i class="ti ti-info-square d-block d-sm-none"></i>
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

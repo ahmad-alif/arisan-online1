@@ -15,6 +15,21 @@
                         Pengguna /
                     @endif
                 </span> Kelola Arisan</h4>
+
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <!-- Striped Rows -->
             <div class="card">
                 <div class="table-responsive text-nowrap">
@@ -189,8 +204,8 @@
                                                 {{-- <img src="{{ Storage::url($arisan->foto_ktp) }}" alt="KTP"
                                       width="250"> --}}
                                                 @if ($arisan->img_arisan == null)
-                                                    <img src="{{ asset('img/default_arisan.jpg') }}" alt="Default Profile"
-                                                        class="rounded-circle" width="100">
+                                                    <img src="{{ asset('img/default_arisan.jpg') }}"
+                                                        alt="Default Profile" class="rounded-circle" width="100">
                                                 @elseif ($arisan->img_arisan)
                                                     <img src="{{ Storage::url($arisan->img_arisan) }}" alt="Arisan"
                                                         class="rounded-circle" width="100">

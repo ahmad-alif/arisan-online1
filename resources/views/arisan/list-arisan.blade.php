@@ -3,7 +3,7 @@
 @section('content')
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="card mb-2">
+            <div class="card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between gap-3">
                     <div class="card-title mb-0 me-1">
                         <h6 class="mb-1">Silahkan gabung arisan pada berikut ini.</h6>
@@ -28,23 +28,24 @@
                         @if ($arisans->count() > 0)
                             @foreach ($arisans as $arisan)
                                 {{-- <div class="col-sm-6 col-lg-4"> --}}
-                                    <div class="col-xl-2 col-md-4 col-6 mb-0">
-                                        <div class="card h-100">
-                                            <div class="rounded-2 text-center mb-2 width=">
-                                            <div class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
+                                <div class="col-xl-2 col-md-4 col-6 mb-0">
+                                    <div class="card h-100">
+                                        <div class="rounded-2 text-center mb-2 width=">
+                                            <div
+                                                class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
                                                 @if ($arisan->img_arisan)
-                                                <div style="position: relative; width: 100%; padding-bottom: 100%;">
-                                                    <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                                                        class="border rounded img-fluid"
-                                                        src="{{ Storage::url($arisan->img_arisan) }}"
-                                                        alt="{{ $arisan->nama_arisan }}" />
-                                                </div>
+                                                    <div style="position: relative; width: 100%; padding-bottom: 100%;">
+                                                        <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                            class="border rounded img-fluid"
+                                                            src="{{ Storage::url($arisan->img_arisan) }}"
+                                                            alt="{{ $arisan->nama_arisan }}" />
+                                                    </div>
                                                 @else
-                                                <div style="position: relative; width: 100%; padding-bottom: 100%;">
-                                                    <img src="{{ asset('img/default_arisan.jpg') }}"
-                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                                                    class="border rounded img-fluid" alt="Default Image" />
-                                                </div>
+                                                    <div style="position: relative; width: 100%; padding-bottom: 100%;">
+                                                        <img src="{{ asset('img/default_arisan.jpg') }}"
+                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                            class="border rounded img-fluid" alt="Default Image" />
+                                                    </div>
                                                 @endif
                                             </div>
 
@@ -62,12 +63,13 @@
                                             <div class="d-flex justify-content-between align-items-center mt-2 gap-2 mb-0">
                                                 <div class="row">
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar ti-sm ti-xs fs-5"></i> Mulai</small><br>
+                                                        <small><i class="ti ti-calendar ti-sm ti-xs fs-5"></i>
+                                                            Mulai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</small>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar-off ti-sm fs-5"></i> Selesai</small><br>
+                                                        <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
                                                     </div>
@@ -82,7 +84,9 @@
                                                         <a class="btn btn-label-warning d-flex align-items-center"
                                                             href="{{ route('arisan.detail.member', $arisan->uuid) }}">
                                                             <i class="ti ti-info-square d-block d-sm-none"></i>
-                                                            <span class="d-none d-sm-block"><i class="ti ti-info-square scaleX-n1-rtl"></i> Detail</span>
+                                                            <span class="d-none d-sm-block"><i
+                                                                    class="ti ti-info-square scaleX-n1-rtl"></i>
+                                                                Detail</span>
 
                                                         </a>
                                                     @endif
@@ -91,7 +95,8 @@
                                                         <form action="{{ route('arisan.join', $arisan) }}" method="POST"
                                                             id="joinForm{{ $arisan->id_arisan }}">
                                                             @csrf
-                                                            <button type="button" class="btn btn-primary w-100 d-flex align-items-center"
+                                                            <button type="button"
+                                                                class="btn btn-primary w-100 d-flex align-items-center"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#confirmationModal{{ $arisan->id_arisan }}">
                                                                 <i class="ti ti-cube-plus d-block d-sm-none"></i>
@@ -119,7 +124,8 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-label-secondary"
+                                                                        <button type="button"
+                                                                            class="btn btn-label-secondary"
                                                                             data-bs-dismiss="modal">Batal</button>
                                                                         <button type="submit"
                                                                             form="joinForm{{ $arisan->id_arisan }}"
