@@ -37,6 +37,7 @@
                                             {{-- <h5 class="card-title mb-0" style="font-size: 14px;">
                                                 {{ Str::limit($arisan->nama_arisan, 14, '...') }}
                                             </h5> --}}
+
                                             <h5 class="card-title mb-0 text-truncate" style="font-size: 16px;">
                                                 {{ $arisan->nama_arisan }}
                                             </h5>
@@ -58,12 +59,13 @@
                                             <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
                                                 <div class="row">
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar ti-sm"></i>Mulai</small><br>
+                                                        <small><i class="ti ti-calendar ti-sm fs-6"></i> Mulai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</small>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small><br>
+                                                        <small><i class="ti ti-calendar-off ti-sm fs-6"></i>
+                                                            Selesai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
                                                     </div>

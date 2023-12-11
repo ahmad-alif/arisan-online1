@@ -92,7 +92,7 @@
                                         {{-- @if ($arisan->status != 2 && $arisan->active == 1)
                                             {{ $arisan->end_date }} --}}
                                         @if ($arisan->status == 2 && $arisan->active == 0)
-                                            <button class="btn btn-sm btn-danger">Suspend</button>
+                                            <button class="btn btn-sm btn-label-danger">Suspend</button>
                                         @else
                                             {{ $arisan->end_date }}
                                         @endif

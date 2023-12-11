@@ -37,6 +37,11 @@
                                             {{-- <h5 class="card-title mb-0" style="font-size: 14px;">
                                                 {{ Str::limit($arisan->nama_arisan, 14, '...') }}
                                             </h5> --}}
+
+                                            <span class="d-none d-sm-block">
+                                                {{ $arisan->deposit_status ?? 'Belum Setor' }}
+                                            </span>
+
                                             <h5 class="card-title mb-0 text-truncate" style="font-size: 16px;">
                                                 {{ $arisan->nama_arisan }}
                                             </h5>

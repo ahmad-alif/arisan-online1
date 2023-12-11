@@ -125,10 +125,10 @@
                                                     method="post">
                                                     @csrf
                                                     @method('patch')
-                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                    <button type="button" class="btn btn-sm btn-label-warning"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#confirmVerifikasiModal{{ $setoran->id }}">
-                                                        <i class="ti ti-edit-circle"></i>
+                                                        <i class="ti ti-edit-circle fs-6"></i>
                                                     </button>
                                                 </form>
                                             @else

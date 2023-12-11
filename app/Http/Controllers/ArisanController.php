@@ -6,6 +6,7 @@ use Exception;
 use App\Models\User;
 use App\Models\Arisan;
 // use GuzzleHttp\Psr7\Request;
+use App\Models\CekSetoran;
 use Illuminate\Support\Str;
 use App\Models\MemberArisan;
 use Illuminate\Http\Request;
@@ -463,6 +464,7 @@ class ArisanController extends Controller
             $user = Auth::user();
 
             $query = Arisan::query()
+                ->with('cekSetoran')
                 ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
                 ->where('member_arisans.id_user', $user->id)
                 ->orderBy('arisans.created_at', 'desc');
@@ -498,21 +500,45 @@ class ArisanController extends Controller
 
     public function joinArisan(Arisan $arisan)
     {
-        $user = auth()->user();
+        try {
+            $user = auth()->user();
 
-        if ($user->role !== 0) {
-            return redirect()->route('dashboard')->with('error', 'Hanya member yg bisa bergabung arisan!');
-        }
-
-        if (!$arisan->members()->where('id_user', $user->id)->exists()) {
-            if ($arisan->members()->count() >= $arisan->max_member) {
-                return redirect()->route('list-arisan')->with('error', 'Maaf, Arisan telah penuh. Silahkan bergabung kembali di periode selanjutnya.');
+            if ($user->role !== 0) {
+                return redirect()->route('dashboard')->with('error', 'Hanya member yang bisa bergabung arisan!');
             }
 
-            $arisan->members()->attach($user);
-            return redirect()->route('list-arisan')->with('success', 'Berhasil bergabung!');
-        } else {
-            return redirect()->route('list-arisan')->with('error', 'Anda sudah bergabung!.');
+            if (!$arisan->members()->where('id_user', $user->id)->exists()) {
+                if ($arisan->members()->count() >= $arisan->max_member) {
+                    return redirect()->route('list-arisan')->with('error', 'Maaf, Arisan telah penuh. Silahkan bergabung kembali di periode selanjutnya.');
+                }
+
+                // Bergabung ke arisan
+                $arisan->members()->attach($user, [
+                    'status_setoran' => 'Belum Setor',
+                    'uuid' => $arisan->uuid,
+                ]);
+
+                // Tambahkan data ke tabel cek_setoran
+                // $member = $arisan->members()->where(['id_user' => $user->id, 'uuid' => $arisan->uuid])->first();
+
+                // // Get the id from the member_arisan table
+                // $memberId = $member->id;
+                // CekSetoran::create([
+                //     'uuid' => $arisan->uuid,
+                //     'id_user' => $user->id,
+                //     'id_member' => $memberId,
+                //     'deposit_status' => 'Belum setoran', // Sesuaikan dengan nilai yang diinginkan
+                // ]);
+
+                return redirect()->route('list-arisan')->with('success', 'Berhasil bergabung!');
+            } else {
+                return redirect()->route('list-arisan')->with('error', 'Anda sudah bergabung!');
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan di sini
+            report($e); // Laporkan kesalahan ke sistem logging Laravel
+            // dd($e->getMessage());
+            return redirect()->route('list-arisan')->with('error', 'Terjadi kesalahan. Silakan coba lagi nanti.');
         }
     }
 

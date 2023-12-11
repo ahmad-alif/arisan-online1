@@ -30,6 +30,7 @@ class SetoranController extends Controller
             $user = Auth::user();
 
             $query = Arisan::query()
+                ->with('cekSetoran')
                 ->join('member_arisans', 'arisans.id_arisan', '=', 'member_arisans.id_arisan')
                 ->where('member_arisans.id_user', $user->id)
                 ->orderBy('arisans.created_at', 'desc');
@@ -57,7 +58,7 @@ class SetoranController extends Controller
             // Ambil invoice terbaru dengan UUID arisan dan ID user
             $invoice = Invoice::where('uuid', $arisan->uuid)
                 ->where('id_user', $id_user)
-                ->latest()
+                ->latest('created_at')
                 ->first();
 
             return view('setoran.setoran', ['active' => 'setoran', 'arisan' => $arisan, 'invoice' => $invoice]);

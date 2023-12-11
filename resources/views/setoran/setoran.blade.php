@@ -75,9 +75,39 @@
                                 <button type="submit" class="btn btn-sm btn-success mt-n4">Buat Invoice</button>
                             </form>
                         </div>
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                             @if ($invoice && $invoice->setoran && $invoice->setoran->status != 1)
-                                {{-- @if ($invoice) --}}
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nomor Invoice</strong></div>
+                                    <div class="col-md-8">{{ $invoice->invoice_number }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nama Bank</strong></div>
+                                    <div class="col-md-8">{{ $invoice->nama_bank }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>No Rekening</strong></div>
+                                    <div class="col-md-8">{{ $invoice->no_rekening }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalDetail{{ $invoice->id }}">
+                                            Detail
+                                        </button>
+                                        <a href="{{ route('cetak.invoice', $invoice->uuid) }}" target="_blank"
+                                            class="btn btn-sm btn-primary">
+                                            Cetak PDF
+                                        </a>
+                                    </div>
+                                </div>
+                            @else
+                                <p>Belum ada data invoice</p>
+                            @endif
+                        </div> --}}
+                        <div class="card-body">
+                            {{-- @if ($invoice && $invoice->setoran && $invoice->setoran->status != 1) --}}
+                            @if ($invoice->setoran->status != 1)
                                 <div class="row">
                                     <div class="col-md-4"><strong>Nomor Invoice</strong></div>
                                     <div class="col-md-8">{{ $invoice->invoice_number }}</div>

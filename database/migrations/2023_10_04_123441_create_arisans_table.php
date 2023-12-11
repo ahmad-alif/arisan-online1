@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('nama_bank');
             $table->string('no_rekening');
             $table->string('nama_pemilik_rekening');
+            $table->integer('fee_admin');
             $table->timestamps();
         });
     }

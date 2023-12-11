@@ -26,7 +26,7 @@
             @if (count($arisan_suspends) > 0)
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
                     <span class="alert-icon text-danger me-2">
-                        <i class="ti ti-alert-circle-filled ti-xs"></i>
+                        <i class="ti ti-alert-circle"></i>
                     </span>
                     Ada arisan yg ditangguhkan
                 </div>
@@ -288,7 +288,7 @@
                             </div>
                         </div>
                         <hr class="my-1">
-                        <div class="list-group list-group-flush">
+                        <div class="list-group list-group-flush" style="max-height: 110px; overflow-y: auto;">
                             <!-- Loop untuk menampilkan notifikasi -->
                             @forelse ($notifications as $notification)
                                 {{-- <div class="list-group-item">

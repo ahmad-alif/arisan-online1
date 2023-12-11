@@ -19,4 +19,9 @@ class MemberArisan extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
+
+    public function cekSetoran()
+    {
+        return $this->hasOne(CekSetoran::class, 'id', 'id_member');
+    }
 }
