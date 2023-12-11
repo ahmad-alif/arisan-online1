@@ -60,7 +60,7 @@ class SetoranController extends Controller
                 ->where('id_user', $id_user)
                 ->latest('created_at')
                 ->first();
-
+            // dd($invoice->status);
             return view('setoran.setoran', ['active' => 'setoran', 'arisan' => $arisan, 'invoice' => $invoice]);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Arisan tidak ditemukan');

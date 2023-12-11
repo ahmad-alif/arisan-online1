@@ -83,15 +83,15 @@
         }
 
         /* body{
-                     margin:0;
-                     padding:0;
-                     background-color: #1e1212;
-                     display:flex;
-                     align-items:center;
-                     justify-content: center;
-                     height:100vh;
-                     overflow:hidden;
-                    } */
+                         margin:0;
+                         padding:0;
+                         background-color: #1e1212;
+                         display:flex;
+                         align-items:center;
+                         justify-content: center;
+                         height:100vh;
+                         overflow:hidden;
+                        } */
 
         .container {
             top: 10px;

@@ -106,8 +106,33 @@
                             @endif
                         </div> --}}
                         <div class="card-body">
-                            {{-- @if ($invoice && $invoice->setoran && $invoice->setoran->status != 1) --}}
-                            @if ($invoice->setoran->status != 1)
+                            @if ($invoice && $invoice->setoran && $invoice->setoran->status == 0)
+                                {{-- @if ($invoice->status != 1) --}}
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nomor Invoice</strong></div>
+                                    <div class="col-md-8">{{ $invoice->invoice_number }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>Nama Bank</strong></div>
+                                    <div class="col-md-8">{{ $invoice->nama_bank }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"><strong>No Rekening</strong></div>
+                                    <div class="col-md-8">{{ $invoice->no_rekening }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
+                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalDetail{{ $invoice->id }}">
+                                            Detail
+                                        </button>
+                                        <a href="{{ route('cetak.invoice', $invoice->uuid) }}" target="_blank"
+                                            class="btn btn-sm btn-primary">
+                                            Cetak PDF
+                                        </a>
+                                    </div>
+                                </div>
+                            @elseif ($invoice && $invoice->status == 0)
                                 <div class="row">
                                     <div class="col-md-4"><strong>Nomor Invoice</strong></div>
                                     <div class="col-md-8">{{ $invoice->invoice_number }}</div>
@@ -154,7 +179,7 @@
                                 {{-- @if ($latestSetoran) --}}
                                 @if ($latestSetoran && $latestSetoran->status != 1)
                                     {{-- Jika sudah ada setoran, tampilkan gambar --}}
-                                    <div class="mb-3">
+                                    <div class="mb-2">
 
                                         <img src="{{ url('/storage/bukti_setoran/' . $latestSetoran->bukti_setoran) }}"
                                             alt="Bukti Setoran" class="d-block h-auto rounded user-profile-img"
@@ -179,7 +204,8 @@
                                         method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="bukti_setoran" class="form-label">Pilih Gambar Bukti Setoran</label>
+                                            <label for="bukti_setoran" class="form-label">Pilih Gambar Bukti
+                                                Setoran</label>
                                             <input type="file" class="form-control" id="bukti_setoran"
                                                 name="bukti_setoran" accept="image/*" required>
                                         </div>
@@ -187,7 +213,7 @@
                                     </form>
                                 @endif
                             @else
-                                <p class="mt-3">Data invoice tidak ditemukan.</p>
+                                <p class="mt-3">Belum ada invoice.</p>
                             @endif
                         </div>
                     </div>
@@ -216,7 +242,7 @@
         </div>
     </div>
 
-    @if ($arisan->invoices->count() > 0)
+    @if ($invoice && $arisan->invoices->count() > 0)
         <div class="modal fade" id="modalDetail{{ $invoice->id }}" tabindex="-1" role="dialog"
             aria-labelledby="modalDetailLabel{{ $invoice->id }}" aria-hidden="true">
 
