@@ -190,6 +190,16 @@
                                                                 width="100">
                                                         @endif
                                                     </div>
+                                                    <div class="col-12 text-center">
+                                                        @if ($member->foto_ktp)
+                                                            <img src="{{ Storage::url($member->foto_ktp) }}"
+                                                                alt="Foto KTP" class="rounded-circle" width="100">
+                                                        @else
+                                                            <img src="{{ asset('img/default.png') }}"
+                                                                alt="Default Profile" class="rounded-circle"
+                                                                width="100">
+                                                        @endif
+                                                    </div>
                                                     <div class="col-12">
                                                         <label class="form-label">Nama: </label>
                                                         <p>{{ $member->name }}</p>

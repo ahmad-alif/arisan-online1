@@ -86,7 +86,7 @@ class DashboardController extends Controller
             ->count('member_arisans.id_user');
 
         $totalAllArisan = Arisan::count();
-        $totalCompletedArisan = Arisan::where('status', 2)->count();
+        $totalCompletedArisan = Arisan::where('status', 3)->count();
         $totalUsersWithRoleZero = User::where('role', 0)->count();
         $totalUsersWithRoleOne = User::where('role', 1)->count();
 
