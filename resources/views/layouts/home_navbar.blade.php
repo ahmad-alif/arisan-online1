@@ -78,9 +78,9 @@
             <!-- Mobile menu toggle: End-->
             <a href="{{ route('home') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name') }}" class="brand-image img-circle elevation-3" width="32" height="26" viewBox="0 0 32 26">
+                <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name') }}" class="brand-image img-circle elevation-3" width="30" height="24" viewBox="0 0 30 24">
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Arisanku</span>
+              <small class="app-brand-text demo menu-text fw-bold ">Arisanku</small>
             </a>
           </div>
           <!-- Menu logo wrapper: End -->
@@ -98,7 +98,7 @@
             </button>
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link fw-medium" aria-current="page" href="/">Home</a>
+                <a class="nav-link fw-medium" aria-current="page" href="/">Beranda</a>
               </li>
             </ul>
           </div>
@@ -137,13 +137,13 @@
                 <!-- Tampilkan tombol Dashboard jika pengguna sudah login -->
                 <a href="{{ route('dashboard') }}" class="btn btn-primary" target="">
                     <span class="tf-icons ti ti-dashboard scaleX-n1-rtl me-md-1"></span>
-                    <span class="d-none d-md-block">Dashboard</span>
+                    <span class="d-none d-md-block">Dashbor</span>
                 </a>
             @else
                 <!-- Tampilkan tombol Login/Register jika pengguna belum login -->
                 <a href="{{ route('register.showRoleSelection') }}" class="btn btn-primary" target="">
                     <span class="tf-icons ti ti-login scaleX-n1-rtl me-md-1"></span>
-                    <span class="d-none d-md-block">Login/Register</span>
+                    <span class="d-none d-md-block">Masuk</span>
                 </a>
             @endif
             </li>

@@ -3,10 +3,10 @@
 @section('content')
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="card mb-4">
+            <div class="card mb-2">
                 <div class="card-header d-flex flex-wrap justify-content-between gap-3">
                     <div class="card-title mb-0 me-1">
-                        <h5 class="mb-1">Silahkan gabung arisan pada berikut ini.</h5>
+                        <h6 class="mb-1">Silahkan gabung arisan pada berikut ini.</h6>
                         <p class="text-muted mb-0">
                             @php
                                 $jumlahArisan = count($arisans);
@@ -23,47 +23,51 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row gy-4 mb-4">
+                    <div class="row align-items-center">
 
                         @if ($arisans->count() > 0)
                             @foreach ($arisans as $arisan)
                                 {{-- <div class="col-sm-6 col-lg-4"> --}}
-                                <div class="col-md-3 col-6 mb-4">
-                                    <div class="card p-2 h-100 shadow-none border">
-                                        <div class="rounded-2 text-center mb-3 mt-3">
-                                            <div class="d-flex align-items-center justify-content-center mb-3 mt-3 rounded"
-                                                style="height: 200px; overflow: hidden;">
+                                    <div class="col-xl-2 col-md-4 col-6 mb-0">
+                                        <div class="card h-100">
+                                            <div class="rounded-2 text-center mb-2 width=">
+                                            <div class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
                                                 @if ($arisan->img_arisan)
-                                                    <img class="img-fluid rounded"
-                                                        style="width: 100%; height: 100%; object-fit: cover;"
+                                                <div style="position: relative; width: 100%; padding-bottom: 100%;">
+                                                    <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                        class="border rounded img-fluid"
                                                         src="{{ Storage::url($arisan->img_arisan) }}"
                                                         alt="{{ $arisan->nama_arisan }}" />
+                                                </div>
                                                 @else
+                                                <div style="position: relative; width: 100%; padding-bottom: 100%;">
                                                     <img src="{{ asset('img/default_arisan.jpg') }}"
-                                                        class="img-fluid rounded" alt="Default Image" />
+                                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                    class="border rounded img-fluid" alt="Default Image" />
+                                                </div>
                                                 @endif
                                             </div>
 
                                         </div>
-                                        <div class="card-body p-3 pt-2">
-                                            <a href="" class="h5">{{ $arisan->nama_arisan }}</a><br>
+                                        <div class="card-body pt-0">
+                                            <a href="" class="h5 text-truncate">{{ $arisan->nama_arisan }}</a><br>
                                             <small class="mt-2 text-truncate">
-                                                {{ $arisan->user ? $arisan->user->name : 'Kesalahan menampilkan' }}
-                                            </small><br>
-                                            <p class="mt-2 mb-2 text-truncate">
+                                                {{ $arisan->user ? $arisan->user->name : '(Eror)' }}
+                                            </small>
+                                            <p class="mt-2 text-truncate">
                                                 {{ $arisan->deskripsi ? $arisan->deskripsi : 'Tidak ada deskripsi' }}
                                             </p>
 
 
-                                            <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
+                                            <div class="d-flex justify-content-between align-items-center mt-2 gap-2 mb-0">
                                                 <div class="row">
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar ti-sm"></i>Mulai</small><br>
+                                                        <small><i class="ti ti-calendar ti-sm ti-xs fs-5"></i> Mulai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</small>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <small><i class="ti ti-calendar-off ti-sm"></i>Selesai</small><br>
+                                                        <small><i class="ti ti-calendar-off ti-sm fs-5"></i> Selesai</small><br>
                                                         <small
                                                             class="text-truncate">{{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</small>
                                                     </div>
@@ -72,13 +76,14 @@
 
 
                                             {{-- <button type="submit" class="btn btn-primary w-100">Gabung</button> --}}
-                                            <div class="d-flex flex-column flex-md-row gap-2 text-nowrap mt-2">
+                                            <div class="card-body pt-0 mt-3 mb-0">
                                                 @if ($arisan->isUserJoined(auth()->user()))
                                                     @if (auth()->user()->role == 0)
-                                                        <a class="app-academy-md-50 btn btn-warning me-md-2 d-flex align-items-center"
+                                                        <a class="btn btn-label-warning d-flex align-items-center"
                                                             href="{{ route('arisan.detail.member', $arisan->uuid) }}">
-                                                            <span class="d-none d-sm-block">Detail</span>
                                                             <i class="ti ti-info-square d-block d-sm-none"></i>
+                                                            <span class="d-none d-sm-block"><i class="ti ti-info-square scaleX-n1-rtl"></i> Detail</span>
+
                                                         </a>
                                                     @endif
                                                 @else
@@ -86,11 +91,11 @@
                                                         <form action="{{ route('arisan.join', $arisan) }}" method="POST"
                                                             id="joinForm{{ $arisan->id_arisan }}">
                                                             @csrf
-                                                            <button type="button" class="btn btn-primary"
+                                                            <button type="button" class="btn btn-primary w-100 d-flex align-items-center"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#confirmationModal{{ $arisan->id_arisan }}">
-                                                                <span class="d-none d-sm-block">Gabung</span><i
-                                                                    class="ti ti-heart-handshake align-middle scaleX-n1-rtl me-2 mt-n1 ti-sm d-block d-sm-none"></i>
+                                                                <i class="ti ti-cube-plus d-block d-sm-none"></i>
+                                                                <span class="d-none d-sm-block">Gabung</span>
                                                             </button>
                                                         </form>
                                                         <div class="modal fade"
