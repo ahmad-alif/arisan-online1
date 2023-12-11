@@ -280,7 +280,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between"
                             style="margin-bottom: -14px;">
                             <div class="card-title mb-0">
-                                <h5 class="m-0 me-2">
+                                <h5 class="m-0 me-2 my-n2">
                                     <div class="badge p-2 bg-label-info mb-2 rounded">
                                         <i class="ti ti-notification ti-md"></i>
                                     </div> Notifikasi
@@ -288,7 +288,7 @@
                             </div>
                         </div>
                         <hr class="my-1">
-                        <div class="list-group list-group-flush" style="max-height: 110px; overflow-y: auto;">
+                        <div class="list-group list-group-flush" style="max-height: 100px; overflow-y: auto;">
                             <!-- Loop untuk menampilkan notifikasi -->
                             @forelse ($notifications as $notification)
                                 {{-- <div class="list-group-item">
@@ -299,7 +299,7 @@
                                     <span class="text-success me-2"><i class="ti ti-circle-filled fs-6"></i></span>
                                     <div>
                                         <h6 class="mb-1">{{ $notification->judul }}</h6>
-                                        <small class="mb-1">{{ $notification->isi }}n</small>
+                                        <small class="mb-1">{{ $notification->isi }}</small>
                                     </div>
                                 </div>
                             @empty
