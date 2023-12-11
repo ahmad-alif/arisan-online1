@@ -101,39 +101,53 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="arisanModalLabel">{{ $arisan->nama_arisan }} Detail</h5>
+                                        <h5 class="modal-title" id="arisanModalLabel">{{ $arisan->nama_arisan }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="col-md-6">
-                                            @if ($arisan->img_arisan)
+                                        @if ($arisan->img_arisan)
+                                        <div class="text-center d-flex align-items-center justify-content-center">
                                                 <img src="{{ Storage::url($arisan->img_arisan) }}"
-                                                    class="img-fluid rounded mb-3" alt="{{ $arisan->nama_arisan }}" />
+                                                    class="img-fluid rounded mb-3" alt="{{ $arisan->nama_arisan }}" width="250"/>
+                                                </div>
                                             @else
+                                            <div class="text-center d-flex align-items-center justify-content-center">
                                                 <img src="{{ asset('img/default_arisan.jpg') }}"
-                                                    class="img-fluid rounded mb-3" alt="{{ $arisan->nama_arisan }}" />
+                                                    class="img-fluid rounded mb-3" alt="{{ $arisan->nama_arisan }}" width="250"/>
+                                            </div>
                                             @endif
-                                        </div>
-                                        <div class="col-md-6">
+
                                             <p>{{ $arisan->deskripsi }}</p>
+                                    <div class="row">
+                                        <div class="col-sm m-5 mt-0 mb-0 mr-0">
+                                            <strong><i class="ti ti-calendar"></i> Mulai </strong> <br>
+                                            <strong><i class="ti ti-calendar-off"></i> Selesai </strong> <br>
+                                            <strong><i class="ti ti-atom"></i> Status </strong> <br>
+                                            <strong><i class="ti ti-user-exclamation"></i> Max Anggota</strong> <br>
+                                            <strong><i class="ti ti-hourglass-high"></i> Jangka Deposit</strong> <br>
+                                            <strong><i class="ti ti-wallet"></i> Jumlah Pembayaran</strong>
+                                        </div>
+                                        <div class="col-sm m-5 mt-0 mb-0 ms-0">
+
                                             <ul>
-                                                <li><strong>Mulai:</strong>
+                                                <li>
                                                     {{ \Carbon\Carbon::parse($arisan->start_date)->format('d M Y') }}</li>
-                                                <li><strong>Selesai:</strong>
+                                                <li>
                                                     {{ \Carbon\Carbon::parse($arisan->end_date)->format('d M Y') }}</li>
-                                                <li><strong>Status:</strong>
+                                                <li>
                                                     {{ $arisan->status == 1 ? 'Aktif' : 'Nonaktif' }}</li>
-                                                <li><strong>Max Member:</strong> {{ $arisan->max_member }}</li>
-                                                <li><strong>Deposit Frequency:</strong> {{ $arisan->deposit_frequency }}
+                                                <li> {{ $arisan->max_member }}</li>
+                                                <li> {{ $arisan->deposit_frequency }}
                                                 </li>
-                                                <li><strong>Payment Amount:</strong> {{ $arisan->payment_amount }}</li>
+                                                <li> Rp.{{ $arisan->payment_amount }}</li>
                                             </ul>
                                         </div>
                                     </div>
+                                    </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-label-secondary"
+                                            data-bs-dismiss="modal">Tutup</button>
                                     </div>
                                 </div>
                             </div>
