@@ -119,11 +119,11 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
+                                                                        <button type="button" class="btn btn-label-secondary"
                                                                             data-bs-dismiss="modal">Batal</button>
                                                                         <button type="submit"
                                                                             form="joinForm{{ $arisan->id_arisan }}"
-                                                                            class="btn btn-primary">Gabung</button>
+                                                                            class="btn btn-success">Gabung</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
