@@ -38,9 +38,21 @@
                                                 {{ Str::limit($arisan->nama_arisan, 14, '...') }}
                                             </h5> --}}
 
-                                            <span class="d-none d-sm-block">
-                                                {{ $arisan->deposit_status ?? 'Belum Setor' }}
-                                            </span>
+                                            @if ($arisan->status == 3)
+                                                <span class="d-none d-sm-block text-danger">
+                                                    Berakhir
+                                                </span>
+                                            @elseif($arisan->status == 2)
+                                                <span class="d-none d-sm-block">
+                                                    {{ $arisan->deposit_status ?? 'Belum Setor' }}
+                                                </span>
+                                            @elseif($arisan->status == 1)
+                                                <span class="d-none d-sm-block text-danger">
+                                                    Belum Dimulai
+                                                </span>
+                                            @else
+                                                Tidak diketahui
+                                            @endif
 
                                             <h5 class="card-title mb-0 text-truncate" style="font-size: 16px;">
                                                 {{ $arisan->nama_arisan }}
