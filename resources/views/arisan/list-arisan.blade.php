@@ -29,8 +29,8 @@
                             @foreach ($arisans as $arisan)
                                 {{-- <div class="col-sm-6 col-lg-4"> --}}
                                 <div class="col-xl-2 col-md-4 col-6 mb-0">
-                                    <div class="card h-100">
-                                        <div class="rounded-2 text-center mb-2 width=">
+                                    <div class="card h-100 mt-2">
+                                        <div class="rounded-2 text-center mb-2 mt-2 width=">
                                             <div
                                                 class="card-body pb-0 text-body d-flex flex-column justify-content-between h-100">
                                                 @if ($arisan->img_arisan)
